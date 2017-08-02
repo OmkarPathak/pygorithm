@@ -1,7 +1,7 @@
 import unittest
 import random
 
-from pygorithms.sorting import (bubble_sort,
+from pygorithm.sorting import (bubble_sort,
                                 insertion_sort,
                                 selection_sort,
                                 merge_sort,
