@@ -1,9 +1,16 @@
-# Pygorithm
+============================
+Pygorithm
+============================
 
 A fun way to learn algorithms on the Go!
+
 Just import the module and start learning, it's that easy.
 
-```python
+-----------------
+Quick Start Guide
+-----------------
+
+::
 
     from pygorithm.sorting import bubble_sort
 
@@ -14,4 +21,7 @@ Just import the module and start learning, it's that easy.
 
     # to sort the list
     sorted_list = bubble_sort.sort(myList)
-```
+
+---------------
+Getting Started
+---------------
