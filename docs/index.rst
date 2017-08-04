@@ -1,16 +1,29 @@
-============================
+=========
 Pygorithm
-============================
+=========
 
 A fun way to learn algorithms on the Go!
 
 Just import the module and start learning, it's that easy.
 
+
+Table of Contents:
+------------------
+
+.. toctree::
+   :maxdepth: 2
+
+   Sorting
+
+
 -----------------
 Quick Start Guide
 -----------------
 
-::
+* Just import the required algorithm and start learning
+
+.. code-block:: python
+   :linenos:
 
     from pygorithm.sorting import bubble_sort
 
@@ -25,12 +38,3 @@ Quick Start Guide
 ---------------
 Getting Started
 ---------------
-
-Table of Contents:
-------------------
-
-.. toctree::
-   :maxdepth: 2
-
-   index
-   Sorting
