@@ -10,10 +10,8 @@ Quick Start Guide
 
 .. code-block:: python
 
+    # import the required sort
     from pygorithm.sorting import bubble_sort
-
-    # This will print the code for bubble sort
-    print(bubble_sort.get_code())
 
     myList = [12, 4, 2, 14, 3, 7, 5]
 
@@ -30,6 +28,19 @@ Features
     - Insertion Sort (insertion_sort)
     - Merge Sort (merge_sort)
     - Quick Sort (quick_sort)
+
+* For sorting:
+  Remember sort() function takes its parameter as a list only.
+
+.. code-block:: python
+
+    # import the required sort
+    from pygorithm.sorting import bubble_sort
+
+    myList = [12, 4, 2, 14, 3, 7, 5]
+
+    # to sort the list
+    sorted_list = bubble_sort.sort(myList)
 
 * Get time complexities of all the sorting algorithms
 
