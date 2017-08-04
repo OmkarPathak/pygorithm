@@ -31,27 +31,27 @@ Quick Start Guide
 
 * To sort your list
 
-    .. code:: python
+.. code:: python
 
-        from pygorithm.sorting import bubble_sort
-        myList = [12, 4, 3, 5, 13, 1, 17, 19, 15]
-        sortedList = bubble_sort.sort(myList)
-        print(sortedList)
+    from pygorithm.sorting import bubble_sort
+    myList = [12, 4, 3, 5, 13, 1, 17, 19, 15]
+    sortedList = bubble_sort.sort(myList)
+    print(sortedList)
 
 
 * To get the code for function used
 
-    .. code:: python
+.. code:: python
 
-        from pygorithm.sorting import bubble_sort
-        code = bubble_sort.get_code()
-        print(code)
+    from pygorithm.sorting import bubble_sort
+    code = bubble_sort.get_code()
+    print(code)
 
 
 * To get the time complexity of an algorithm
 
-    .. code:: python
+.. code:: python
 
-        from pygorithm.sorting import bubble_sort
-        time_complexity = bubble_sort.time_complexities()
-        print(time_complexity)
+    from pygorithm.sorting import bubble_sort
+    time_complexity = bubble_sort.time_complexities()
+    print(time_complexity)
