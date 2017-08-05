@@ -1,6 +1,6 @@
-==========
-Pygorithms
-==========
+=========
+Pygorithm
+=========
 
 | A Python module to learn all the major algorithms on the go!
 | Purely for educational purposes
@@ -20,7 +20,7 @@ Installation
 
 ::
 
-   $pip3 install pygorithm
+   pip3 install pygorithm
 
 - | It's that easy. If you are using Python 2.7 use pip instead. Depending on your
   | permissions, you might need to ``sudo`` before installing
