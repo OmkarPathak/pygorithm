@@ -15,3 +15,8 @@ def dfs(graph, start, path = []):
 # time complexities
 def time_complexities():
     return '''O(V + E) where V = Number of vertices and E = Number of Edges'''
+
+# easily retrieve the source code of the dfs function
+def get_code():
+    import inspect
+    return inspect.getsource(dfs)
