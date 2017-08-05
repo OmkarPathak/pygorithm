@@ -5,7 +5,7 @@
 
 # bucket sort algorithm
 def sort(myList, bucketSize = 5):
-    from pygorithms.sorting import insertion_sort
+    from pygorithm.sorting import insertion_sort
     import math
 
     string = False
@@ -49,14 +49,8 @@ def sort(myList, bucketSize = 5):
         return sortedArray
 
 # time complexities
-def bestcase_complexity():
-    return 'O(n)'
-
-def averagecase_complexity():
-    return 'O(n)'
-
-def worstcase_complexity():
-    return 'O(n)'
+def time_complexities():
+    return '''Best Case: O(n), Average Case: O(n), Worst Case: O(n)'''
 
 # easily retrieve the source code of the sort function
 def get_code():
