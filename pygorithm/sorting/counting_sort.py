@@ -28,14 +28,8 @@ def sort(myList):
         print('Counting Sort can only be applied to integers')
 
 # time complexities
-def bestcase_complexity():
-    return 'O(n + k)'
-
-def averagecase_complexity():
-    return 'O(n + k)'
-
-def worstcase_complexity():
-    return 'O(n + k)'
+def time_complexities():
+    return '''Best Case: O(n + k), Average Case: O(n + k), Worst Case: O(n + k)'''
 
 # easily retrieve the source code of the sort function
 def get_code():
