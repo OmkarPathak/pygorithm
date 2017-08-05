@@ -14,16 +14,10 @@ def search(List, target):
     return -1
 
 # time complexities
-def bestcase_complexity():
-    return 'O(1)'
+def time_complexities():
+    return '''Best Case: O(1), Average Case: O(n), Worst Case: O(n)'''
 
-def averagecase_complexity():
-    return 'O(n)'
-
-def worstcase_complexity():
-    return 'O(n)'
-
-# easily retrieve the source code of the sort function
+# easily retrieve the source code of the search function
 def get_code():
     import inspect
     return inspect.getsource(search)
