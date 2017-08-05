@@ -36,14 +36,8 @@ def shiftDown(alist, start, end):
             return
 
 # time complexities
-def bestcase_complexity():
-    return 'O(nlogn)'
-
-def averagecase_complexity():
-    return 'O(nlogn)'
-
-def worstcase_complexity():
-    return 'O(nlogn)'
+def time_complexities():
+    return '''Best Case: O(nlogn), Average Case: O(nlogn), Worst Case: O(nlogn)'''
 
 # easily retrieve the source code of the sort function
 def get_code():
