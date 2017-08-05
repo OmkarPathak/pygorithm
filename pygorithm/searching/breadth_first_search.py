@@ -15,9 +15,14 @@ def bfs(graph, startVertex):
         if vertex not in visited:
             visited.add(vertex)
             queue.extend(graph[vertex] - visited)
-            
+
     return visited
 
 # time complexities
 def time_complexities():
     return '''O(V + E) where V = Number of vertices and E = Number of Edges'''
+
+# easily retrieve the source code of the bfs function
+def get_code():
+    import inspect
+    return inspect.getsource(bfs)
