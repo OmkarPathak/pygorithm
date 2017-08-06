@@ -47,9 +47,9 @@ class BFSSearch(unittest.TestCase):
             'E': {'A'},
             'G': {'C'}
         }
-        result = breadth_first_search.bfs(self.graph, 'A')
+        result = breadth_first_search.search(self.graph, 'A')
         self.assertEqual(result, {'A', 'B', 'D', 'F', 'C', 'G', 'E'})
-        result = breadth_first_search.bfs(self.graph, 'G')
+        result = breadth_first_search.search(self.graph, 'G')
         self.assertEqual(result, {'G', 'C', 'A', 'B', 'D', 'F', 'E'})
 
 class DFSSearch(unittest.TestCase):
@@ -63,9 +63,9 @@ class DFSSearch(unittest.TestCase):
             'E': ['A'],
             'G': ['C']
         }
-        result = depth_first_search.dfs(self.graph, 'A')
+        result = depth_first_search.search(self.graph, 'A')
         self.assertEqual(result, ['A', 'B', 'D', 'F', 'C', 'G', 'E'])
-        result = depth_first_search.dfs(self.graph, 'G')
+        result = depth_first_search.search(self.graph, 'G')
         self.assertEqual(result, ['G', 'C', 'A', 'B', 'D', 'F', 'E'])
 
 if __name__ == '__main__':
