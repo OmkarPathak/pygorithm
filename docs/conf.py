@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- General configuration ------------------------------------------------
 project = 'pygorithm'
-version = '0.1.dev3'
+version = release = '0.1.dev3'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -41,3 +41,29 @@ source_suffix = ['.rst', '.md']
 
 # The master toctree document.
 master_doc = 'index'
+
+latex_documents = [
+  ('index', 'pygorithm.tex', u"Pygorithm",
+   u'Omkar Pathak', 'manual'),
+]
+
+
+# -- Options for manual page output --------------------------------------------
+
+# One entry per manual page. List of tuples
+# (source start file, name, description, authors, manual section).
+man_pages = [
+    ('index', 'pygorithm', u"Pygorithm",
+     [u'Omkar Pathak'], 1)
+]
+
+# -- Options for Texinfo output ------------------------------------------------
+
+# Grouping the document tree into Texinfo files. List of tuples
+# (source start file, target name, title, author,
+#  dir menu entry, description, category)
+texinfo_documents = [
+  ('index', 'pygorithm', u'Pygorithm documentation',
+   u'Omkar Pathak', 'pygorithm documentation', 'One line description of project.',
+   'Miscellaneous'),
+]
