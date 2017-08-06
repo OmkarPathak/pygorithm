@@ -7,6 +7,14 @@
 # Bubble Sorting algorithm
 def sort(List):
     for i in range(len(List)):
+        for j in range(len(List) - 1, i, -1):
+            if List[j] < List[j - 1]:
+                List[j], List[j - 1] = List[j - 1], List[j]
+    return List
+
+# Improved Bubble Sorting algorithm
+def improved_sort(List):
+    for i in range(len(List)):
         stop = True
         for j in range(len(List) - 1, i, -1):
             if List[j] < List[j - 1]:
@@ -18,9 +26,17 @@ def sort(List):
 
 # time complexities
 def time_complexities():
-    return '''Best case O(n); Average case O(n * (n - 1) / 4); Worst case O(n ^ 2)'''
+    return '''Best Case: O(n ^ 2), Average Case: O(n ^ 2), Worst Case: O(n ^ 2)
+              For Improved Bubble Sort:
+              Best Case: O(n); Average Case: O(n * (n - 1) / 4); Worst Case: O(n ^ 2)
+           '''
 
 # easily retrieve the source code of the sort function
 def get_code():
     import inspect
     return inspect.getsource(sort)
+
+# easily retrieve the source code of the sort function
+def get_improved_code():
+    import inspect
+    return inspect.getsource(improved_sort)
