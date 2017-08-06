@@ -2,6 +2,14 @@
 Pygorithm
 =========
 
+.. image:: https://readthedocs.org/projects/pygorithm/badge/?version=latest
+   :target: http://pygorithm.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
+.. image:: https://img.shields.io/badge/Python-3.6-brightgreen.svg
+   :target: https://github.com/OmkarPathak/pygorithm
+   :alt: Python 3.6
+
 | A Python module to learn all the major algorithms on the go!
 | Purely for educational purposes
 
