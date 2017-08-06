@@ -2,8 +2,7 @@
 Pygorithm
 =========
 
-|``Pygorithm``: A fun way to learn algorithms on the go!
-|Just import the module and start learning, it's that easy.
+``Pygorithm``: A fun way to learn algorithms on the go! Just import the module and start learning, it's that easy.
 
 A Python module written in pure python and for purely educational purposes.
 Get the code, time complexities and much more by just importing the required algorithm.
@@ -13,6 +12,7 @@ Table of Contents:
 
 .. toctree::
    :titlesonly:
+   
    Sorting
    Searching
 
