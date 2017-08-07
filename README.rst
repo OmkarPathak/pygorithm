@@ -63,3 +63,13 @@ Quick Start Guide
     from pygorithm.sorting import bubble_sort
     time_complexity = bubble_sort.time_complexities()
     print(time_complexity)
+
+Tests
+~~~~~
+
+* Just type in the following command to run the tests
+::
+
+    python3 -m unittest
+
+* This will run all the tests defined in the files of the ``tests/`` directory
