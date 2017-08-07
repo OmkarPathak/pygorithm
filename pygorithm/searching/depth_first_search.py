@@ -2,7 +2,7 @@
 # Created On: 1st August 2017
 
 #  depth first search algorithm
-def dfs(graph, start, path = []):
+def search(graph, start, path = []):
     # check if graph is empty or start vertex is none
     if start not in graph or graph[start] is None or graph[start] == []:
         return None
@@ -19,4 +19,4 @@ def time_complexities():
 # easily retrieve the source code of the dfs function
 def get_code():
     import inspect
-    return inspect.getsource(dfs)
+    return inspect.getsource(search)
