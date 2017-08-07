@@ -17,6 +17,7 @@ Quick Links
 
 .. toctree::
    :maxdepth: 2
+   :caption: Table of Contents:
 
    Sorting
    Searching
