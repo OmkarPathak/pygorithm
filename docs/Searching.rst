@@ -17,7 +17,7 @@ Quick Start Guide
     # pre-requisite for binary search is that the list should be sorted
     myList.sort()
 
-    # to search en element in the above list
+    # to search an element in the above list
     index = binary_search.search(myList, 7)
     print(index)
 
@@ -43,7 +43,7 @@ Features
     # pre-requisite for binary search is that the list should be sorted
     myList.sort()
 
-    # to search en element in the above list
+    # to search an element in the above list
     index = binary_search.search(myList, 7)
     print(index)
 
