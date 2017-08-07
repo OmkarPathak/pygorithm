@@ -9,7 +9,7 @@ def search(graph, start, path = []):
     path = path + [start]
     for edge in graph[start]:
         if edge not in path:
-            path = dfs(graph, edge, path)
+            path = search(graph, edge, path)
     return path
 
 # time complexities
