@@ -14,14 +14,8 @@ def sort(arr):
     return sort(left) + middle + sort(right)
 
 # time complexities
-def bestcase_complexity():
-    return 'O(nlogn)'
-
-def averagecase_complexity():
-    return 'O(nlogn)'
-
-def worstcase_complexity():
-    return 'O(n ^ 2)'
+def time_complexities():
+    return '''Best Case: O(nlogn), Average Case: O(nlogn), Worst Case: O(n ^ 2)'''
 
 # easily retrieve the source code of the sort function
 def get_code():

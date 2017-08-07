@@ -19,14 +19,8 @@ def sort(myList):
     return myList
 
 # time complexities
-def bestcase_complexity():
-    return 'O(nlogn)'
-
-def averagecase_complexity():
-    return 'O(depends on gap sequence)'
-
-def worstcase_complexity():
-    return 'O(n)'
+def time_complexities():
+    return '''Best Case: O(nlogn), Average Case: O(depends on gap sequence), Worst Case: O(n)'''
 
 # easily retrieve the source code of the sort function
 def get_code():

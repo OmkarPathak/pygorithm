@@ -4,7 +4,6 @@ Searching
 
 Learning searching algorithms easily!
 
------------------
 Quick Start Guide
 -----------------
 
@@ -22,7 +21,6 @@ Quick Start Guide
     index = binary_search.search(myList, 7)
     print(index)
 
---------
 Features
 --------
 
@@ -33,7 +31,7 @@ Features
     - Depth First Search (depth_first_search)
 
 * For Searching:
-  Remember search() function takes two parameters as a sorted list and the target element to be searched.
+  Remember ``search()`` function takes two parameters as a sorted list and the target element to be searched.
 
 .. code-block:: python
 

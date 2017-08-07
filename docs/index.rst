@@ -5,19 +5,22 @@ Pygorithm
 ``Pygorithm``: A fun way to learn algorithms on the go! Just import the module and start learning, it's that easy.
 
 A Python module written in pure python and for purely educational purposes.
-Get the code, time complexities and much more by just importing the required algorithm.
+Get the code, time complexities and much more by just importing the required algorithm. A good way to start
+learning Python programming. Learn implementation of all major algorithms in Python.
+No need to surf the internet to get the required code. Just install this module and get going.
 
-Table of Contents:
-------------------
+Quick Links
+-----------
+
+* `Source Code <https://github.com/OmkarPathak/pygorithm>`_
+* `Documentation <http://pygorithm.readthedocs.io/en/latest/>`_
 
 .. toctree::
-   :titlesonly:
-   
+   :maxdepth: 2
+
    Sorting
    Searching
 
-
------------------
 Quick Start Guide
 -----------------
 
@@ -35,7 +38,6 @@ Quick Start Guide
     # to sort the list
     sorted_list = bubble_sort.sort(myList)
 
----------------
 Getting Started
 ---------------
 
@@ -46,8 +48,3 @@ Getting Started
     pip3 install pygorithm
 
 * For Python 2, you can use pip instead. Depending on your user permissions, you might need to ``sudo`` before installing
-
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

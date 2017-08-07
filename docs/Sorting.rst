@@ -4,7 +4,6 @@ Sorting
 
 Just sort the way you want.
 
------------------
 Quick Start Guide
 -----------------
 
@@ -18,7 +17,6 @@ Quick Start Guide
     # to sort the list
     sorted_list = bubble_sort.sort(myList)
 
---------
 Features
 --------
 
@@ -28,9 +26,13 @@ Features
     - Insertion Sort (insertion_sort)
     - Merge Sort (merge_sort)
     - Quick Sort (quick_sort)
+    - Bucket Sort (bucket_sort)
+    - Counting Sort (counting_sort)
+    - Heap Sort (heap_sort)
+    - Shell Sort (shell_sort)
 
 * For sorting:
-  Remember sort() function takes its parameter as a list only.
+  Remember ``sort()`` function takes its parameter as a list only.
 
 .. code-block:: python
 

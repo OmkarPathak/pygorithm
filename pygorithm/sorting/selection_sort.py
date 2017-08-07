@@ -15,14 +15,8 @@ def sort(List):
     return List
 
 # time complexities
-def bestcase_complexity():
-    return 'O(n ^ 2)'
-
-def averagecase_complexity():
-    return 'O(n ^ 2)'
-
-def worstcase_complexity():
-    return 'O(n ^ 2)'
+def time_complexities():
+    return '''Best Case: O(n ^ 2), Average Case: O(n ^ 2), Worst Case: O(n ^ 2)'''
 
 # easily retrieve the source code of the sort function
 def get_code():
