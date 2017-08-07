@@ -1,11 +1,13 @@
 import unittest
 
-from pygorithm.searching import (linear_search,
-                                  binary_search,
-                                  breadth_first_search,
-                                  depth_first_search)
+from pygorithm.searching import (
+    linear_search,
+    binary_search,
+    breadth_first_search,
+    depth_first_search)
 
-class SearchingAlgorithmTest(unittest.TestCase):
+
+class TestSearchingAlgorithm(unittest.TestCase):
     def setUp(self):
         # to test numeric numbers
         self.array = list(range(15))
@@ -14,7 +16,8 @@ class SearchingAlgorithmTest(unittest.TestCase):
         string = 'pythonisawesome'
         self.alphaArray = list(string)
 
-class LinearSearch(SearchingAlgorithmTest):
+
+class TestLinearSearch(TestSearchingAlgorithm):
     def test_linear_search(self):
         result = linear_search.search(self.array, 7)
         self.assertIs(result, 7)
@@ -25,7 +28,8 @@ class LinearSearch(SearchingAlgorithmTest):
         alpha_result = linear_search.search(self.array, 'n')
         self.assertIs(alpha_result, -1)
 
-class BinarySearch(SearchingAlgorithmTest):
+
+class TestBinarySearch(TestSearchingAlgorithm):
     def test_binary_search(self):
         result = binary_search.search(self.array, 7)
         self.assertIs(result, 7)
@@ -36,7 +40,8 @@ class BinarySearch(SearchingAlgorithmTest):
         alpha_result = binary_search.search(self.array, 'n')
         self.assertIs(alpha_result, -1)
 
-class BFSSearch(unittest.TestCase):
+
+class TestBFSSearch(unittest.TestCase):
     def test_bfs(self):
         self.graph = {
             'A': {'B', 'C', 'E'},
@@ -52,7 +57,8 @@ class BFSSearch(unittest.TestCase):
         result = breadth_first_search.search(self.graph, 'G')
         self.assertEqual(result, {'G', 'C', 'A', 'B', 'D', 'F', 'E'})
 
-class DFSSearch(unittest.TestCase):
+
+class TestDFSSearch(unittest.TestCase):
     def test_dfs(self):
         self.graph = {
             'A': ['B', 'C', 'E'],
@@ -67,6 +73,7 @@ class DFSSearch(unittest.TestCase):
         self.assertEqual(result, ['A', 'B', 'D', 'F', 'C', 'G', 'E'])
         result = depth_first_search.search(self.graph, 'G')
         self.assertEqual(result, ['G', 'C', 'A', 'B', 'D', 'F', 'E'])
+
 
 if __name__ == '__main__':
     unittest.main()
