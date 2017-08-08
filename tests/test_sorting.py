@@ -27,7 +27,7 @@ class TestSortingAlgorithm(unittest.TestCase):
         self.sorted_alpha_array = sorted(string)
 
 
-class TestBubbleSortTest(TestSortingAlgorithm):
+class TestBubbleSort(TestSortingAlgorithm):
     def test_bubble_sort(self):
         self.result = bubble_sort.sort(self.array)
         self.assertEqual(self.result, self.sorted_array)
@@ -36,7 +36,7 @@ class TestBubbleSortTest(TestSortingAlgorithm):
         self.assertEqual(self.alphaResult, self.sorted_alpha_array)
 
 
-class TestInsertionSortTest(TestSortingAlgorithm):
+class TestInsertionSort(TestSortingAlgorithm):
     def test_insertion_sort(self):
         self.result = insertion_sort.sort(self.array)
         self.assertEqual(self.result, self.sorted_array)
@@ -45,7 +45,7 @@ class TestInsertionSortTest(TestSortingAlgorithm):
         self.assertEqual(self.alphaResult, self.sorted_alpha_array)
 
 
-class TestSelectionSortTest(TestSortingAlgorithm):
+class TestSelectionSort(TestSortingAlgorithm):
     def test_selection_sort(self):
         self.result = selection_sort.sort(self.array)
         self.assertEqual(self.result, self.sorted_array)
@@ -54,7 +54,7 @@ class TestSelectionSortTest(TestSortingAlgorithm):
         self.assertEqual(self.alphaResult, self.sorted_alpha_array)
 
 
-class TestMergeSortTest(TestSortingAlgorithm):
+class TestMergeSort(TestSortingAlgorithm):
     def test_merge_sort(self):
         self.result = merge_sort.sort(self.array)
         self.assertEqual(self.result, self.sorted_array)
@@ -63,7 +63,7 @@ class TestMergeSortTest(TestSortingAlgorithm):
         self.assertEqual(self.alphaResult, self.sorted_alpha_array)
 
 
-class TestQuickSortTest(TestSortingAlgorithm):
+class TestQuickSort(TestSortingAlgorithm):
     def test_quick_sort(self):
         self.result = quick_sort.sort(self.array)
         self.assertEqual(self.result, self.sorted_array)
@@ -72,14 +72,14 @@ class TestQuickSortTest(TestSortingAlgorithm):
         self.assertEqual(self.alphaResult, self.sorted_alpha_array)
 
 
-class TestCountingSortTest(TestSortingAlgorithm):
+class TestCountingSort(TestSortingAlgorithm):
     def test_counting_sort(self):
         # counting sort is an integer based sort
         self.result = counting_sort.sort(self.array)
         self.assertEqual(self.result, self.sorted_array)
 
 
-class TestBucketSortTest(TestSortingAlgorithm):
+class TestBucketSort(TestSortingAlgorithm):
     def test_bucket_sort(self):
         self.result = bucket_sort.sort(self.array)
         self.assertEqual(self.result, self.sorted_array)
@@ -88,7 +88,7 @@ class TestBucketSortTest(TestSortingAlgorithm):
         self.assertEqual(self.alphaResult, self.sorted_alpha_array)
 
 
-class TestShellSortTest(TestSortingAlgorithm):
+class TestShellSort(TestSortingAlgorithm):
     def test_shell_sort(self):
         self.result = shell_sort.sort(self.array)
         self.assertEqual(self.result, self.sorted_array)
@@ -97,7 +97,7 @@ class TestShellSortTest(TestSortingAlgorithm):
         self.assertEqual(self.alphaResult, self.sorted_alpha_array)
 
 
-class TestHeapSortTest(TestSortingAlgorithm):
+class TestHeapSort(TestSortingAlgorithm):
     def test_heap_sort(self):
         self.result = heap_sort.sort(self.array)
         self.assertEqual(self.result, self.sorted_array)
