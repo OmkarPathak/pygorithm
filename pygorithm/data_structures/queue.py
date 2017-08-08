@@ -1,5 +1,5 @@
 # Author: OMKAR PATHAK
-# Created On: 3rd August July 2017
+# Created On: 3rd August 2017
 
 # queue implementation
 class Queue(object):

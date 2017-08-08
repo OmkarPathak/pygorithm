@@ -1,5 +1,5 @@
 # Author: OMKAR PATHAK
-# Created On: 3rd August July 2017
+# Created On: 3rd August 2017
 
 # stack implementation
 class Stack(object):
@@ -86,7 +86,7 @@ class InfixToPostfix(object):
         else:
             return -1
 
-    # function to convert infix to postfix 
+    # function to convert infix to postfix
     def infix_to_postfix(self):
         postFix = []
         for i in range(len(self.myExp)):
