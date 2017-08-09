@@ -48,4 +48,10 @@ Getting Started
 
     pip3 install pygorithm
 
-* For Python 2, you can use pip instead. Depending on your user permissions, you might need to ``sudo`` before installing
+* For Python 2, you can use pip instead.
+* Or you can download the source code from `here <https://github.com/OmkarPathak/pygorithm>`_, and then
+just install the package using
+
+::
+
+    python setup.py install
