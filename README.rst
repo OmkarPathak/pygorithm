@@ -33,8 +33,7 @@ Installation
 - | It's that easy. If you are using Python 2.7 use pip instead. Depending on your
   | permissions, you might need to use ``pip install --user pygorithm`` to install.
 
-* Or you can download the source code from `here <https://github.com/OmkarPathak/pygorithm>`_, and then
-just install the package using
+* Or you can download the source code from `here <https://github.com/OmkarPathak/pygorithm>`_, and then just install the package using
 
 ::
 
