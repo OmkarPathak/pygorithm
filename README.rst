@@ -33,6 +33,13 @@ Installation
 - | It's that easy. If you are using Python 2.7 use pip instead. Depending on your
   | permissions, you might need to use ``pip install --user pygorithm`` to install.
 
+* Or you can download the source code from `here <https://github.com/OmkarPathak/pygorithm>`_, and then
+just install the package using
+
+::
+
+    python setup.py install
+
 
 Quick Start Guide
 ~~~~~~~~~~~~~~~~~
@@ -63,6 +70,14 @@ Quick Start Guide
     from pygorithm.sorting import bubble_sort
     time_complexity = bubble_sort.time_complexities()
     print(time_complexity)
+
+* To see all the available functions in a module. For example, if you want to see what all sorts are available in the sorting module, then just do
+
+.. code:: python
+
+    >>> from pygorithm.sorting import modules
+    >>> modules()
+    ['bubble_sort', 'bucket_sort', 'counting_sort', 'heap_sort', 'insertion_sort', 'merge_sort', 'quick_sort', 'selection_sort', 'shell_sort']
 
 Tests
 ~~~~~
