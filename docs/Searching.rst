@@ -95,8 +95,13 @@ Breadth First Search
 
 * Functions and their uses
     - .. py:function:: search(graph, startVertex)
+
                        returns the bfs for the ``graph``
+
     - .. py:function:: time_complexities()
+
                        returns time complexities
+                       
     - .. py:function:: get_code()
+
                        returns the code for the ``breadth_first_search.search()`` function
