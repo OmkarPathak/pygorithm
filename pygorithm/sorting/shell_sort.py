@@ -1,7 +1,7 @@
 # Author: OMKAR PATHAK
 # Created On: 31st July 2017
 
-# Best Case O(n logn); Average Case O(depends on gap sequence); Worst Case O(n)
+# Best Case O(n logn); Average Case O(depends on gap sequence); Worst Case O(n^2)
 
 # shell sort algorithm
 def sort(myList):
