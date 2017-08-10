@@ -17,7 +17,7 @@ Quick Links
 
 .. toctree::
    :maxdepth: 2
-   :caption: Table of Contents:
+   :caption: Documentation:
 
    Sorting
    Searching
@@ -25,6 +25,7 @@ Quick Links
 Quick Start Guide
 -----------------
 
+* Download and install the Python package. `Installation instructions <http://pygorithm.readthedocs.io/en/latest/#getting-started>`_
 * Just import the required algorithm and start learning
 
 .. code-block:: python
@@ -49,8 +50,7 @@ Getting Started
     pip3 install pygorithm
 
 * For Python 2, you can use pip instead.
-* Or you can download the source code from `here <https://github.com/OmkarPathak/pygorithm>`_, and then
-just install the package using
+* Or you can download the source code from `here <https://github.com/OmkarPathak/pygorithm>`_, and then just install the package using
 
 ::
 
