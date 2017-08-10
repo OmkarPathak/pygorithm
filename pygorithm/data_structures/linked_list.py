@@ -78,7 +78,7 @@ class SinglyLinkedList(object):
     def delete(self, data):
         temp = self.head
         # if data/key is found in head node itself
-        if (temp.next is not None):
+        if (temp is not None):
             if(temp.data == data):
                 self.head = temp.next
                 temp = None
