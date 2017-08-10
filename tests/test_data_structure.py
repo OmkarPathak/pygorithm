@@ -3,7 +3,8 @@ import unittest
 from pygorithm.data_structures import (
     stack,
     queue,
-    linked_list)
+    linked_list,
+    tree)
 
 class TestStack(unittest.TestCase):
     def test_stack(self):
@@ -76,6 +77,24 @@ class TestLinkedList(unittest.TestCase):
 
         expectedResult = [4, 1, 3]
         self.assertEqual(dll.get_data(), expectedResult)
+
+class TestBinaryTree(unittest.TestCase):
+    def test_binary_tree(self):
+        root = tree.Node(1)
+        root.set_left(tree.Node(2))
+        root.set_right(tree.Node(3))
+        root.left.set_left(tree.Node(4))
+
+        Tree = tree.BinaryTree()
+        inorderTraversal = Tree.inorder(root)
+        expectedResult = [4, 2, 1, 3]
+        self.assertEqual(inorderTraversal, expectedResult)
+        preorderTraversal = Tree.preorder(root)
+        expectedResult = [1, 2, 4, 3]
+        self.assertEqual(preorderTraversal, expectedResult)
+        postorderTraversal = Tree.postorder(root)
+        expectedResult = [4, 2, 3, 1]
+        self.assertEqual(postorderTraversal, expectedResult)
 
 if __name__ == '__main__':
     unittest.main()
