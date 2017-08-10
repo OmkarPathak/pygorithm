@@ -2,7 +2,7 @@
 
 ### Tree
 
-- [ ] Binary Tree
+- [x] Binary Tree
 - [ ] Binary Search Tree
 - [ ] Inorder to Preorder
 - [ ] Count Leaf Nodes
