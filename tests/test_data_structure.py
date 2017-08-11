@@ -18,7 +18,7 @@ class TestStack(unittest.TestCase):
         self.assertEqual(myStack.peek(), 12)
         self.assertFalse(myStack.isEmpty())
 
-        nullStack = stack.Stack() 
+        nullStack = stack.Stack()
 
         self.assertEqual(nullStack.pop(), -1)
         self.assertEqual(nullStack.peek(), -1)
@@ -95,6 +95,31 @@ class TestBinaryTree(unittest.TestCase):
         postorderTraversal = Tree.postorder(root)
         expectedResult = [4, 2, 3, 1]
         self.assertEqual(postorderTraversal, expectedResult)
+
+class TestBinarySearchTree(unittest.TestCase):
+    def test_binary_search_tree(self):
+        root = tree.BinarySearchTree()
+        root.insert(10)
+        root.insert(12)
+        root.insert(5)
+        root.insert(4)
+        root.insert(20)
+        root.insert(8)
+        root.insert(7)
+        root.insert(15)
+        root.insert(13)
+
+        inorder = root.inorder()
+        preorder = root.preorder()
+        postorder = root.postorder()
+        expectedResult = [4, 5, 7, 8, 10, 12, 13, 15, 20]
+        self.assertEqual(inorder, expectedResult)
+        expectedResult = [10, 5, 4, 8, 7, 12, 20, 15, 13]
+        self.assertEqual(preorder, expectedResult)
+        expectedResult = [4, 7, 8, 5, 13, 15, 20, 12, 10]
+        self.assertEqual(postorder, expectedResult)
+
+        self.assertTrue(root.find(8))
 
 if __name__ == '__main__':
     unittest.main()
