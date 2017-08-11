@@ -226,6 +226,11 @@ class BSTNode(object):
             self._postorder.append(root.get_data())      # get the data of current node
         return self._postorder
 
+    # easily retrieve the source code of the BSTNode class
+    def get_code(self):
+        import inspect
+        return inspect.getsource(BSTNode)
+
 class BinarySearchTree(object):
     def __init__(self):
         self.root = None
@@ -260,3 +265,8 @@ class BinarySearchTree(object):
         print()
         if self.root is not None:
             return self.root.postorder(self.root)
+
+    # easily retrieve the source code of the BinarySearchTree class
+    def get_code(self):
+        import inspect
+        return inspect.getsource(BinarySearchTree)
