@@ -1,3 +1,6 @@
+# Author: DION MISIC
+# Created On: 11th August 2017
+
 def quickselect(array, n):
     ''' Recursively defined function for finding nth number in unsorted list '''
     def select(array, left, right, n):
