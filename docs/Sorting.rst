@@ -31,6 +31,14 @@ Features
     - Heap Sort (heap_sort)
     - Shell Sort (shell_sort)
 
+* To see all the available functions in a module there is a `modules()` function available. For example,
+
+.. code:: python
+
+    >>> from pygorithm.sorting import modules
+    >>> modules.modules()
+    ['bubble_sort', 'bucket_sort', 'counting_sort', 'heap_sort', 'insertion_sort', 'merge_sort', 'quick_sort', 'selection_sort', 'shell_sort']
+
 * For sorting:
   Remember ``sort()`` function takes its parameter as a list only.
 
