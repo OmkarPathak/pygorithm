@@ -16,7 +16,7 @@ class Heap(Queue):
 
     def insert(self, data):
         super(Heap, self).enqueue(data)
-        if self.rear >= 1:
+        if self.rear >= 1: # heap may need to be fixed
             self.heapify_up()
 
     def heapify_up(self):
@@ -30,14 +30,17 @@ class Heap(Queue):
         child  = self.rear
         parent = self.parent_idx(child)
         while self.queue[child] < self.queue[self.parent_idx(child)]:
+            # Swap (sift up) and update child:parent relation
             self.queue[child], self.queue[parent] = self.queue[parent], self.queue[child]
             child = parent
             parent = self.parent_idx(child)
 
     def pop(self):
+        """ Removes the lowest value element (highest priority) from the heap """
         min = self.dequeue()
-        if self.rear >= 1:
+        if self.rear >= 1: # heap may need to be fixed
             self.heapify_down()
+        return min
 
     def favorite(self, parent):
         """
@@ -46,18 +49,15 @@ class Heap(Queue):
         left  = self.left_child_idx(parent)
         right = self.right_child_idx(parent)
         
-        # case 1: both nodes exist
-        if left <= self.rear and right <= self.rear:
-            if self.queue[left] <= self.queue[right]: # left gets priority
+        if left <= self.rear and right <= self.rear: # case 1: both nodes exist
+            if self.queue[left] <= self.queue[right]:
                 return left
-            else: # right gets priority
+            else:
                 return right
-        # case 2: only left exists
-        elif left <= self.rear: # only left exists
+        elif left <= self.rear: # case 2: only left exists
             return left
-        # case 3: no children (if left doesn't exist, neither can the right)
-        else:
-            return None # no child exists
+        else: # case 3: no children (if left doesn't exist, neither can the right)
+            return None
         
     def heapify_down(self):
         """
@@ -66,10 +66,11 @@ class Heap(Queue):
         While a favorite child exists, and that child is smaller
         than the parent, swap them (sift down).
         """
-        cur = ROOT = 0
-        fav = self.favorite(cur)
+        cur = ROOT = 0 # start at the root
+        fav = self.favorite(cur) # determine favorite child
         while self.queue[fav] is not None:
             if self.queue[cur] > self.queue[fav]:
+                # Swap (sift down) and update parent:favorite relation
                 fav = self.favorite(cur)
                 self.queue[cur], self.queue[fav] = self.queue[fav], self.queue[cur]
                 cur = fav
