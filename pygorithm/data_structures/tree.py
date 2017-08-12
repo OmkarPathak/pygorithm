@@ -8,32 +8,33 @@ class Node(object):
         self.right = None
         self.data = data
 
-    # for setting left node
     def set_left(self, node):
+        ''' for setting the left child of the node '''
         self.left = node
 
-    # for setting right node
     def set_right(self, node):
+        ''' for setting the right child of the node '''
         self.right = node
 
-    # for getting the left node
     def get_left(self):
+        ''' for getting the left child of the node '''
         return self.left
 
-    # for getting right node
     def get_right(self):
+        ''' for getting the right child of the node '''
         return self.right
 
-    # for setting data of a node
     def set_data(self, data):
+        ''' for setting the data of the node '''
         self.data = data
 
-    # for getting data of a node
     def get_data(self):
+        ''' for getting the data of the node '''
         return self.data
 
     # easily retrieve the source code of the Node class
     def get_code(self):
+        ''' returns the code of the current class '''
         import inspect
         return inspect.getsource(Node)
 
@@ -79,6 +80,7 @@ class BinaryTree(object):
 
     # easily retrieve the source code of the BinaryTree class
     def get_code(self):
+        ''' returns the code of the current class '''
         import inspect
         return inspect.getsource(BinaryTree)
 
@@ -91,34 +93,31 @@ class BSTNode(object):
         self._preorder = []
         self._postorder = []
 
-    # for setting left node
     def set_left(self, node):
+        ''' for setting the left child of the node '''
         self.leftChild = node
 
-    # for setting right node
     def set_right(self, node):
+        ''' for setting the right child of the node '''
         self.rightChild = node
 
-    # for getting the left node
     def get_left(self):
+        ''' returns the left child of the current node '''
         return self.leftChild
 
-    # for getting right node
     def get_right(self):
+        ''' returns the right child of the current node '''
         return self.rightChild
 
     # for setting data of a node
     def set_data(self, data):
+        ''' for setting the data of a node '''
         self.data = data
 
     # for getting data of a node
     def get_data(self):
+        ''' returns the data of the current node '''
         return self.data
-
-    # easily retrieve the source code of the Node class
-    def get_code(self):
-        import inspect
-        return inspect.getsource(BSTNode)
 
     def insert(self, data):
         ''' For inserting the data in the Tree '''
@@ -141,7 +140,7 @@ class BSTNode(object):
                 self.rightChild = BSTNode(data)
                 return True
 
-    def minValueBSTNode(self, BSTNode):
+    def min_val_bst_node(self, BSTNode):
         current = BSTNode
 
         # loop down to find the leftmost leaf
@@ -173,7 +172,7 @@ class BSTNode(object):
 
             # deleting BSTNode with two children
             # first get the inorder successor
-            temp = self.minValueBSTNode(self.rightChild)
+            temp = self.min_val_bst_node(self.rightChild)
             self.data = temp.data
             self.rightChild = self.rightChild.delete(temp.data)
 
@@ -228,6 +227,7 @@ class BSTNode(object):
 
     # easily retrieve the source code of the BSTNode class
     def get_code(self):
+        ''' returns the code of current class '''
         import inspect
         return inspect.getsource(BSTNode)
 
@@ -236,6 +236,7 @@ class BinarySearchTree(object):
         self.root = None
 
     def insert(self, data):
+        ''' inserts a node in the tree '''
         if self.root:
             return self.root.insert(data)
         else:
@@ -243,6 +244,7 @@ class BinarySearchTree(object):
             return True
 
     def delete(self, data):
+        ''' deletes the node with the specified data from the tree '''
         if self.root is not None:
             return self.root.delete(data)
 
@@ -253,20 +255,24 @@ class BinarySearchTree(object):
             return False
 
     def preorder(self):
+        ''' finding the preorder of the tree '''
         if self.root is not None:
             return self.root.preorder(self.root)
 
     def inorder(self):
+        ''' finding the inorder of the tree '''
         print()
         if self.root is not None:
             return self.root.inorder(self.root)
 
     def postorder(self):
+        ''' finding the postorder of the tree '''
         print()
         if self.root is not None:
             return self.root.postorder(self.root)
 
     # easily retrieve the source code of the BinarySearchTree class
     def get_code(self):
+        ''' returns the code of the current class '''
         import inspect
         return inspect.getsource(BinarySearchTree)
