@@ -16,13 +16,13 @@ class TestStack(unittest.TestCase):
 
         self.assertEqual(myStack.pop(), 3)
         self.assertEqual(myStack.peek(), 12)
-        self.assertFalse(myStack.isEmpty())
+        self.assertFalse(myStack.is_empty())
 
         nullStack = stack.Stack()
 
         self.assertEqual(nullStack.pop(), -1)
         self.assertEqual(nullStack.peek(), -1)
-        self.assertTrue(nullStack.isEmpty())
+        self.assertTrue(nullStack.is_empty())
 
 class TestInfixToPostfix(unittest.TestCase):
     def test_infix_to_postfix(self):
@@ -45,11 +45,21 @@ class TestQueue(unittest.TestCase):
 
         self.assertEqual(myQueue.dequeue(), 2)
         self.assertEqual(myQueue.dequeue(), 10)
-        self.assertFalse(myQueue.isEmpty())
+        self.assertFalse(myQueue.is_empty())
         self.assertEqual(myQueue.dequeue(), 12)
         self.assertEqual(myQueue.dequeue(), 3)
-        self.assertTrue(myQueue.isEmpty())
+        self.assertTrue(myQueue.is_empty())
 
+    def test_deque(self):
+        myDeque = queue.Deque()
+        myDeque.insert_front(1)    # 1
+        myDeque.insert_rear(2)     # 2 1
+        myDeque.insert_front(3)    # 2 1 3
+        myDeque.insert_rear(10)    # 10 2 1 3
+
+        self.assertEqual(myDeque.delete_rear(), 10)
+        self.assertEqual(myDeque.delete_front(), 3)
+        
 class TestLinkedList(unittest.TestCase):
     def test_singly_linked_list(self):
         List = linked_list.SinglyLinkedList()
