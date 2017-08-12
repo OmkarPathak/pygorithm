@@ -1,7 +1,7 @@
 # Author: DION MISIC
 # Created On: 11th August 2017
 
-def quickselect(array, n):
+def search(array, n):
     ''' Recursively defined function for finding nth number in unsorted list '''
     def select(array, left, right, n):
         if left == right:
@@ -38,4 +38,4 @@ def time_complexities():
 def get_code():
     ''' Standard code inspection '''
     import inspect
-    return inspect.getsource(quickselect)
+    return inspect.getsource(search)
