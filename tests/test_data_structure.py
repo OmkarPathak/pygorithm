@@ -1,10 +1,12 @@
+# -*- coding: utf-8 -*-
 import unittest
 
 from pygorithm.data_structures import (
     stack,
     queue,
     linked_list,
-    tree)
+    tree,
+    heap)
 
 class TestStack(unittest.TestCase):
     def test_stack(self):
