@@ -1,12 +1,10 @@
-# -*- coding: utf-8 -*-
 import unittest
 
 from pygorithm.data_structures import (
     stack,
     queue,
     linked_list,
-    tree,
-    heap)
+    tree)
 
 class TestStack(unittest.TestCase):
     def test_stack(self):
@@ -132,35 +130,6 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(postorder, expectedResult)
 
         self.assertTrue(root.find(8))
-
-class TestHeap(unittest.TestCase):
-    def test_heap(self):
-        myHeap = heap.Heap(limit = 4)
-        myHeap.insert(2)   # [2]
-        myHeap.insert(10)  # [2, 10]
-        myHeap.insert(12)  # [2, 10, 12]
-        myHeap.insert(3)   # [2,  3, 10, 12]
-        
-        expectedResult = [2, 3, 10, 12]
-        self.assertEqual(myHeap.queue(), expectedResult)
-
-        self.assertEqual(myHeap.pop(), 2)
-        expectedResult = [3, 10, 12]
-        self.assertEqual(myHeap.queue(), expectedResult)
-
-        self.assertEqual(myHeap.pop(), 3)
-        expectedResult = [10, 12]
-        self.assertEqual(myHeap.queue(), expectedResult)
-        
-        self.assertEqual(myHeap.pop(), 10)
-        expectedResult = [12]
-        self.assertEqual(myHeap.queue(), expectedResult)
-
-        self.assertEqual(myHeap.pop(), 12)
-        expectedResult = []
-        self.assertEqual(myHeap.queue(), expectedResult)
-
-        self.assertTrue(myHeap.is_empty())
 
 if __name__ == '__main__':
     unittest.main()
