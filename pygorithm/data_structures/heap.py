@@ -20,13 +20,13 @@ class Heap(Queue):
             self.heapify_up()
 
     def heapify_up(self):
-        """
+        '''
         Start at the end of the tree (first enqueued item).
         
         Compare the rear item to its parent, swap if
         the parent is larger than the child (min-heap property).
         Repeat until the min-heap property is met.
-        """
+        '''
         child  = self.rear
         parent = self.parent_idx(child)
         while self.queue[child] < self.queue[self.parent_idx(child)]:
@@ -36,16 +36,14 @@ class Heap(Queue):
             parent = self.parent_idx(child)
 
     def pop(self):
-        """ Removes the lowest value element (highest priority) from the heap """
+        ''' Removes the lowest value element (highest priority) from the heap '''
         min = self.dequeue()
         if self.rear >= 1: # heap may need to be fixed
             self.heapify_down()
         return min
 
     def favorite(self, parent):
-        """
-        Determines which child has the highest priority by 3 cases.
-        """
+        ''' Determines which child has the highest priority by 3 cases '''
         left  = self.left_child_idx(parent)
         right = self.right_child_idx(parent)
         
@@ -60,12 +58,12 @@ class Heap(Queue):
             return None
         
     def heapify_down(self):
-        """
+        '''
         Select the root and sift down until min-heap property is met.
 
         While a favorite child exists, and that child is smaller
         than the parent, swap them (sift down).
-        """
+        '''
         cur = ROOT = 0 # start at the root
         fav = self.favorite(cur) # determine favorite child
         while self.queue[fav] is not None:
@@ -76,4 +74,8 @@ class Heap(Queue):
                 cur = fav
             else:
                 return
+
+    def get_code(self):
+        import inspect
+        return inspect.getsource(Heap)
 
