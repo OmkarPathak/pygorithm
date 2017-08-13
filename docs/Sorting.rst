@@ -69,3 +69,174 @@ Features
 
     # for printing the source code of bubble_sort
     print(bubble_sort.get_code())
+
+
+Bubble Sort
+-----------
+
+* Functions and their uses
+
+.. function:: bubble_sort.sort(List)
+
+- **List**            : `list` or `array` to be sorted
+- **Return Value**    : returns the sorted `list`
+
+.. function:: bubble_sort.time_complexities()
+
+- **Return Value**    : returns time complexities (Best, Average, Worst)
+
+.. function:: bubble_sort.get_code()
+
+- **Return Value**    : returns the code for the ``bubble_sort.sort()`` function
+
+* For improved Bubble sort
+
+.. function:: bubble_sort.improved_sort(List)
+
+- **List**            : `list` or `array` to be sorted
+- **Return Value**    : returns the sorted `list`
+
+Bucket Sort
+-----------
+
+* Functions and their uses
+
+.. function:: bucket_sort.sort(List, bucketSize)
+
+- **List**            : `list` or `array` to be sorted
+- **bucketSize**      : size of the bucket. Default is **5**
+- **Return Value**    : returns the sorted `list`
+
+.. function:: bucket_sort.time_complexities()
+
+- **Return Value**    : returns time complexities (Best, Average, Worst)
+
+.. function:: bucket_sort.get_code()
+
+- **Return Value**    : returns the code for the ``bucket_sort.sort()`` function
+
+Counting Sort
+-------------
+
+* Functions and their uses
+
+.. function:: counting_sort.sort(List)
+
+- **List**            : `list` or `array` to be sorted
+- **Return Value**    : returns the sorted `list`
+
+.. function:: counting_sort.time_complexities()
+
+- **Return Value**    : returns time complexities (Best, Average, Worst)
+
+.. function:: counting_sort.get_code()
+
+- **Return Value**    : returns the code for the ``counting_sort.sort()`` function
+
+Heap Sort
+---------
+
+* Functions and their uses
+
+.. function:: heap_sort.sort(List)
+
+- **List**            : `list` or `array` to be sorted
+- **Return Value**    : returns the sorted `list`
+
+.. function:: heap_sort.time_complexities()
+
+- **Return Value**    : returns time complexities (Best, Average, Worst)
+
+.. function:: heap_sort.get_code()
+
+- **Return Value**    : returns the code for the ``heap_sort.sort()`` function
+
+Insertion Sort
+--------------
+
+* Functions and their uses
+
+.. function:: insertion_sort.sort(List)
+
+- **List**            : `list` or `array` to be sorted
+- **Return Value**    : returns the sorted `list`
+
+.. function:: insertion_sort.time_complexities()
+
+- **Return Value**    : returns time complexities (Best, Average, Worst)
+
+.. function:: insertion_sort.get_code()
+
+- **Return Value**    : returns the code for the ``insertion_sort.sort()`` function
+
+Merge Sort
+----------
+
+* Functions and their uses
+
+.. function:: merge_sort.sort(List)
+
+- **List**            : `list` or `array` to be sorted
+- **Return Value**    : returns the sorted `list`
+
+.. function:: merge_sort.time_complexities()
+
+- **Return Value**    : returns time complexities (Best, Average, Worst)
+
+.. function:: merge_sort.get_code()
+
+- **Return Value**    : returns the code for the ``merge_sort.sort()`` function
+
+Quick Sort
+----------
+
+* Functions and their uses
+
+.. function:: quick_sort.sort(List)
+
+- **List**            : `list` or `array` to be sorted
+- **Return Value**    : returns the sorted `list`
+
+.. function:: quick_sort.time_complexities()
+
+- **Return Value**    : returns time complexities (Best, Average, Worst)
+
+.. function:: quick_sort.get_code()
+
+- **Return Value**    : returns the code for the ``quick_sort.sort()`` function
+
+Selection Sort
+--------------
+
+* Functions and their uses
+
+.. function:: selection_sort.sort(List)
+
+- **List**            : `list` or `array` to be sorted
+- **Return Value**    : returns the sorted `list`
+
+.. function:: selection_sort.time_complexities()
+
+- **Return Value**    : returns time complexities (Best, Average, Worst)
+
+.. function:: selection_sort.get_code()
+
+- **Return Value**    : returns the code for the ``selection_sort.sort()`` function
+
+Shell Sort
+----------
+
+* Functions and their uses
+
+.. function:: shell_sort.sort(List)
+
+- **List**            : `list` or `array` to be sorted
+- **Return Value**    : returns the sorted `list`
+
+.. function:: shell_sort.time_complexities()
+
+- **Return Value**    : returns time complexities (Best, Average, Worst)
+
+.. function:: shell_sort.get_code()
+
+- **Return Value**    : returns the code for the ``shell_sort.sort()`` function
