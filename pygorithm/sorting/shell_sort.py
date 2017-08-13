@@ -4,19 +4,19 @@
 # Best Case O(n logn); Average Case O(depends on gap sequence); Worst Case O(n^2)
 
 # shell sort algorithm
-def sort(myList):
-    gap = len(myList) // 2
+def sort(List):
+    gap = len(List) // 2
     while gap > 0:
-        for i in range(gap, len(myList)):
-            currentItem = myList[i]
+        for i in range(gap, len(List)):
+            currentItem = List[i]
             j = i
-            while j >= gap and myList[j - gap] > currentItem:
-                myList[j] = myList[j - gap]
+            while j >= gap and List[j - gap] > currentItem:
+                List[j] = List[j - gap]
                 j -= gap
-            myList[j] = currentItem
+            List[j] = currentItem
         gap //= 2
 
-    return myList
+    return List
 
 # time complexities
 def time_complexities():

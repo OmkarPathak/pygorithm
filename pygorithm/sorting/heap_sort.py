@@ -4,33 +4,33 @@
 # Best O(nlog(n)); Average O(nlog(n)); Worst O(nlog(n))
 
 # heap sort algorithm
-def sort(alist):
-    heapify(alist)              # create the heap
-    end = len(alist) - 1
+def sort(List):
+    heapify(List)              # create the heap
+    end = len(List) - 1
     while end > 0:
-        alist[end], alist[0] = alist[0], alist[end]
-        shiftDown(alist, 0, end - 1)
+        List[end], List[0] = List[0], List[end]
+        shiftDown(List, 0, end - 1)
         end -= 1
-    return alist
+    return List
 
-def heapify(alist):
+def heapify(List):
     ''' This function helps to maintain the heap property '''
-    # start = (len(alist) - 2) // 2         (faster execution)
-    start = len(alist) // 2
+    # start = (len(List) - 2) // 2         (faster execution)
+    start = len(List) // 2
     while start >= 0:
-        shiftDown(alist, start, len(alist) - 1)
+        shiftDown(List, start, len(List) - 1)
         start -= 1
 
-def shiftDown(alist, start, end):
+def shiftDown(List, start, end):
     root = start
     while root * 2 + 1 <= end:
         child = root * 2 + 1
         # right child exists and is greater than left child
-        if child + 1 <= end and alist[child] < alist[child + 1]:
+        if child + 1 <= end and List[child] < List[child + 1]:
             child += 1
         # if child is greater than root(parent), then swap their positions
-        if child <= end and alist[root] < alist[child]:
-            alist[root], alist[child] = alist[child], alist[root]
+        if child <= end and List[root] < List[child]:
+            List[root], List[child] = List[child], List[root]
             root = child
         else:
             return
