@@ -7,6 +7,7 @@ class Graph(object):
         self.count = 0
 
     def print_graph(self):
+        ''' for printing the contents of the graph '''
         for i  in self.graph:
             print(i,'->',' -> '.join([str(j) for j in self.graph[i]]))
 
@@ -28,6 +29,7 @@ class Graph(object):
 
 class TopologicalSort(Graph):
     def topological_sort(self):
+        ''' function for sorting graph elements using topological sort '''
         visited = [False] * self.count           # Marking all vertices as not visited
         stack = []                               # Stack for storing the vertex
         for vertex in range(self.count):
@@ -37,9 +39,8 @@ class TopologicalSort(Graph):
 
         return stack
 
-    # Recursive function for topological Sort
     def topological_sort_rec(self, vertex, visited, stack):
-
+        ''' Recursive function for topological Sort '''
         # Mark the current node in visited
         visited[vertex] = True
 
