@@ -22,11 +22,14 @@ class Heap(Queue):
 
     def heapify_up(self):
         '''
-        Start at the end of the tree (first enqueued item).
+        Start at the end of the tree (last enqueued item).
 
         Compare the rear item to its parent, swap if
         the parent is larger than the child (min-heap property).
         Repeat until the min-heap property is met.
+        
+        Best Case:   O(1), item is inserted at correct position, no swaps needed
+        Worst Case:  O(logn), item needs to be swapped throughout all levels of tree
         '''
         child  = self.rear
         parent = self.parent_idx(child)
@@ -37,7 +40,7 @@ class Heap(Queue):
             parent = self.parent_idx(child)
 
     def pop(self):
-        ''' Removes the lowest value element (highest priority) from the heap '''
+        ''' Removes the lowest value element (highest priority, at root) from the heap '''
         min = self.dequeue()
         if self.rear >= 1: # heap may need to be fixed
             self.heapify_down()
@@ -64,6 +67,9 @@ class Heap(Queue):
 
         While a favorite child exists, and that child is smaller
         than the parent, swap them (sift down).
+
+        Best Case:   O(1), item is inserted at correct position, no swaps needed
+        Worst Case:  O(logn), item needs to be swapped throughout all levels of tree
         '''
         cur = ROOT = 0 # start at the root
         fav = self.favorite(cur) # determine favorite child
@@ -75,6 +81,9 @@ class Heap(Queue):
                 cur = fav
             else:
                 return
+
+    def time_complexities(self):
+        return '''[Insert & Pop] Best Case: O(1), Worst Case: O(logn)'''
 
     def get_code(self):
         ''' returns the code for the current class '''
