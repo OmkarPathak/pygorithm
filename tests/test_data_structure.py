@@ -146,5 +146,27 @@ class TestGraph(unittest.TestCase):
         expectedResult = [5, 4, 2, 3, 1, 0]
         self.assertEqual(ans, expectedResult)
 
+    def test_cycle_in_directed_graph(self):
+        myGraph = graph.CheckCycleDirected()
+        myGraph.add_edge(0, 1)
+        myGraph.add_edge(0, 2)
+        myGraph.add_edge(1, 2)
+        myGraph.add_edge(2, 0)
+        myGraph.add_edge(2, 3)
+        myGraph.add_edge(3, 3)
+
+        self.assertTrue(myGraph.check_cycle())
+
+    def test_cycle_in_undirected_graph(self):
+        myGraph = graph.CheckCycleUndirected()
+        myGraph.add_edge(0, 1)
+        myGraph.add_edge(0, 2)
+        myGraph.add_edge(1, 2)
+        myGraph.add_edge(2, 0)
+        myGraph.add_edge(2, 3)
+        myGraph.add_edge(3, 3)
+
+        self.assertTrue(myGraph.check_cycle())
+
 if __name__ == '__main__':
     unittest.main()
