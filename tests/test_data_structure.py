@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import unittest
 
 from pygorithm.data_structures import (
