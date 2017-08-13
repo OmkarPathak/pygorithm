@@ -7,7 +7,7 @@ from queue import Queue
 # min-heap implementation as priority queue
 class Heap(Queue):
     def parent_idx(self, idx):
-        return idx / 2
+        return idx // 2
 
     def left_child_idx(self, idx):
         return (idx * 2) + 1
@@ -16,7 +16,7 @@ class Heap(Queue):
         return (idx * 2) + 2
 
     def insert(self, data):
-        super(Heap, self).enqueue(data)
+        super().enqueue(data)
         if self.rear >= 1: # heap may need to be fixed
             self.heapify_up()
 
@@ -41,7 +41,7 @@ class Heap(Queue):
 
     def pop(self):
         ''' Removes the lowest value element (highest priority, at root) from the heap '''
-        min = self.dequeue()
+        min = super().dequeue()
         if self.rear >= 1: # heap may need to be fixed
             self.heapify_down()
         return min
