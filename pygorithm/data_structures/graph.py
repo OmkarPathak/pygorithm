@@ -60,7 +60,7 @@ class TopologicalSort(Graph):
         import inspect
         return inspect.getsource(TopologicalSort)
 
-class CheckCycleDirected(object):
+class CheckCycleDirectedGraph(object):
     def __init__(self):
         self.graph = {}
         self.count = 0
@@ -114,7 +114,7 @@ class CheckCycleDirected(object):
         import inspect
         return inspect.getsource(CheckCycleDirected)
 
-class CheckCycleUndirected(object):
+class CheckCycleUndirectedGraph(object):
     def __init__(self):
         self.graph = {}
         self.count = 0
