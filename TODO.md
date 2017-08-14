@@ -9,9 +9,9 @@
 
 ### Graph
 
-- [ ] Graph implementation
-- [ ] Detect cycle in Graph
-- [ ] Topological Sort
+- [x] Graph implementation
+- [x] Detect cycle in Graph
+- [x] Topological Sort
 - [ ] Prim's Algorithm
 - [ ] Kruskal's Algorithm
 
@@ -22,5 +22,5 @@
 
 ### Heap
 
-- [ ] Heap  implementation
-- [ ] Heap Sort
+- [x] Heap  implementation
+- [x] Heap Sort
