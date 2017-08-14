@@ -3,7 +3,7 @@ Minimum spanning tree
 =======================
 
 
-Given a weighted connected graph (a graph with weights on the edges), the minimum spanning tree is a spanning tree that
+Given a weighted connected undirected graph (weighted = graph with weights on the edges), the minimum spanning tree is a spanning tree that
 minimize the weights of the edges.
 
 
