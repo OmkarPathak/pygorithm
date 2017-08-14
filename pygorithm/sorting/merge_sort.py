@@ -26,7 +26,7 @@ def sort(List):
     if len(List) == 0 or len(List) == 1:
         return List
     else:
-        middle = len(x)//2
+        middle = len(List)//2
         a = sort(List[:middle])
         b = sort(List[middle:])
         return merge(a,b)
