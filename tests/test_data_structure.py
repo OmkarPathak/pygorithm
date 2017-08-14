@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import unittest
 
 from pygorithm.data_structures import (
@@ -5,7 +6,8 @@ from pygorithm.data_structures import (
     queue,
     linked_list,
     tree,
-    graph)
+    graph,
+    heap)
 
 class TestStack(unittest.TestCase):
     def test_stack(self):
@@ -167,6 +169,38 @@ class TestGraph(unittest.TestCase):
         myGraph.add_edge(3, 3)
 
         self.assertTrue(myGraph.check_cycle())
+
+class TestHeap(unittest.TestCase):
+    def test_heap(self):
+        myHeap = heap.Heap()
+        myHeap.insert(6)
+        myHeap.insert(3)
+        myHeap.insert(5)
+        myHeap.insert(12)
+        myHeap.insert(1)
+        
+        expectedResult = [1, 3, 5, 12, 6]
+        self.assertEqual(myHeap.queue, expectedResult)
+
+        self.assertEqual(myHeap.pop(), 1)
+        expectedResult = [3, 5, 12, 6]
+        self.assertEqual(myHeap.queue, expectedResult)
+
+        self.assertEqual(myHeap.pop(), 3)
+        expectedResult = [5, 12, 6]
+        self.assertEqual(myHeap.queue, expectedResult)
+
+        self.assertEqual(myHeap.pop(), 5)
+        expectedResult = [6, 12]
+        self.assertEqual(myHeap.queue, expectedResult)
+
+        self.assertEqual(myHeap.pop(), 6)
+        expectedResult = [12]
+        self.assertEqual(myHeap.queue, expectedResult)
+
+        self.assertEqual(myHeap.pop(), 12)
+        expectedResult = []
+        self.assertEqual(myHeap.queue, expectedResult)
 
 if __name__ == '__main__':
     unittest.main()
