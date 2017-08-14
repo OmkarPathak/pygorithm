@@ -15,6 +15,7 @@ Table of Contents:
    
    Sorting
    Searching
+   Minimum spanning tree
 
 
 -----------------
