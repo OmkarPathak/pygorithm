@@ -1,0 +1,45 @@
+=========
+Fibonacci
+=========
+
+Learning fibonacci implementations in few ways!
+
+Quick Start Guide
+-----------------
+
+.. code-block:: python
+
+    from pygorithm.fibonacci import recursion as fib_recursion
+
+    sequence = fib_recursion.get_sequence(10)
+    print(sequence)  # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+
+Features
+--------
+
+* Fibonacci implementations available:
+    - Recursion
+    - Cache (with save results of particular numbers)
+
+* Get the code used for any of the implementation
+
+.. code:: python
+
+    from pygorithm.fibonacci import recursion as fib_recursion
+
+    code = fib_recursion.get_code()
+    print(code)
+
+Implementations API
+-------------------
+
+* Functions and their uses
+
+.. function:: get_sequence(number)
+
+- **number**          : arbitrary integer, that need to be calculated in Fibonacci number type
+- **Return Value**    : return Fibonacci value by specified number as integer
+
+.. function:: get_code()
+
+- **Return Value**    : returns the code for the ``get_sequence()`` function
