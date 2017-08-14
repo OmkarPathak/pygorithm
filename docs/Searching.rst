@@ -36,7 +36,7 @@ Features
 
     >>> from pygorithm.searching import modules
     >>> modules()
-    ['binary_search', 'breadth_first_search', 'depth_first_search', 'linear_search']
+    ['binary_search', 'breadth_first_search', 'depth_first_search', 'linear_search', 'quick_select']
 
 * For Searching:
   Remember ``search()`` function in `binary_search` module takes two parameters as a sorted list and the target element to be searched.
@@ -121,7 +121,7 @@ Breadth First Search
 
 - **graph**           : takes the graph data structures with edges and vertices
 - **startVertex**     : it tells the function the vertex to start with
-- **Return Value**    : returns the bfs for the ``graph``
+- **Return Value**    : returns the `set` of bfs for the ``graph``
 
 .. function:: breadth_first_search.time_complexities()
 
@@ -141,7 +141,7 @@ Depth First Search
 - **graph**           : takes the graph data structures with edges and vertices
 - **start**           : it tells the function the vertex to start with
 - **path**            : returns the list containing the required dfs
-- **Return Value**    : returns the bfs for the ``graph``
+- **Return Value**    : returns the `list` of dfs for the ``graph``
 
 .. function:: breadth_first_search.time_complexities()
 
@@ -150,3 +150,22 @@ Depth First Search
 .. function:: breadth_first_search.get_code()
 
 - **Return Value**    : returns the code for the ``depth_first_search.search()`` function
+
+Quick Select Search
+------------------
+
+* Functions and their uses
+
+.. function:: quick_select.search(array, n)
+
+- **array**           : an unsorted array
+- **n**               : nth number to be searched in the given `array`
+- **Return Value**    : returns the nth element
+
+.. function:: quick_select.time_complexities()
+
+- **Return Value**    : returns time complexities
+
+.. function:: quick_select.get_code()
+
+- **Return Value**    : returns the code for the ``quick_select.search()`` function
