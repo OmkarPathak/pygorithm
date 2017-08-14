@@ -2,10 +2,10 @@
 # Contributed: OMKAR PATHAK
 # Created On: 11th August 2017
 
-from queue import Queue
+from pygorithm.data_structures import queue
 
 # min-heap implementation as priority queue
-class Heap(Queue):
+class Heap(queue.Queue):
     def parent_idx(self, idx):
         return idx // 2
 
@@ -27,7 +27,7 @@ class Heap(Queue):
         Compare the rear item to its parent, swap if
         the parent is larger than the child (min-heap property).
         Repeat until the min-heap property is met.
-        
+
         Best Case:   O(1), item is inserted at correct position, no swaps needed
         Worst Case:  O(logn), item needs to be swapped throughout all levels of tree
         '''
