@@ -18,24 +18,16 @@ def get_sequence(n):
         """
         Return Fibonacci value by specified number as integer.
         """
-        a = 0
-        b = 1
+        a, b = 0, 1
 
-        if n == 0:
-            return a
+        for _ in range(n):
+            a, b = b, a + b
 
-        if n == 1:
-            return b
-
-        for i in range(1, n):
-            c = a + b
-            a = b
-            b = c
-        return b
+        return a
 
     def sequence(n):
         """
-        Return sequence if Fibonacci values as list.
+        Return sequence of Fibonacci values as list.
         """
         return [fib(value) for value in range(n + 1)]
 
