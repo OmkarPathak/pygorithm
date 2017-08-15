@@ -27,7 +27,7 @@ def get_sequence(n):
         if n == 1:
             return b
 
-        for i in range(2, n):
+        for i in range(1, n):
             c = a + b
             a = b
             b = c
