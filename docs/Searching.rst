@@ -80,6 +80,7 @@ Binary Search
 * Functions and their uses
 
 .. function:: binary_search.search(List, key)
+   :module: pygorithm.searching
 
 - **List**            : *Sorted* list in which the key is to be searched
 - **key**             : key to be searched in the list
