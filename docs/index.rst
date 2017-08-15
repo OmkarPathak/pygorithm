@@ -21,6 +21,7 @@ Quick Links
 
    Sorting
    Searching
+   Fibonacci
 
 Quick Start Guide
 -----------------
