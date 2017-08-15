@@ -4,18 +4,7 @@
 # stack implementation
 class Stack(object):
     '''
-    1. `push`: pushes an item on to the stack
-
-        myStack = Stack()
-        myStack.push(10)
-        print(myStack)
-
-    2. `pop`: pops the topmost item of the stack
-
-        myStack = Stack()
-        myStack.push(10)
-        myStack.push(2)
-        print(myStack.pop())
+    Python implementation of Stack
     '''
     def __init__(self, limit = 10):
         '''
@@ -28,28 +17,36 @@ class Stack(object):
         return ' '.join([str(i) for i in self.stack])
 
     def push(self, data):
-        ''' pushes an item into the stack '''
+        ''' pushes an item into the stack
+            returns -1 if the stack is empty
+        '''
         if len(self.stack) >= self.limit:
             return -1       # indicates stack overflow
         else:
             self.stack.append(data)
 
     def pop(self):
-        ''' pops the topmost item from the stack '''
+        ''' pops the topmost item from the stack
+            returns -1 if the stack is empty
+        '''
         if len(self.stack) <= 0:
             return -1       # indicates stack underflow
         else:
             return self.stack.pop()
 
     def peek(self):
-        ''' returns the topmost element of the stack '''
+        ''' returns the topmost element of the stack
+            returns -1 if the stack is empty
+        '''
         if len(self.stack) <= 0:
             return -1       # stack underflow
         else:
             return self.stack[len(self.stack) - 1]
 
     def is_empty(self):
-        ''' checks if the stack is empty '''
+        ''' checks if the stack is empty
+            returns boolean value, True or False
+        '''
         return self.size() == 0
 
     def size(self):
