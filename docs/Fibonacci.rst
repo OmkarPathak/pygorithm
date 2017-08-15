@@ -18,8 +18,10 @@ Features
 --------
 
 * Fibonacci implementations available:
+    - Generator
+    - Golden ratio
+    - Memorization (which saves some recursions to avoid computation of same series again and again)
     - Recursion
-    - Cache (which saves some recursions to avoid computation of same series again and again)
 
 * Get the code used for any of the implementation
 
@@ -36,7 +38,7 @@ Features
 
     >>> from pygorithm.fibonacci import modules
     >>> modules()
-    ['cache', 'recursion']
+    ['generator', 'goldenratio', 'memoization', 'recursion']
 
 Implementations API
 -------------------
