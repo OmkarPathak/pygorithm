@@ -3,6 +3,20 @@
 
 # stack implementation
 class Stack(object):
+    '''
+    1. `push`: pushes an item on to the stack
+
+        myStack = Stack()
+        myStack.push(10)
+        print(myStack)
+
+    2. `pop`: pops the topmost item of the stack
+
+        myStack = Stack()
+        myStack.push(10)
+        myStack.push(2)
+        print(myStack.pop())
+    '''
     def __init__(self, limit = 10):
         '''
         @param : limit: the stack size
