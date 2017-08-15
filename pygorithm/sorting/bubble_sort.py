@@ -26,7 +26,7 @@ def improved_sort(List):
 
 # time complexities
 def time_complexities():
-    return '''Best Case: O(n ^ 2), Average Case: O(n ^ 2), Worst Case: O(n ^ 2) \n For Improved Bubble Sort: \n Best Case: O(n); Average Case: O(n * (n - 1) / 4); Worst Case: O(n ^ 2) '''
+    return '''Best Case: Ω(n), Average Case: O(n ^ 2), Worst Case: O(n ^ 2) \n For Improved Bubble Sort: \n Best Case: Ω(n); Average Case: O(n * (n - 1) / 4); Worst Case: O(n ^ 2) '''
 
 # easily retrieve the source code of the sort function
 def get_code():
