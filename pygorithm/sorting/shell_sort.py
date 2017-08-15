@@ -20,7 +20,7 @@ def sort(List):
 
 # time complexities
 def time_complexities():
-    return '''Best Case: O(nlogn), Average Case: O(depends on gap sequence), Worst Case: O(n)'''
+    return '''Best Case: O(nlogn), Average Case: O(depends on gap sequence), Worst Case: O(n ^ 2)'''
 
 # easily retrieve the source code of the sort function
 def get_code():
