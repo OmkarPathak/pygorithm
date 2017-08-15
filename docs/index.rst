@@ -21,6 +21,7 @@ Quick Links
 
    Sorting
    Searching
+   Data_Structure
    Fibonacci
 
 Quick Start Guide
