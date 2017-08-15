@@ -4,6 +4,8 @@
 
 """
 nth fibonacci number - Space Optimized
+Time Complexity: O(n)
+Extra Space: O(1)
 """
 
 import inspect
@@ -39,6 +41,3 @@ def get_code():
     Return source code of Fibonacci sequence logic's implementation.
     """
     return inspect.getsource(get_sequence)
-
-# Time Complexity: O(n)
-# Extra Space: O(1)
