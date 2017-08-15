@@ -19,7 +19,7 @@ Features
 
 * Fibonacci implementations available:
     - Recursion
-    - Cache (with save results of particular numbers)
+    - Cache (which saves some recursions to avoid computation of same series again and again)
 
 * Get the code used for any of the implementation
 
@@ -29,6 +29,14 @@ Features
 
     code = fib_recursion.get_code()
     print(code)
+
+* To see all the available functions in a module there is a `modules()` function available. For example,
+
+.. code:: python
+
+    >>> from pygorithm.fibonacci import modules
+    >>> modules()
+    ['cache', 'recursion']
 
 Implementations API
 -------------------
