@@ -13,17 +13,15 @@ def get_sequence(n):
         """
         Return Fibonacci value by specified number as integer.
         """
-        if n == 0:
-            return 0
 
-        if n == 1:
-            return 1
+        if n <= 1:
+            return n
 
         return fib(n - 1) + fib(n - 2)
 
     def sequence(n):
         """
-        Return sequence if Fibonacci values as list.
+        Return sequence of Fibonacci values as list.
         """
         return [fib(value) for value in range(n + 1)]
 
