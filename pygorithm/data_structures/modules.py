@@ -1,4 +1,6 @@
 import pkgutil
+
+
 def modules():
     """
     Find all functions in pygorithm.data_structures
@@ -11,4 +13,3 @@ def modules():
     modules.remove('modules')
     modules.sort()
     return modules
-

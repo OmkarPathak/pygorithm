@@ -5,16 +5,18 @@
 
 class Node(object):
     # Each node has its data and a pointer that points to next node in the Linked List
-    def __init__(self, data, next = None):
+    def __init__(self, data, next=None):
         ''' constructor '''
         self.data = data
         self.next = next
 
     # easily retrieve the source code of the Node class
-    def get_code(self):
+    @classmethod
+    def get_code(cls):
         ''' return the code for the current class '''
         import inspect
-        return inspect.getsource(Node)
+        return inspect.getsource(cls)
+
 
 class SinglyLinkedList(object):
     # Defining the head of the linked list
@@ -34,7 +36,7 @@ class SinglyLinkedList(object):
         ''' prints the elements in the linked list '''
         temp = self.head
         List = []
-        while(temp):
+        while (temp):
             # print(temp.data, end=' ')
             List.append(temp.data)
             temp = temp.next
@@ -43,7 +45,7 @@ class SinglyLinkedList(object):
 
     def insert_at_start(self, data):
         ''' insert an item at the beginning of the linked list '''
-        if self.head == None:
+        if self.head is None:
             newNode = Node(data)
             self.head = newNode
         else:
@@ -62,7 +64,7 @@ class SinglyLinkedList(object):
         ''' insert an item at the end of the linked list '''
         newNode = Node(data)
         temp = self.head
-        while(temp.next != None):         # get last node
+        while (temp.next != None):  # get last node
             temp = temp.next
         temp.next = newNode
 
@@ -70,17 +72,17 @@ class SinglyLinkedList(object):
         ''' to delete specified element from the linked list '''
         temp = self.head
         # if data/key is found in head node itself
-        if (temp is not None):
-            if(temp.data == data):
+        if temp is not None:
+            if temp.data == data:
                 self.head = temp.next
                 temp = None
                 return
             else:
                 #  else _search all the nodes
-                while(temp.next != None):
-                    if(temp.data == data):
+                while (temp.next != None):
+                    if (temp.data == data):
                         break
-                    prev = temp          #save current node as previous so that we can go on to next node
+                    prev = temp  # save current node as previous so that we can go on to next node
                     temp = temp.next
 
                 # node not found
@@ -91,10 +93,12 @@ class SinglyLinkedList(object):
                 return
 
     # easily retrieve the source code of the SinglyLinkedList class
-    def get_code(self):
+    @staticmethod
+    def get_code():
         ''' return the code for the current class '''
         import inspect
         return inspect.getsource(SinglyLinkedList)
+
 
 class DoublyLinkedList(object):
     def __init__(self):
@@ -105,7 +109,7 @@ class DoublyLinkedList(object):
         ''' prints the elements in the linked list '''
         temp = self.head
         List = []
-        while(temp):
+        while (temp):
             # print(temp.data, end=' ')
             List.append(temp.data)
             temp = temp.next
@@ -127,7 +131,7 @@ class DoublyLinkedList(object):
         ''' insert an element at the end of the linked list '''
         newNode = Node(data)
         temp = self.head
-        while(temp.next != None):
+        while (temp.next != None):
             temp = temp.next
         temp.next = newNode
         newNode.previous = temp
@@ -135,19 +139,19 @@ class DoublyLinkedList(object):
     def delete(self, data):
         ''' to delete specified element from the linked list '''
         temp = self.head
-        if(temp.next != None):
+        if (temp.next != None):
             # if head node is to be deleted
-            if(temp.data == data):
+            if (temp.data == data):
                 temp.next.previous = None
                 self.head = temp.next
                 temp.next = None
                 return
             else:
-                while(temp.next != None):
-                    if(temp.data == data):
+                while (temp.next != None):
+                    if (temp.data == data):
                         break
                     temp = temp.next
-                if(temp.next):
+                if (temp.next):
                     # if element to be deleted is in between
                     temp.previous.next = temp.next
                     temp.next.previous = temp.previous
@@ -159,11 +163,12 @@ class DoublyLinkedList(object):
                     temp.previous = None
                 return
 
-        if (temp == None):
+        if temp is None:
             return
 
     # easily retrieve the source code of the DoublyLinkedList class
-    def get_code(self):
+    @staticmethod
+    def get_code():
         ''' returns the code of the current class '''
         import inspect
         return inspect.getsource(DoublyLinkedList)

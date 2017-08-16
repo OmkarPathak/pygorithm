@@ -4,6 +4,7 @@
 
 from pygorithm.data_structures import queue
 
+
 # min-heap implementation as priority queue
 class Heap(queue.Queue):
     def parent_idx(self, idx):
@@ -17,7 +18,7 @@ class Heap(queue.Queue):
 
     def insert(self, data):
         super().enqueue(data)
-        if self.rear >= 1: # heap may need to be fixed
+        if self.rear >= 1:  # heap may need to be fixed
             self.heapify_up()
 
     def heapify_up(self):
@@ -31,7 +32,7 @@ class Heap(queue.Queue):
         Best Case:   O(1), item is inserted at correct position, no swaps needed
         Worst Case:  O(logn), item needs to be swapped throughout all levels of tree
         '''
-        child  = self.rear
+        child = self.rear
         parent = self.parent_idx(child)
         while self.queue[child] < self.queue[self.parent_idx(child)]:
             # Swap (sift up) and update child:parent relation
@@ -42,23 +43,23 @@ class Heap(queue.Queue):
     def pop(self):
         ''' Removes the lowest value element (highest priority, at root) from the heap '''
         min = super().dequeue()
-        if self.rear >= 1: # heap may need to be fixed
+        if self.rear >= 1:  # heap may need to be fixed
             self.heapify_down()
         return min
 
     def favorite(self, parent):
         ''' Determines which child has the highest priority by 3 cases '''
-        left  = self.left_child_idx(parent)
+        left = self.left_child_idx(parent)
         right = self.right_child_idx(parent)
 
-        if left <= self.rear and right <= self.rear: # case 1: both nodes exist
+        if left <= self.rear and right <= self.rear:  # case 1: both nodes exist
             if self.queue[left] <= self.queue[right]:
                 return left
             else:
                 return right
-        elif left <= self.rear: # case 2: only left exists
+        elif left <= self.rear:  # case 2: only left exists
             return left
-        else: # case 3: no children (if left doesn't exist, neither can the right)
+        else:  # case 3: no children (if left doesn't exist, neither can the right)
             return None
 
     def heapify_down(self):
@@ -71,8 +72,8 @@ class Heap(queue.Queue):
         Best Case:   O(1), item is inserted at correct position, no swaps needed
         Worst Case:  O(logn), item needs to be swapped throughout all levels of tree
         '''
-        cur = ROOT = 0 # start at the root
-        fav = self.favorite(cur) # determine favorite child
+        cur = ROOT = 0  # start at the root
+        fav = self.favorite(cur)  # determine favorite child
         while self.queue[fav] is not None:
             if self.queue[cur] > self.queue[fav]:
                 # Swap (sift down) and update parent:favorite relation
