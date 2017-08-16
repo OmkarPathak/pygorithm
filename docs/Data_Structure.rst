@@ -65,14 +65,135 @@ Stack
 
 .. automodule:: pygorithm.data_structures.stack
 
-   Stack
-   -----
-   .. autoclass:: Stack
-      :members:
+    Stack
+    -----
+    .. autoclass:: Stack
+       :members:
 
 .. automodule:: pygorithm.data_structures.stack
 
     Infix to Postfix
     ----------------
     .. autoclass:: InfixToPostfix
+       :members:
+
+
+
+Queue
+-----
+
+.. automodule:: pygorithm.data_structures.queue
+
+    Queue
+    -----
+    .. autoclass:: Queue
+     :members:
+
+.. automodule:: pygorithm.data_structures.queue
+
+    Deque
+    -----
+    .. autoclass:: Deque
+      :members:
+
+
+Linked Lists
+------------
+
+.. automodule:: pygorithm.data_structures.linked_list
+
+    Node
+    ----
+    .. autoclass:: Node
+       :members:
+
+.. automodule:: pygorithm.data_structures.linked_list
+
+    Singly Linked List
+    ------------------
+    .. autoclass:: SinglyLinkedList
+       :members:
+
+.. automodule:: pygorithm.data_structures.linked_list
+
+   Doubly Linked List
+   ------------------
+   .. autoclass:: DoublyLinkedList
+      :members:
+
+Tree
+----
+
+.. automodule:: pygorithm.data_structures.tree
+
+    Node
+    ----
+    .. autoclass:: Node
+       :members:
+
+.. automodule:: pygorithm.data_structures.tree
+
+    Binary Tree
+    -----------
+    .. autoclass:: BinaryTree
+       :members:
+
+.. automodule:: pygorithm.data_structures.tree
+
+    Binary Search Tree Node
+    -----------------------
+    .. autoclass:: BSTNode
+       :members:
+
+    Binary Search Tree
+    ------------------
+    .. autoclass:: BinarySearchTree
+       :members:
+
+Graph
+-----
+
+.. automodule:: pygorithm.data_structures.graph
+
+    Graph
+    -----
+    .. autoclass:: Graph
+       :members:
+
+.. automodule:: pygorithm.data_structures.graph
+
+    Weighted Graph
+    --------------
+    .. autoclass:: WeightedGraph
+       :members:
+
+.. automodule:: pygorithm.data_structures.graph
+
+    Topological Sort
+    ----------------
+    .. autoclass:: TopologicalSort
+       :members:
+
+.. automodule:: pygorithm.data_structures.graph
+
+    Check Cycle in Directed Graph
+    -----------------------------
+    .. autoclass:: CheckCycleDirectedGraph
+       :members:
+
+.. automodule:: pygorithm.data_structures.graph
+
+    Check Cycle in Undirected Graph
+    -------------------------------
+    .. autoclass:: CheckCycleUndirectedGraph
+       :members:
+
+Heap
+----
+
+.. automodule:: pygorithm.data_structures.heap
+
+    Heap
+    -----
+    .. autoclass:: Heap
        :members:
