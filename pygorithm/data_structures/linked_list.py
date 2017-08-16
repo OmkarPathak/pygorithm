@@ -4,7 +4,9 @@
 # Linked List and Node can be accomodated in separate classes for convenience
 
 class Node(object):
-    # Each node has its data and a pointer that points to next node in the Linked List
+    ''' Node class for creating a node for linked list.
+        Each node has its data and a pointer that points to next node in the Linked List
+    '''
     def __init__(self, data, next=None):
         ''' constructor '''
         self.data = data

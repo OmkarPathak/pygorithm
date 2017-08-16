@@ -4,19 +4,22 @@
 
 from pygorithm.data_structures import queue
 
-
-# min-heap implementation as priority queue
 class Heap(queue.Queue):
+    ''' min-heap implementation as queue '''
     def parent_idx(self, idx):
+        ''' retrieve the parent '''
         return idx // 2
 
     def left_child_idx(self, idx):
+        ''' retrieve the left child '''
         return (idx * 2) + 1
 
     def right_child_idx(self, idx):
+        ''' retrieve the right child '''
         return (idx * 2) + 2
 
     def insert(self, data):
+        ''' inserting an element in the heap '''
         super().enqueue(data)
         if self.rear >= 1:  # heap may need to be fixed
             self.heapify_up()

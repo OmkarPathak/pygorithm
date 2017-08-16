@@ -3,6 +3,9 @@
 
 # Node class to create a node for binary tree
 class Node(object):
+    ''' Node class for creating a node for tree.
+        Each node has its data and a pointer that points to next node in the Linked List
+    '''
     def __init__(self, data = None):
         self.left = None
         self.right = None
@@ -38,17 +41,17 @@ class Node(object):
         import inspect
         return inspect.getsource(Node)
 
-# BinaryTree class to create a binary tree
 class BinaryTree(object):
+    ''' BinaryTree class to create a binary tree '''
     def __init__(self):
         self._inorder = []
         self._preorder = []
         self._postorder = []
 
-    # in this we traverse first to the leftmost node, then print its data and then traverse for rightmost node
     def inorder(self, root):
         '''
         @type: root:   Node object
+        in this we traverse first to the leftmost node, then print its data and then traverse for rightmost node
         '''
         if root:
             self.inorder(root.get_left())                # traverse to leftmost child
@@ -56,10 +59,10 @@ class BinaryTree(object):
             self.inorder(root.get_right())               # traverse to rightmost child
         return self._inorder
 
-    # in this we first print the root node and then traverse towards leftmost node and then to the rightmost node
     def preorder(self, root):
         '''
         @type: root:   Node object
+        in this we first print the root node and then traverse towards leftmost node and then to the rightmost node
         '''
         if root:
             self._preorder.append(root.get_data())       # get the data of current node
@@ -67,10 +70,10 @@ class BinaryTree(object):
             self.preorder(root.get_right())              # traverse to rightmost child
         return self._preorder
 
-    # in this we first traverse to the leftmost node and then to the rightmost node and then print the data
     def postorder(self, root):
         '''
         @type: root:   Node object
+        in this we first traverse to the leftmost node and then to the rightmost node and then print the data
         '''
         if root:
             self.postorder(root.get_left())              # traverse to leftmost child
@@ -85,6 +88,7 @@ class BinaryTree(object):
         return inspect.getsource(BinaryTree)
 
 class BSTNode(object):
+    ''' class for creating a node for Binary Search tree '''
     def __init__(self, data):
         self.data = data
         self.leftChild = None
@@ -141,6 +145,7 @@ class BSTNode(object):
                 return True
 
     def min_val_bst_node(self, BSTNode):
+        ''' for returning the node with the lowest value '''
         current = BSTNode
 
         # loop down to find the leftmost leaf
@@ -196,6 +201,7 @@ class BSTNode(object):
     def inorder(self, root):
         '''
         @type: root:   Node object
+        in this we first traverse to the leftmost node and then print the data and then move to the rightmost child
         '''
         if root:
             self.inorder(root.get_left())                # traverse to leftmost child
@@ -203,10 +209,10 @@ class BSTNode(object):
             self.inorder(root.get_right())               # traverse to rightmost child
         return self._inorder
 
-    # in this we first print the root node and then traverse towards leftmost node and then to the rightmost node
     def preorder(self, root):
         '''
         @type: root:   Node object
+        in this we first print the root node and then traverse towards leftmost node and then to the rightmost node
         '''
         if root:
             self._preorder.append(root.get_data())       # get the data of current node
@@ -214,10 +220,10 @@ class BSTNode(object):
             self.preorder(root.get_right())              # traverse to rightmost child
         return self._preorder
 
-    # in this we first traverse to the leftmost node and then to the rightmost node and then print the data
     def postorder(self, root):
         '''
         @type: root:   Node object
+        in this we first traverse to the leftmost node and then to the rightmost node and then print the data
         '''
         if root:
             self.postorder(root.get_left())              # traverse to leftmost child

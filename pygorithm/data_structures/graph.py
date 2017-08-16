@@ -2,8 +2,8 @@
 # Created On: 12th August 2017
 from collections import defaultdict
 
-
 class Graph(object):
+    ''' class for creating a graph '''
     def __init__(self):
         self.graph = defaultdict(list)
         self.count = 0
@@ -25,7 +25,7 @@ class Graph(object):
         return inspect.getsource(Graph)
 
 
-class WeightedGraph:
+class WeightedGraph(object):
     """
     A graph with a numerical value (weight) on edges
     """
@@ -77,11 +77,12 @@ class WeightedGraph:
         return edges_explored
 
     @staticmethod
-    def kruskal_complexity():
+    def kruskal_time_complexity():
         return '''Worst case: O(E log(V)) where E in the number of edges and V the number of vertexes'''
 
     @classmethod
     def kruskal_code(cls):
+        ''' Returns the code for current class '''
         import inspect
         return inspect.getsource(cls.kruskal_mst)
 
@@ -94,11 +95,11 @@ class TopologicalSort(Graph):
         for vertex in range(self.count):
             # Call the recursive function only if not visited
             if not visited[vertex]:
-                self.topological_sort_rec(vertex, visited, stack)
+                self._topological_sort_rec(vertex, visited, stack)
 
         return stack
 
-    def topological_sort_rec(self, vertex, visited, stack):
+    def _topological_sort_rec(self, vertex, visited, stack):
         ''' Recursive function for topological Sort '''
         # Mark the current node in visited
         visited[vertex] = True
@@ -107,7 +108,7 @@ class TopologicalSort(Graph):
         try:
             for adjacent_node in self.graph[vertex]:
                 if visited[adjacent_node] == False:
-                    self.topological_sort_rec(adjacent_node, visited, stack)
+                    self._topological_sort_rec(adjacent_node, visited, stack)
         except KeyError:
             return
 
@@ -121,6 +122,7 @@ class TopologicalSort(Graph):
 
 
 class CheckCycleDirectedGraph(object):
+    ''' Class to check cycle in directed graph '''
     def __init__(self):
         self.graph = {}
         self.count = 0
@@ -146,11 +148,11 @@ class CheckCycleDirectedGraph(object):
         stack = [False] * len(self.graph)
         for vertex in range(len(self.graph)):
             if visited[vertex] == False:
-                if self.check_cycle_rec(visited, stack, vertex) == True:
+                if self._check_cycle_rec(visited, stack, vertex) == True:
                     return True
         return False
 
-    def check_cycle_rec(self, visited, stack, vertex):
+    def _check_cycle_rec(self, visited, stack, vertex):
         ''' Recursive function for finding the cycle '''
         # Mark the current node in visited and also add it to the stack
         visited[vertex] = True
@@ -159,7 +161,7 @@ class CheckCycleDirectedGraph(object):
         # mark all adjacent nodes of the current node
         for adjacentNode in self.graph[vertex]:
             if visited[adjacentNode] == False:
-                if self.check_cycle_rec(visited, stack, adjacentNode) == True:
+                if self._check_cycle_rec(visited, stack, adjacentNode) == True:
                     return True
             elif stack[adjacentNode] == True:
                 return True
@@ -176,6 +178,7 @@ class CheckCycleDirectedGraph(object):
 
 
 class CheckCycleUndirectedGraph(object):
+    ''' Class to check cycle in undirected graph '''
     def __init__(self):
         self.graph = {}
         self.count = 0
@@ -202,11 +205,11 @@ class CheckCycleUndirectedGraph(object):
         for vertex in range(len(self.graph)):
             # Call the recursive function only if not visited
             if visited[vertex] == False:
-                if self.check_cycle_rec(visited, -1, vertex) == True:
+                if self._check_cycle_rec(visited, -1, vertex) == True:
                     return True
         return False
 
-    def check_cycle_rec(self, visited, parent, vertex):
+    def _check_cycle_rec(self, visited, parent, vertex):
         ''' Recursive function for finding the cycle '''
         # Mark the current node in visited
         visited[vertex] = True
@@ -214,7 +217,7 @@ class CheckCycleUndirectedGraph(object):
         # mark all adjacent nodes of the current node
         for adjacentNode in self.graph[vertex]:
             if visited[adjacentNode] == False:
-                if self.check_cycle_rec(visited, vertex, adjacentNode) == True:
+                if self._check_cycle_rec(visited, vertex, adjacentNode) == True:
                     return True
             elif parent != adjacentNode:
                 return True
