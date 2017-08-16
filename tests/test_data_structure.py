@@ -8,7 +8,6 @@ from pygorithm.data_structures import (
     tree,
     graph,
     heap)
-from pygorithm.data_structures.graph import WeightedGraph
 
 
 class TestStack(unittest.TestCase):
@@ -42,7 +41,7 @@ class TestInfixToPostfix(unittest.TestCase):
         self.assertTrue(resultString, expectedResult)
 
 
-class KruskalTest(unittest.TestCase):
+class TestKruskal(unittest.TestCase):
     def test_minimum_spanning_tree(self):
         """
         test inspired from the example at the following link: https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
@@ -50,7 +49,7 @@ class KruskalTest(unittest.TestCase):
         edges_weighted = [((1, 2), 7), ((2, 3), 8), ((1, 4), 5), ((2, 4), 9),
                           ((2, 5), 7), ((3, 5), 5), ((4, 6), 6), ((5, 6), 8),
                           ((5, 7), 9), ((6, 7), 11), ((4, 5), 15)]
-        wgraph = WeightedGraph()
+        wgraph = graph.WeightedGraph()
         for (u, v), weight in edges_weighted:
             wgraph.add_edge(u, v, weight)
         expected = [((1, 4), 5), ((3, 5), 5), ((4, 6), 6), ((1, 2), 7), ((2, 5), 7), ((5, 7), 9)]
@@ -61,7 +60,7 @@ class KruskalTest(unittest.TestCase):
         Test inspired by the gif at the left of the page https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
         """
         edges_weighted = [((1, 2), 3), ((1, 5), 1), ((2, 5), 4), ((2, 3), 5), ((3, 5), 6), ((3, 4), 2), ((4, 5), 7)]
-        wgraph = WeightedGraph()
+        wgraph = graph.WeightedGraph()
         for (u, v), weight in edges_weighted:
             wgraph.add_edge(u, v, weight)
         expected = [((1, 5), 1), ((3, 4), 2), ((1, 2), 3), ((2, 3), 5)]
