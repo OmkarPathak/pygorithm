@@ -1,5 +1,11 @@
+# Author: Ashutosh Gupta
+# Created On: 8/15/2017
+# Time: 3:24 PM
+
 """
-Fibonacci implementation through recursion.
+nth fibonacci number - Space Optimized
+Time Complexity: O(n)
+Extra Space: O(1)
 """
 
 import inspect
@@ -9,15 +15,16 @@ def get_sequence(n):
     """
     Return Fibonacci sequence from zero to specified number as list.
     """
+
     def fib(n):
         """
         Return Fibonacci value by specified number as integer.
         """
+        a, b = 0, 1
+        for _ in range(n):
+            a, b = b, a + b
 
-        if n <= 1:
-            return n
-
-        return fib(n - 1) + fib(n - 2)
+        return a
 
     def sequence(n):
         """
