@@ -4,7 +4,7 @@ Test for Fibonacci implementations logic.
 
 import unittest
 
-from pygorithm.fibonacci import cache, recursion
+from pygorithm.fibonacci import generator, goldenratio, memoization, recursion
 
 
 class TestFibonacciImplementations(unittest.TestCase):
@@ -16,7 +16,7 @@ class TestFibonacciImplementations(unittest.TestCase):
         """
         Verify that all implementations have same result.
         """
-        fibonacci_implementations = [cache, recursion]
+        fibonacci_implementations = [generator, goldenratio, memoization, recursion]
 
         for implementation in fibonacci_implementations:
             result = getattr(implementation, 'get_sequence')(0)
