@@ -4,11 +4,6 @@
 import sys
 import os
 import shlex
-from recommonmark.parser import CommonMarkParser
-
-source_parsers = {
-    '.md': CommonMarkParser,
-}
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -16,8 +11,8 @@ source_parsers = {
 sys.path.insert(0, os.path.abspath('..'))
 
 # -- General configuration ------------------------------------------------
-project = 'pygorithm'
-version = release = '0.1.dev3'
+project = u'pygorithm'
+version = release = u'0.1.dev3'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
