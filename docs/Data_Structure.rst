@@ -72,7 +72,7 @@ Stack
 
 .. automodule:: pygorithm.data_structures.stack
 
- Stack
- -----
- .. autoclass:: InfixToPostfix
-    :members:
+    Infix to Postfix
+    ----------------
+    .. autoclass:: InfixToPostfix
+       :members:

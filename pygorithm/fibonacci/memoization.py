@@ -24,11 +24,12 @@ def get_sequence(n):
 
     def sequence(n):
         """
-        Return sequence if Fibonacci values as list.
+        Return sequence of Fibonacci values as list.
         """
         return [fib(value) for value in range(n + 1)]
 
     return sequence(n)
+
 
 def get_code():
     """
