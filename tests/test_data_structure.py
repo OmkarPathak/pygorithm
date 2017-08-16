@@ -8,10 +8,12 @@ from pygorithm.data_structures import (
     tree,
     graph,
     heap)
+from pygorithm.data_structures.graph import WeightedGraph
+
 
 class TestStack(unittest.TestCase):
     def test_stack(self):
-        myStack = stack.Stack()     # create a stack with default stack size 10
+        myStack = stack.Stack()  # create a stack with default stack size 10
         myStack.push(2)
         myStack.push(10)
         myStack.push(12)
@@ -27,20 +29,48 @@ class TestStack(unittest.TestCase):
         self.assertEqual(nullStack.peek(), -1)
         self.assertTrue(nullStack.is_empty())
 
+
 class TestInfixToPostfix(unittest.TestCase):
     def test_infix_to_postfix(self):
         myExp = 'a+b*(c^d-e)^(f+g*h)-i'
         myExp = [i for i in myExp]
-        myStack = stack.Stack(len(myExp))     # create a stack
+        myStack = stack.Stack(len(myExp))  # create a stack
 
         result = stack.InfixToPostfix(myExp, myStack)
         resultString = result.infix_to_postfix()
         expectedResult = 'a b c d ^ e - f g h * + ^ * + i -'
         self.assertTrue(resultString, expectedResult)
 
+
+class KruskalTest(unittest.TestCase):
+    def test_minimum_spanning_tree(self):
+        """
+        test inspired from the example at the following link: https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
+        """
+        edges_weighted = [((1, 2), 7), ((2, 3), 8), ((1, 4), 5), ((2, 4), 9),
+                          ((2, 5), 7), ((3, 5), 5), ((4, 6), 6), ((5, 6), 8),
+                          ((5, 7), 9), ((6, 7), 11), ((4, 5), 15)]
+        wgraph = WeightedGraph()
+        for (u, v), weight in edges_weighted:
+            wgraph.add_edge(u, v, weight)
+        expected = [((1, 4), 5), ((3, 5), 5), ((4, 6), 6), ((1, 2), 7), ((2, 5), 7), ((5, 7), 9)]
+        self.assertEqual(wgraph.kruskal_mst(), expected)
+
+    def test_minimum_spanning_tree_2(self):
+        """
+        Test inspired by the gif at the left of the page https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
+        """
+        edges_weighted = [((1, 2), 3), ((1, 5), 1), ((2, 5), 4), ((2, 3), 5), ((3, 5), 6), ((3, 4), 2), ((4, 5), 7)]
+        wgraph = WeightedGraph()
+        for (u, v), weight in edges_weighted:
+            wgraph.add_edge(u, v, weight)
+        expected = [((1, 5), 1), ((3, 4), 2), ((1, 2), 3), ((2, 3), 5)]
+        self.assertEqual(wgraph.kruskal_mst(), expected)
+
+
 class TestQueue(unittest.TestCase):
     def test_queue(self):
-        myQueue = queue.Queue()     # create a queue with default queue size 10
+        myQueue = queue.Queue()  # create a queue with default queue size 10
         myQueue.enqueue(2)
         myQueue.enqueue(10)
         myQueue.enqueue(12)
@@ -55,13 +85,14 @@ class TestQueue(unittest.TestCase):
 
     def test_deque(self):
         myDeque = queue.Deque()
-        myDeque.insert_front(1)    # 1
-        myDeque.insert_rear(2)     # 2 1
-        myDeque.insert_front(3)    # 2 1 3
-        myDeque.insert_rear(10)    # 10 2 1 3
+        myDeque.insert_front(1)  # 1
+        myDeque.insert_rear(2)  # 2 1
+        myDeque.insert_front(3)  # 2 1 3
+        myDeque.insert_rear(10)  # 10 2 1 3
 
         self.assertEqual(myDeque.delete_rear(), 10)
         self.assertEqual(myDeque.delete_front(), 3)
+
 
 class TestLinkedList(unittest.TestCase):
     def test_singly_linked_list(self):
@@ -91,6 +122,7 @@ class TestLinkedList(unittest.TestCase):
         expectedResult = [4, 1, 3]
         self.assertEqual(dll.get_data(), expectedResult)
 
+
 class TestBinaryTree(unittest.TestCase):
     def test_binary_tree(self):
         root = tree.Node(1)
@@ -108,6 +140,7 @@ class TestBinaryTree(unittest.TestCase):
         postorderTraversal = Tree.postorder(root)
         expectedResult = [4, 2, 3, 1]
         self.assertEqual(postorderTraversal, expectedResult)
+
 
 class TestBinarySearchTree(unittest.TestCase):
     def test_binary_search_tree(self):
@@ -133,6 +166,7 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(postorder, expectedResult)
 
         self.assertTrue(root.find(8))
+
 
 class TestGraph(unittest.TestCase):
     def test_topological_sort(self):
@@ -170,6 +204,7 @@ class TestGraph(unittest.TestCase):
 
         self.assertTrue(myGraph.check_cycle())
 
+
 class TestHeap(unittest.TestCase):
     def test_heap(self):
         myHeap = heap.Heap()
@@ -178,7 +213,7 @@ class TestHeap(unittest.TestCase):
         myHeap.insert(5)
         myHeap.insert(12)
         myHeap.insert(1)
-        
+
         expectedResult = [1, 3, 5, 12, 6]
         self.assertEqual(myHeap.queue, expectedResult)
 
@@ -201,6 +236,7 @@ class TestHeap(unittest.TestCase):
         self.assertEqual(myHeap.pop(), 12)
         expectedResult = []
         self.assertEqual(myHeap.queue, expectedResult)
+
 
 if __name__ == '__main__':
     unittest.main()
