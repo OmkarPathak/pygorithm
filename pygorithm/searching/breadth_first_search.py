@@ -2,7 +2,7 @@
 # Created On: 1st August 2017
 
 #  breadth first search algorithm
-def bfs(graph, startVertex):
+def search(graph, startVertex):
     # Take a list for stoting already visited vertexes
     if startVertex not in graph or graph[startVertex] is None or graph[startVertex] == []:
         return None
@@ -25,4 +25,4 @@ def time_complexities():
 # easily retrieve the source code of the bfs function
 def get_code():
     import inspect
-    return inspect.getsource(bfs)
+    return inspect.getsource(search)

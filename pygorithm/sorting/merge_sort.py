@@ -21,25 +21,19 @@ def merge(a,b):
     return c
 
 # Code for merge sort
-def sort(x):
+def sort(List):
     """ Function to sort an array using merge sort algorithm """
-    if len(x) == 0 or len(x) == 1:
-        return x
+    if len(List) == 0 or len(List) == 1:
+        return List
     else:
-        middle = len(x)//2
-        a = sort(x[:middle])
-        b = sort(x[middle:])
+        middle = len(List)//2
+        a = sort(List[:middle])
+        b = sort(List[middle:])
         return merge(a,b)
 
 # time complexities
-def bestcase_complexity():
-    return 'O(nlogn)'
-
-def averagecase_complexity():
-    return 'O(nlogn)'
-
-def worstcase_complexity():
-    return 'O(nlogn)'
+def time_complexities():
+    return '''Best Case: O(nlogn), Average Case: O(nlogn), Worst Case: O(nlogn)'''
 
 # easily retrieve the source code of the sort function
 def get_code():

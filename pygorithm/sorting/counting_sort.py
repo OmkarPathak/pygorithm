@@ -4,25 +4,25 @@
 #  Best = Average = Worst =  O(n + k)
 
 # counting sort algorithm
-def sort(myList):
+def sort(List):
     try:
         maxValue = 0
-        for i in range(len(myList)):
-            if myList[i] > maxValue:
-                maxValue = myList[i]
+        for i in range(len(List)):
+            if List[i] > maxValue:
+                maxValue = List[i]
 
         buckets = [0] * (maxValue + 1)
 
-        for i in myList:
+        for i in List:
             buckets[i] += 1
 
         i = 0
         for j in range(maxValue + 1):
              for a in range(buckets[j]):
-                 myList[i] = j
+                 List[i] = j
                  i += 1
 
-        return myList
+        return List
 
     except TypeError:
         print('Counting Sort can only be applied to integers')

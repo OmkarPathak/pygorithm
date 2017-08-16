@@ -4,24 +4,18 @@
 #  Best = Average = O(nlog(n)), Worst = O(n ^ 2)
 
 # quick_sort algorithm
-def sort(arr):
-    if len(arr) <= 1:
-        return arr
-    pivot = arr[len(arr) // 2]
-    left = [x for x in arr if x < pivot]
-    middle = [x for x in arr if x == pivot]
-    right = [x for x in arr if x > pivot]
+def sort(List):
+    if len(List) <= 1:
+        return List
+    pivot = List[len(List) // 2]
+    left = [x for x in List if x < pivot]
+    middle = [x for x in List if x == pivot]
+    right = [x for x in List if x > pivot]
     return sort(left) + middle + sort(right)
 
 # time complexities
-def bestcase_complexity():
-    return 'O(nlogn)'
-
-def averagecase_complexity():
-    return 'O(nlogn)'
-
-def worstcase_complexity():
-    return 'O(n ^ 2)'
+def time_complexities():
+    return '''Best Case: O(nlogn), Average Case: O(nlogn), Worst Case: O(n ^ 2)'''
 
 # easily retrieve the source code of the sort function
 def get_code():

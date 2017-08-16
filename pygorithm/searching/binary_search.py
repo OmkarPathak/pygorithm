@@ -9,15 +9,18 @@ def search(List, target):
     right = len(List) - 1   # Last position of the list
 
     try:
+        found = False
         while left <= right:    # you can also write while True condition
             mid = (left + right) // 2
             if target == List[mid]:
+                found = True
                 return mid
             elif target < List[mid]:
                 right =  mid - 1
             else:
                 left = mid + 1
-        return -1
+        if found == False:
+            return -1
     except TypeError:
         return -1
 

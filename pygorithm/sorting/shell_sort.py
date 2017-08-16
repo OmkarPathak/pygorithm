@@ -1,32 +1,26 @@
 # Author: OMKAR PATHAK
 # Created On: 31st July 2017
 
-# Best Case O(n logn); Average Case O(depends on gap sequence); Worst Case O(n)
+# Best Case O(n logn); Average Case O(depends on gap sequence); Worst Case O(n^2)
 
 # shell sort algorithm
-def sort(myList):
-    gap = len(myList) // 2
+def sort(List):
+    gap = len(List) // 2
     while gap > 0:
-        for i in range(gap, len(myList)):
-            currentItem = myList[i]
+        for i in range(gap, len(List)):
+            currentItem = List[i]
             j = i
-            while j >= gap and myList[j - gap] > currentItem:
-                myList[j] = myList[j - gap]
+            while j >= gap and List[j - gap] > currentItem:
+                List[j] = List[j - gap]
                 j -= gap
-            myList[j] = currentItem
+            List[j] = currentItem
         gap //= 2
 
-    return myList
+    return List
 
 # time complexities
-def bestcase_complexity():
-    return 'O(nlogn)'
-
-def averagecase_complexity():
-    return 'O(depends on gap sequence)'
-
-def worstcase_complexity():
-    return 'O(n)'
+def time_complexities():
+    return '''Best Case: O(nlogn), Average Case: O(depends on gap sequence), Worst Case: O(n ^ 2)'''
 
 # easily retrieve the source code of the sort function
 def get_code():
