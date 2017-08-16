@@ -10,19 +10,19 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name = 'pygorithm',
-    version = '0.1.dev2',
-    description = 'A Python algorithms module for learning',
-    long_description = long_description,
+    name='pygorithm',
+    version='0.1',
+    description='A Python algorithms module for learning',
+    long_description=long_description,
     # The project's main homepage.
     url='https://github.com/OmkarPathak/pygorithms',
     # Author details
-    author = 'Omkar Pathak',
-    author_email = 'omkarpathak27@gmail.com',
+    author='Omkar Pathak',
+    author_email='omkarpathak27@gmail.com',
     # Choose your license
-    license = 'MIT',
+    license='MIT',
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
-    classifiers = [
+    classifiers=[
         # Indicate who your project is intended for
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Libraries',
@@ -38,5 +38,5 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
-    packages = find_packages()
+    packages=find_packages()
 )
