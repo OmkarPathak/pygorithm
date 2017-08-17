@@ -10,6 +10,22 @@ This would encourage me to create many such softwares :)
 
 PayPal -> https://paypal.me/omkarpathak27
 INR - > https://www.instamojo.com/@omkarpathak/
+
+CONTRIBUTORS:
+
+Mohamed 'MohamedKiouaz' Kiouaz
+Ashutosh 'ashu01' Gupta
+Allston 'AllstonMickey' Mickey
+Dmytro 'dmytrostriletskyi' Striletskyi
+Emett 'the-kid89' Speer
+Viktor 'vhag' Hagstrom
+Dion 'kingdion' Misic
+Chandan 'crowchirp' Rai
+Jae Hyeon 'skystar-p' Park
+dstark85
+Songzhuozhuo 'souo'
+Emil 'Skeen' Madsen
+
 """
 from pygorithm import data_structures
 from pygorithm import fibonacci
@@ -21,13 +37,30 @@ __version__ = '1.0.0'
 __author__ = 'Omkar Pathak'
 
 # List maintainers here
-__maintainers__ = ['Omkar Pathak']
+__maintainers__ = [
+    'Omkar Pathak'
+]
 # List contributors here
-__contributors__ = ['Mohamed Kiouaz',
-                    'Ashutosh Gupta']
+__contributors__ = [
+	"Omkar 'OmkarPathak' Pathak"
+    "Mohamed 'MohamedKiouaz' Kiouaz",
+    "Ashutosh 'ashu01' Gupta",
+    "Allston 'AllstonMickey' Mickey",
+    "Dmytro 'dmytrostriletskyi' Striletskyi",
+    "Emett 'the-kid89' Speer",
+    "Viktor 'vhag' Hagstrom",
+    "Dion 'kingdion' Misic",
+    "Chandan 'crowchirp' Rai",
+    "Jae Hyeon 'skystar-p' Park",
+    "dstark85",
+    "Songzhuozhuo 'souo'",
+    "Emil 'Skeen' Madsen"
+]
 
-__all__ = ['data_structures',
-           'fibonacci',
-           'math',
-           'searching',
-           'sorting']
+__all__ = [
+    'data_structures',
+   'fibonacci',
+   'math',
+   'searching',
+   'sorting'
+]
