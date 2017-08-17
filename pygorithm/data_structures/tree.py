@@ -157,7 +157,7 @@ class BSTNode(object):
     def delete(self, data):
         ''' For deleting the BSTNode '''
         if self is None:
-            return root
+            return None
 
         # if current BSTNode's data is less than that of root BSTNode, then only search in left subtree else right subtree
         if data < self.data:
