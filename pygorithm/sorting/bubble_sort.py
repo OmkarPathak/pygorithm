@@ -1,39 +1,63 @@
-# Author: OMKAR PATHAK
-# Contributors: Mohamed Kiouaz
-# Created On: 31st July 2017
+"""
+Author: OMKAR PATHAK
+Contributors: Mohamed Kiouaz
+Created On: 31st July 2017
 
-# Best O(n); Average O(n*(n-1)/4); Worst O(n^2)
+Best O(n); Average O(n*(n-1)/4); Worst O(n^2)
+"""
+import inspect
 
-# Bubble Sorting algorithm
-def sort(List):
-    for i in range(len(List)):
-        for j in range(len(List) - 1, i, -1):
-            if List[j] < List[j - 1]:
-                List[j], List[j - 1] = List[j - 1], List[j]
-    return List
 
-# Improved Bubble Sorting algorithm
-def improved_sort(List):
-    for i in range(len(List)):
+def sort(_list):
+    """
+    Bubble Sorting algorithm
+
+    :param _list: list of values to sort
+    :return: sorted values
+    """
+    for i in range(len(_list)):
+        for j in range(len(_list) - 1, i, -1):
+            if _list[j] < _list[j - 1]:
+                _list[j], _list[j - 1] = _list[j - 1], _list[j]
+    return _list
+
+
+def improved_sort(_list):
+    """
+    Improved Bubble Sorting algorithm
+
+    :param _list: list of values to sort
+    :return: sorted values
+    """
+    for i in range(len(_list)):
         stop = True
-        for j in range(len(List) - 1, i, -1):
-            if List[j] < List[j - 1]:
+        for j in range(len(_list) - 1, i, -1):
+            if _list[j] < _list[j - 1]:
                 stop = False
-                List[j], List[j - 1] = List[j - 1], List[j]
-        if(stop == True):
-            return List
-    return List
+                _list[j], _list[j - 1] = _list[j - 1], _list[j]
+        if stop:
+            return _list
+    return _list
 
-# time complexities
+
+# TODO: Are these necessary?
 def time_complexities():
-    return '''Best Case: O(n) , Average Case: O(n ^ 2), Worst Case: O(n ^ 2) \n For Improved Bubble Sort: \n Best Case: O(n); Average Case: O(n * (n - 1) / 4); Worst Case: O(n ^ 2) '''
+    """
+    Return information on functions
+    time complexity
+    :return: string
+    """
+    return "Best Case: O(n), " \
+           "Average Case: O(n ^ 2), " \
+           "Worst Case: O(n ^ 2).\n\n" \
+           "For Improved Bubble Sort:\nBest Case: O(n); Average Case: O(n * (n - 1) / 4); Worst Case: O(n ^ 2)"
 
-# easily retrieve the source code of the sort function
+
 def get_code():
-    import inspect
-    return inspect.getsource(sort)
+    """
+    easily retrieve the source code
+    of the sort function
 
-# easily retrieve the source code of the sort function
-def get_improved_code():
-    import inspect
-    return inspect.getsource(improved_sort)
+    :return: source code
+    """
+    return inspect.getsource(sort)

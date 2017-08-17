@@ -1,5 +1,15 @@
-from pygorithm.fibonacci import generator
-from pygorithm.fibonacci import goldenratio
-from pygorithm.fibonacci import memoization
-from pygorithm.fibonacci.modules import modules
-from pygorithm.fibonacci import recursion
+"""
+Collection of fibonacci methods and functions
+"""
+from . import generator
+from . import goldenratio
+from . import memoization
+from . import modules
+from . import recursion
+
+__all__ = [
+    'generator',
+    'goldenratio',
+    'memoization',
+    'recursion'
+]

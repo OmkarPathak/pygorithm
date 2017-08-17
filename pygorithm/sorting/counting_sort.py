@@ -1,37 +1,58 @@
-# Author: OMKAR PATHAK
-# Created On: 31st July 2017
+"""
+Author: OMKAR PATHAK
+Created On: 31st July 2017
 
-#  Best = Average = Worst =  O(n + k)
+ - Best = Average = Worst =  O(n + k)
+"""
+import inspect
+
 
 # counting sort algorithm
-def sort(List):
+def sort(_list):
+    """
+    counting sort algorithm
+    
+    :param _list: list of values to sort
+    :return: sorted values
+    """
     try:
-        maxValue = 0
-        for i in range(len(List)):
-            if List[i] > maxValue:
-                maxValue = List[i]
+        max_value = 0
+        for i in range(len(_list)):
+            if _list[i] > max_value:
+                max_value = _list[i]
 
-        buckets = [0] * (maxValue + 1)
+        buckets = [0] * (max_value + 1)
 
-        for i in List:
+        for i in _list:
             buckets[i] += 1
-
         i = 0
-        for j in range(maxValue + 1):
-             for a in range(buckets[j]):
-                 List[i] = j
-                 i += 1
 
-        return List
+        for j in range(max_value + 1):
+            for a in range(buckets[j]):
+                _list[i] = j
+                i += 1
 
-    except TypeError:
-        print('Counting Sort can only be applied to integers')
+        return _list
 
-# time complexities
+    except TypeError as error:
+        print('Counting Sort can only be applied to integers. {}'.format(error))
+
+
+# TODO: Are these necessary?
 def time_complexities():
-    return '''Best Case: O(n + k), Average Case: O(n + k), Worst Case: O(n + k)'''
+    """
+    Return information on functions
+    time complexity
+    :return: string
+    """
+    return "Best Case: O(n + k), Average Case: O(n + k), Worst Case: O(n + k)"
 
-# easily retrieve the source code of the sort function
+
 def get_code():
-    import inspect
+    """
+    easily retrieve the source code
+    of the sort function
+
+    :return: source code
+    """
     return inspect.getsource(sort)

@@ -1,45 +1,78 @@
-# Author: OMKAR PATHAK
-# Created On: 31st July 2017
+"""
+Author: OMKAR PATHAK
+Created On: 31st July 2017
 
-# Best O(nlog(n)); Average O(nlog(n)); Worst O(nlog(n))
+ - Best O(nlog(n))
+ - Average O(nlog(n))
+ - Worst O(nlog(n))
 
-# heap sort algorithm
-def sort(List):
-    heapify(List)              # create the heap
-    end = len(List) - 1
+"""
+import inspect
+
+
+def sort(_list):
+    """
+    heap sort algorithm
+
+    :param _list: list of values to sort
+    :return: sorted values
+    """
+    # TODO: Add description of how this works!
+    
+    # create the heap
+    heapify(_list)              
+    end = len(_list) - 1
     while end > 0:
-        List[end], List[0] = List[0], List[end]
-        shiftDown(List, 0, end - 1)
+        _list[end], _list[0] = _list[0], _list[end]
+        shift_down(_list, 0, end - 1)
         end -= 1
-    return List
+    return _list
 
-def heapify(List):
-    ''' This function helps to maintain the heap property '''
-    # start = (len(List) - 2) // 2         (faster execution)
-    start = len(List) // 2
+
+def heapify(_list):
+    """
+    function helps to maintain the heap property
+    
+    :param _list: list of values to sort
+    :return: sorted values
+    """
+
+    start = len(_list) // 2
     while start >= 0:
-        shiftDown(List, start, len(List) - 1)
+        shift_down(_list, start, len(_list) - 1)
         start -= 1
 
-def shiftDown(List, start, end):
+
+def shift_down(_list, start, end):
     root = start
     while root * 2 + 1 <= end:
         child = root * 2 + 1
         # right child exists and is greater than left child
-        if child + 1 <= end and List[child] < List[child + 1]:
+        if child + 1 <= end and _list[child] < _list[child + 1]:
             child += 1
         # if child is greater than root(parent), then swap their positions
-        if child <= end and List[root] < List[child]:
-            List[root], List[child] = List[child], List[root]
+        if child <= end and _list[root] < _list[child]:
+            _list[root], _list[child] = _list[child], _list[root]
             root = child
         else:
             return
 
-# time complexities
-def time_complexities():
-    return '''Best Case: O(nlogn), Average Case: O(nlogn), Worst Case: O(nlogn)'''
 
-# easily retrieve the source code of the sort function
+# TODO: Are these necessary?
+def time_complexities():
+    """
+    Return information on functions
+    time complexity
+    :return: string
+    """
+    return "Best Case: O(nlogn), Average Case: O(nlogn), Worst Case: O(nlogn)"
+
+
 def get_code():
-    import inspect
+    """
+    easily retrieve the source code 
+    of the sort function
+
+    :return: source code
+    """
     return inspect.getsource(sort)
