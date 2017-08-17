@@ -1,11 +1,22 @@
-# Author: OMKAR PATHAK
-# Created On: 31st July 2017
+"""
+Author: OMKAR PATHAK
+Created On: 31st July 2017
 
-# Best = Average = Worst = O(nlog(n))
+ - Best = Average = Worst = O(n log(n))
+ 
+"""
+import inspect
 
-# merge function to merge the separated lists
-def merge(a,b):
-    """ Function to merge two arrays """
+
+def merge(a, b):
+    """
+    Function to merge 
+    two arrays / separated lists
+    
+    :param a: Array 1
+    :param b: Array 2
+    :return: merged arrays
+    """
     c = []
     while len(a) != 0 and len(b) != 0:
         if a[0] < b[0]:
@@ -20,22 +31,39 @@ def merge(a,b):
         c += a
     return c
 
-# Code for merge sort
-def sort(List):
-    """ Function to sort an array using merge sort algorithm """
-    if len(List) == 0 or len(List) == 1:
-        return List
+
+def sort(_list):
+    """
+    Function to sort an array 
+    using merge sort algorithm 
+    
+    :param _list: list of values to sort
+    :return: sorted
+    """
+    if len(_list) == 0 or len(_list) == 1:
+        return _list
     else:
-        middle = len(List)//2
-        a = sort(List[:middle])
-        b = sort(List[middle:])
-        return merge(a,b)
+        middle = len(_list)//2
+        a = sort(_list[:middle])
+        b = sort(_list[middle:])
+        return merge(a, b)
 
-# time complexities
+
+# TODO: Are these necessary?
 def time_complexities():
-    return '''Best Case: O(nlogn), Average Case: O(nlogn), Worst Case: O(nlogn)'''
+    """
+    Return information on functions
+    time complexity
+    :return: string
+    """
+    return "Best Case: O(nlogn), Average Case: O(nlogn), Worst Case: O(nlogn)"
 
-# easily retrieve the source code of the sort function
+
 def get_code():
-    import inspect
-    return inspect.getsource(sort), inspect.getsource(merge)
+    """
+    easily retrieve the source code 
+    of the sort function
+
+    :return: source code
+    """
+    return inspect.getsource(sort)
