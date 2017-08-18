@@ -88,17 +88,17 @@ class InfixToPostfix(object):
         self.my_stack = stack
 
     @staticmethod
-    def __is_operand(char):
+    def _is_operand(char):
         """
         utility function to find whether the given character is an operator
         """
         # OLD VERSION
         # return ord(char) >= ord('a') and ord(char) <= ord('z') \
         #        or ord(char) >= ord('A') and ord(char) <= ord('Z')
-        return True if ord(char) in [ord(c) for c in list(ascii_letters)] else False
+        return True if ord(char) in [ord(c) for c in ascii_letters] else False
 
     @staticmethod
-    def __precedence(char):
+    def _precedence(char):
         """
         utility function to find precedence of the specified character
         """
@@ -117,7 +117,7 @@ class InfixToPostfix(object):
         """
         postfix = []
         for i in range(len(self.expression)):
-            if self.__is_operand(self.expression[i]):
+            if self._is_operand(self.expression[i]):
                 postfix.append(self.expression[i])
             elif self.expression[i] == '(':
                 self.my_stack.push(self.expression[i])
@@ -127,7 +127,8 @@ class InfixToPostfix(object):
                     postfix.append(top_operator)
                     top_operator = self.my_stack.pop()
             else:
-                while not self.my_stack.is_empty() and self.__precedence(self.expression[i] <= self.__precedence(self.my_stack.peek())):
+                while not self.my_stack.is_empty() and self._precedence(self.expression[i]) <= self._precedence(
+                        self.my_stack.peek()):
                     postfix.append(self.my_stack.pop())
                 self.my_stack.push(self.expression[i])
 
