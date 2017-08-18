@@ -84,15 +84,6 @@ Stack
     .. autoclass:: Stack
        :members:
 
-.. automodule:: pygorithm.data_structures.stack
-
-    Infix to Postfix
-    ----------------
-    .. autoclass:: InfixToPostfix
-       :members:
-
-
-
 Queue
 -----
 
