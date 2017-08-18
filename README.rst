@@ -1,4 +1,4 @@
-=========
+
 Pygorithm
 =========
 
@@ -70,14 +70,32 @@ Quick Start Guide
     time_complexity = bubble_sort.time_complexities()
     print(time_complexity)
 
-* To see all the available functions in a module. For example, if you want to see what all sorts are available in the sorting module, then just do
+* To see all the available functions in a module, you can just type ``help()`` with the module name as argument. For example,
 
 .. code:: python
 
-    >>> from pygorithm.sorting import modules
-    >>> modules()
-    ['bubble_sort', 'bucket_sort', 'counting_sort', 'heap_sort', 'insertion_sort', 'merge_sort', 'quick_sort', 'selection_sort', 'shell_sort']
+    >>> from pygorithm import sorting
+    >>> help(sorting)
+        Help on package pygorithm.sorting in pygorithm:
 
+        NAME
+            pygorithm.sorting - Collection of sorting methods
+
+        PACKAGE CONTENTS
+            bubble_sort
+            bucket_sort
+            counting_sort
+            heap_sort
+            insertion_sort
+            merge_sort
+            modules
+            quick_sort
+            selection_sort
+            shell_sort
+    >>> from pygorithm.sorting import bubble_sort
+    >>> help(bubble_sort)
+
+    
 Tests
 ~~~~~
 
