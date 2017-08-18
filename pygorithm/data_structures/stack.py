@@ -127,8 +127,7 @@ class InfixToPostfix(object):
                     postfix.append(top_operator)
                     top_operator = self.my_stack.pop()
             else:
-                while not self.my_stack.is_empty() \
-                        and self.__precedence(self.expression[i] <= self.__precedence(self.my_stack.peek())):
+                while not self.my_stack.is_empty() and self.__precedence(self.expression[i] <= self.__precedence(self.my_stack.peek())):
                     postfix.append(self.my_stack.pop())
                 self.my_stack.push(self.expression[i])
 

@@ -5,7 +5,7 @@ Created On: 1st August 2017
 import inspect
 
 
-def search(graph, start, path=None):
+def search(graph, start, path=[]):
     """
     depth first search algorithm
 
@@ -18,11 +18,11 @@ def search(graph, start, path=None):
     if start not in graph or graph[start] is None or graph[start] == []:
         return path
 
-    _path = path + [start]
+    path = path + [start]
     for edge in graph[start]:
-        if edge not in _path:
-            _path = search(graph, edge, _path)
-    return _path
+        if edge not in path:
+            path = search(graph, edge, path)
+    return path
 
 
 # TODO: Are these necessary?

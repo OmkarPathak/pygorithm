@@ -29,16 +29,19 @@ def search(_list, target):
     # Last position of the list
     right = len(_list) - 1
 
-    # you can also write while True condition
-    while left <= right:
-        mid = (left + right) // 2
-        if target == _list[mid]:
-            return mid
-        elif target < _list[mid]:
-            right = mid - 1
-        else:
-            left = mid + 1
-    return False
+    try:
+        # you can also write while True condition
+        while left <= right:
+            mid = (left + right) // 2
+            if target == _list[mid]:
+                return mid
+            elif target < _list[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        return False
+    except TypeError:
+        return False
 
 
 # TODO: Are these necessary?
