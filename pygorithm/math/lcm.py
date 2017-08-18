@@ -1,15 +1,25 @@
-# Author    : OMKAR PATHAK
-# Created at: 16th August 2017
+"""
+Author: OMKAR PATHAK
+Created at: 16th August 2017
+"""
+from functools import reduce # need this line if you're using Python3.x
+import inspect
 
-from functools import reduce    # need this line if you're using Python3.x
 
-def lcm(List):
-    ''' function to find LCM for given list of elements
+def lcm(_list):
+    """LCM
+    function to find LCM for given list of elements
+    :param _list: _list of which LCM is to be found out
+    """
 
-        :param List: List of which LCM is to be found out
-     '''
-    def _lcm(a, b):
-        ''' helper function for finding LCM '''
+    def __lcm(a, b):
+        """
+        helper function for finding LCM
+
+        :param a:
+        :param b:
+        :return: lcm
+        """
         if a > b:
             greater = a
         else:
@@ -17,15 +27,16 @@ def lcm(List):
 
         while True:
             if greater % a == 0 and greater % b == 0:
-                lcm = greater
+                lcm_ = greater
                 break
             greater += 1
+        return lcm_
 
-        return lcm
+    return reduce(lambda x, y: __lcm(x, y), _list)
 
-    return reduce(lambda x, y: _lcm(x, y), List)
 
 def get_code():
-    """ returns the code for the current class """
-    import inspect
+    """
+    returns the code for the lcm function
+    """
     return inspect.getsource(lcm)

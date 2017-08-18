@@ -1,5 +1,7 @@
-# Author: OMKAR PATHAK
-# Created On: 3rd August 2017
+"""
+Author: OMKAR PATHAK
+Created On: 3rd August 2017
+"""
 
 # queue implementation
 class Queue(object):

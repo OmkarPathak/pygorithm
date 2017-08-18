@@ -1,15 +1,25 @@
-#Author: OMKAR PATHAK
-# Created On: 17th August 2017
+"""
+Author: OMKAR PATHAK
+Created On: 17th August 2017
+"""
+import inspect
+
 
 def is_palindrome(string):
-    '''This function checks the string for palindrome'''
-    revString = string[::-1]
-    if string == revString:
+    """
+    Checks the string for palindrome
+    
+    :param string: string to check
+    :return: true if string is a palindrome false if not
+    """
+    if string is string[::-1]:
         return True
-    else:
-        return False
+    return False
+
 
 def get_code():
-    """ returns the code for the current class """
-    import inspect
-    return inspect.getsource(palindrome)
+    """
+    returns the code for the is_palindrome function
+    :return: source code
+    """
+    return inspect.getsource(is_palindrome)

@@ -1,7 +1,6 @@
 """
 Fibonacci implementation through generator.
 """
-
 import inspect
 
 
@@ -17,18 +16,16 @@ def get_sequence(n):
         Fibonacci's relation to the golden ratio — https://en.wikipedia.org/wiki/Fibonacci_number#Closed-form_expression
         """
         a, b = 0, 1
-
         while True:
             yield a
-
             a, b = b, a + b
 
-    def sequence(n):
+    def sequence(_n):
         """
         Return sequence of Fibonacci values as list.
         """
         f = fib()
-        return [f.__next__() for _ in range(n + 1)]
+        return [f.__next__() for _ in range(_n + 1)]
 
     return sequence(n)
 

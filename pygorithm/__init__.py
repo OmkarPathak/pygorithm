@@ -25,6 +25,7 @@ Jae Hyeon 'skystar-p' Park
 dstark85
 Songzhuozhuo 'souo'
 Emil 'Skeen' Madsen
+Ian 'IanDoarn' Doarn
 
 """
 from pygorithm import data_structures
@@ -32,6 +33,7 @@ from pygorithm import fibonacci
 from pygorithm import math
 from pygorithm import searching
 from pygorithm import sorting
+from pygorithm import string
 
 __version__ = '1.0.0'
 __author__ = 'Omkar Pathak'
@@ -54,13 +56,15 @@ __contributors__ = [
     "Jae Hyeon 'skystar-p' Park",
     "dstark85",
     "Songzhuozhuo 'souo'",
-    "Emil 'Skeen' Madsen"
+    "Emil 'Skeen' Madsen",
+    "Ian 'IanDoarn' Doarn"
 ]
 
 __all__ = [
     'data_structures',
-   'fibonacci',
-   'math',
-   'searching',
-   'sorting'
+    'fibonacci',
+    'math',
+    'searching',
+    'sorting',
+    'string'
 ]
