@@ -116,6 +116,7 @@ class InfixToPostfix(object):
         function to generate postfix expression from infix expression
         """
         postfix = []
+
         for i in range(len(self.expression)):
             if self._is_operand(self.expression[i]):
                 postfix.append(self.expression[i])
