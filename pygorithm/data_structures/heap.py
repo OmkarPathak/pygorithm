@@ -1,8 +1,10 @@
-# Author: ALLSTON MICKEY
-# Contributed: OMKAR PATHAK
-# Created On: 11th August 2017
-
+"""
+Author: ALLSTON MICKEY
+Contributed: OMKAR PATHAK
+Created On: 11th August 2017
+"""
 from pygorithm.data_structures import queue
+
 
 class Heap(queue.Queue):
     ''' min-heap implementation as queue '''

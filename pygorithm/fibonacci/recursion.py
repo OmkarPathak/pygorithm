@@ -1,7 +1,6 @@
 """
 Fibonacci implementation through recursion.
 """
-
 import inspect
 
 
