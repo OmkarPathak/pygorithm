@@ -7,7 +7,8 @@ from pygorithm.data_structures import (
     linked_list,
     tree,
     graph,
-    heap)
+    heap,
+    trie)
 
 
 class TestStack(unittest.TestCase):
@@ -235,6 +236,23 @@ class TestHeap(unittest.TestCase):
         self.assertEqual(myHeap.pop(), 12)
         expectedResult = []
         self.assertEqual(myHeap.queue, expectedResult)
+
+
+class TestTrie(unittest.TestCase):
+    def test_stack(self):
+        myTrie = trie.Trie()
+        myTrie.Insert('the')
+        myTrie.Insert('turtle')
+        myTrie.Insert('thesaurus')
+        myTrie.Insert('chocolate')
+        myTrie.Insert('flying')
+
+        self.assertEqual(myTrie.FindWords('th'), ['the', 'thesaurus'])
+        self.assertEqual(myTrie.FindWords('e'), None)
+
+        self.assertEqual(myTrie.Search('chocolate'), True)
+        self.assertEqual(myTrie.Search('flying'), True)
+        self.assertEqual(myTrie.Search('walking'), False)
 
 
 if __name__ == '__main__':
