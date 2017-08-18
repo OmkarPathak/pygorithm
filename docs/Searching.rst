@@ -30,13 +30,27 @@ Features
     - Breadth First Search (breadth_first_search)
     - Depth First Search (depth_first_search)
 
-* To see all the available functions in a module there is a `modules()` function available. For example,
+* To see all the available functions in a module, you can just type ``help()`` with the module name as argument. For example,
 
 .. code:: python
 
-    >>> from pygorithm.searching import modules
-    >>> modules()
-    ['binary_search', 'breadth_first_search', 'depth_first_search', 'linear_search', 'quick_select']
+    >>> from pygorithm import searching
+    >>> help(searching)
+            Help on package pygorithm.searching in pygorithm:
+
+            NAME
+            pygorithm.searching - Collection of searching algorithms
+
+            PACKAGE CONTENTS
+            binary_search
+            breadth_first_search
+            depth_first_search
+            linear_search
+            modules
+            quick_select
+    >>> from pygorithm.searching import binary_search)
+    >>> help(binary_search)
+
 
 * For Searching:
   Remember ``search()`` function in `binary_search` module takes two parameters as a sorted list and the target element to be searched.

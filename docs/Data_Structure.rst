@@ -52,13 +52,27 @@ Features
     myStack = Stack()
     print(myStack.get_code())
 
-* To see all the available functions in a module there is a `modules()` function available. For example,
+* To see all the available functions in a module, you can just type ``help()`` with the module name as argument. For example,
 
 .. code:: python
 
-    >>> from pygorithm.data_structures import modules
-    >>> modules()
-    ['graph', 'heap', 'linked_list', 'queue', 'stack', 'tree']
+    >>> from pygorithm import data_structures
+    >>> help(data_structures)
+            Help on package pygorithm.data_structures in pygorithm:
+
+            NAME
+            pygorithm.data_structures
+
+            PACKAGE CONTENTS
+            graph
+            heap
+            linked_list
+            modules
+            queue
+            stack
+            tree
+    >>> from pygorithm.data_structures import graph
+    >>> help(graph)
 
 Stack
 -----

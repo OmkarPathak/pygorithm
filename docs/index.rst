@@ -2,6 +2,9 @@
 Pygorithm
 =========
 
+Introduction
+------------
+
 ``Pygorithm``: A fun way to learn algorithms on the go! Just import the module and start learning, it's that easy.
 
 A Python module written in pure python and for purely educational purposes.
@@ -23,6 +26,7 @@ Quick Links
    Searching
    Data_Structure
    Fibonacci
+   Math
 
 Quick Start Guide
 -----------------

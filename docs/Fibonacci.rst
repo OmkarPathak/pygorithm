@@ -32,13 +32,26 @@ Features
     code = fib_recursion.get_code()
     print(code)
 
-* To see all the available functions in a module there is a `modules()` function available. For example,
+* To see all the available functions in a module, you can just type ``help()`` with the module name as argument. For example,
 
 .. code:: python
 
-    >>> from pygorithm.fibonacci import modules
-    >>> modules()
-    ['generator', 'goldenratio', 'memoization', 'recursion']
+    >>> from pygorithm import fibonacci
+    >>> help(fibonacci)
+            Help on package pygorithm.fibonacci in pygorithm:
+
+            NAME
+            pygorithm.fibonacci - Collection of fibonacci methods and functions
+
+            PACKAGE CONTENTS
+            generator
+            goldenratio
+            memoization
+            modules
+            recursion
+
+    >>> from pygorithm.fibonacci import memoization
+    >>> help(memoization)
 
 Implementations API
 -------------------
