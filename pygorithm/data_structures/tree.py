@@ -1,248 +1,324 @@
-# Author: OMKAR PATHAK
-# Created On: 9th August 2017
+"""
+Author: OMKAR PATHAK
+Created On: 9th August 2017
 
-# Node class to create a node for binary tree
+Node class to create a node 
+for binary tree
+"""
+import inspect
+
+
 class Node(object):
-    ''' Node class for creating a node for tree.
-        Each node has its data and a pointer that points to next node in the Linked List
-    '''
-    def __init__(self, data = None):
+    """
+    Node class for creating a node for tree.
+    Each node has its data and a pointer
+    that points to next node in the Linked List
+    """
+    def __init__(self, data=None):
         self.left = None
         self.right = None
         self.data = data
 
     def set_left(self, node):
-        ''' for setting the left child of the node '''
+        """
+        for setting the left child of the node
+        """
         self.left = node
 
     def set_right(self, node):
-        ''' for setting the right child of the node '''
+        """
+        for setting the right child of the node
+        """
         self.right = node
 
     def get_left(self):
-        ''' for getting the left child of the node '''
+        """
+        for getting the left child of the node
+        """
         return self.left
 
     def get_right(self):
-        ''' for getting the right child of the node '''
+        """
+        for getting the right child of the node
+        """
         return self.right
 
     def set_data(self, data):
-        ''' for setting the data of the node '''
+        """
+        for setting the data of the node
+        """
         self.data = data
 
     def get_data(self):
-        ''' for getting the data of the node '''
+        """
+        for getting the data of the node
+        """
         return self.data
 
-    # easily retrieve the source code of the Node class
-    def get_code(self):
-        ''' returns the code of the current class '''
-        import inspect
+    @staticmethod
+    def get_code():
+        """
+        returns the code of the current class
+        """
         return inspect.getsource(Node)
 
+
 class BinaryTree(object):
-    ''' BinaryTree class to create a binary tree '''
+    """
+    BinaryTree class to create a binary tree
+    """
     def __init__(self):
-        self._inorder = []
-        self._preorder = []
-        self._postorder = []
+        self._in_order = []
+        self._pre_order = []
+        self._post_order = []
 
     def inorder(self, root):
-        '''
-        @type: root:   Node object
-        in this we traverse first to the leftmost node, then print its data and then traverse for rightmost node
-        '''
+        """
+        in this we traverse first to the leftmost node,
+        then print its data and then traverse for rightmost node
+        :param root: Node object
+        """
         if root:
-            self.inorder(root.get_left())                # traverse to leftmost child
-            self._inorder.append(root.get_data())        # get the data of current node
-            self.inorder(root.get_right())               # traverse to rightmost child
-        return self._inorder
+            # traverse to leftmost child
+            self.inorder(root.get_left())
+            # get the data of current node
+            self._in_order.append(root.get_data())
+            # traverse to rightmost child
+            self.inorder(root.get_right())
+        return self._in_order
 
     def preorder(self, root):
-        '''
-        @type: root:   Node object
-        in this we first print the root node and then traverse towards leftmost node and then to the rightmost node
-        '''
+        """
+        in this we first print the root node and then
+        traverse towards leftmost node and then to the rightmost node
+        :param root: Node object
+        """
         if root:
-            self._preorder.append(root.get_data())       # get the data of current node
-            self.preorder(root.get_left())               # traverse to leftmost child
-            self.preorder(root.get_right())              # traverse to rightmost child
-        return self._preorder
+            # get the data of current node
+            self._pre_order.append(root.get_data())
+            # traverse to leftmost child
+            self.preorder(root.get_left())
+            # traverse to rightmost child
+            self.preorder(root.get_right())
+        return self._pre_order
 
     def postorder(self, root):
-        '''
-        @type: root:   Node object
-        in this we first traverse to the leftmost node and then to the rightmost node and then print the data
-        '''
+        """
+        in this we first traverse to the leftmost node and then
+        to the rightmost node and then print the data
+        :param root: Node object
+        """
         if root:
-            self.postorder(root.get_left())              # traverse to leftmost child
-            self.postorder(root.get_right())             # traverse to rightmost child
-            self._postorder.append(root.get_data())      # get the data of current node
-        return self._postorder
+            # traverse to leftmost child
+            self.postorder(root.get_left())
+            # traverse to rightmost child
+            self.postorder(root.get_right())
+            # traverse to rightmost child
+            self._post_order.append(root.get_data())
+        return self._post_order
 
-    # easily retrieve the source code of the BinaryTree class
-    def get_code(self):
-        ''' returns the code of the current class '''
-        import inspect
+    @staticmethod
+    def get_code():
+        """
+        returns the code of the current class
+        """
         return inspect.getsource(BinaryTree)
 
+
 class BSTNode(object):
-    ''' class for creating a node for Binary Search tree '''
+    """
+    class for creating a node for Binary Search tree
+    """
     def __init__(self, data):
         self.data = data
-        self.leftChild = None
-        self.rightChild = None
-        self._inorder = []
-        self._preorder = []
-        self._postorder = []
+        self.left_child = None
+        self.right_child = None
+        self._in_order = []
+        self._pre_order = []
+        self._post_order = []
 
     def set_left(self, node):
-        ''' for setting the left child of the node '''
-        self.leftChild = node
+        """
+        for setting the left child of the node
+        """
+        self.left_child = node
 
     def set_right(self, node):
-        ''' for setting the right child of the node '''
-        self.rightChild = node
+        """
+        for setting the right child of the node
+        """
+        self.right_child = node
 
     def get_left(self):
-        ''' returns the left child of the current node '''
-        return self.leftChild
+        """
+        returns the left child of the current node
+        """
+        return self.left_child
 
     def get_right(self):
-        ''' returns the right child of the current node '''
-        return self.rightChild
+        """
+        returns the right child of the current node
+        """
+        return self.right_child
 
-    # for setting data of a node
     def set_data(self, data):
-        ''' for setting the data of a node '''
+        """
+        for setting the data of a node
+        """
         self.data = data
 
-    # for getting data of a node
     def get_data(self):
-        ''' returns the data of the current node '''
+        """
+        returns the data of the current node
+        """
         return self.data
 
     def insert(self, data):
-        ''' For inserting the data in the Tree '''
+        """
+        For inserting the data in the Tree
+        """
         if self.data == data:
-            return False        # As BST cannot contain duplicate data
+            # As BST cannot contain duplicate data
+            return False
 
         elif data < self.data:
-            ''' Data less than the root data is placed to the left of the root '''
-            if self.leftChild:
-                return self.leftChild.insert(data)
+            # Data less than the root data is placed to the left of the root
+            if self.left_child:
+                return self.left_child.insert(data)
             else:
-                self.leftChild = BSTNode(data)
+                self.left_child = BSTNode(data)
                 return True
 
         else:
-            ''' Data greater than the root data is placed to the right of the root '''
-            if self.rightChild:
-                return self.rightChild.insert(data)
+            # Data greater than the root data is placed to the right of the root
+            if self.right_child:
+                return self.right_child.insert(data)
             else:
-                self.rightChild = BSTNode(data)
+                self.right_child = BSTNode(data)
                 return True
 
-    def min_val_bst_node(self, BSTNode):
-        ''' for returning the node with the lowest value '''
-        current = BSTNode
+    @staticmethod
+    def min_val_bst_node(bst_node):
+        """
+        for returning the node with the lowest value
+        """
+        current = bst_node
 
         # loop down to find the leftmost leaf
-        while(current.leftChild is not None):
-            current = current.leftChild
+        while current.left_child is not None:
+            current = current.left_child
 
         return current
 
     def delete(self, data):
-        ''' For deleting the BSTNode '''
+        """
+        For deleting the bst_node
+        """
         if self is None:
             return None
 
-        # if current BSTNode's data is less than that of root BSTNode, then only search in left subtree else right subtree
+        # if current bst_node's data is less than that of root bst_node,
+        # then only search in left subtree else right subtree
         if data < self.data:
-            self.leftChild = self.leftChild.delete(data)
+            self.left_child = self.left_child.delete(data)
         elif data > self.data:
-            self.rightChild = self.rightChild.delete(data)
+            self.right_child = self.right_child.delete(data)
         else:
-            # deleting BSTNode with one child
-            if self.leftChild is None:
-                temp = self.rightChild
-                self = None
+            # deleting bst_node with one child
+            if self.left_child is None:
+                temp = self.right_child
                 return temp
-            elif self.rightChild is None:
-                temp = self.leftChild
-                self = None
+            elif self.right_child is None:
+                temp = self.left_child
                 return temp
 
-            # deleting BSTNode with two children
+            # deleting bst_node with two children
             # first get the inorder successor
-            temp = self.min_val_bst_node(self.rightChild)
+            temp = self.min_val_bst_node(self.right_child)
             self.data = temp.data
-            self.rightChild = self.rightChild.delete(temp.data)
+            self.right_child = self.right_child.delete(temp.data)
 
         return self
 
     def find(self, data):
-        ''' This function checks whether the specified data is in tree or not '''
-        if(data == self.data):
+        """
+        This function checks whether the specified data is in tree or not
+        """
+        if data == self.data:
             return True
-        elif(data < self.data):
-            if self.leftChild:
-                return self.leftChild.find(data)
+        elif data < self.data:
+            if self.left_child:
+                return self.left_child.find(data)
             else:
                 return False
         else:
-            if self.rightChild:
-                return self.rightChild.find(data)
+            if self.right_child:
+                return self.right_child.find(data)
             else:
                 return False
 
     def inorder(self, root):
-        '''
-        @type: root:   Node object
-        in this we first traverse to the leftmost node and then print the data and then move to the rightmost child
-        '''
+        """
+        in this we first traverse to the leftmost node and
+        then print the data and then move to the rightmost child
+        :param root: Node object
+        """
         if root:
-            self.inorder(root.get_left())                # traverse to leftmost child
-            self._inorder.append(root.get_data())        # get the data of current node
-            self.inorder(root.get_right())               # traverse to rightmost child
-        return self._inorder
+            # traverse to leftmost child
+            self.inorder(root.get_left())
+            # get the data of current node
+            self._in_order.append(root.get_data())
+            # traverse to rightmost child
+            self.inorder(root.get_right())
+        return self._in_order
 
     def preorder(self, root):
-        '''
-        @type: root:   Node object
-        in this we first print the root node and then traverse towards leftmost node and then to the rightmost node
-        '''
+        """
+        in this we first print the root node and then
+        traverse towards leftmost node and then to the rightmost node
+        :param root: Node object
+        """
         if root:
-            self._preorder.append(root.get_data())       # get the data of current node
-            self.preorder(root.get_left())               # traverse to leftmost child
-            self.preorder(root.get_right())              # traverse to rightmost child
-        return self._preorder
+            # get the data of current node
+            self._pre_order.append(root.get_data())
+            # traverse to leftmost child
+            self.preorder(root.get_left())
+            # traverse to rightmost child
+            self.preorder(root.get_right())              
+        return self._pre_order
 
     def postorder(self, root):
-        '''
-        @type: root:   Node object
-        in this we first traverse to the leftmost node and then to the rightmost node and then print the data
-        '''
+        """
+        in this we first traverse to the leftmost node
+        and then to the rightmost node and then print the data
+        :param root: Node object
+        """
         if root:
-            self.postorder(root.get_left())              # traverse to leftmost child
-            self.postorder(root.get_right())             # traverse to rightmost child
-            self._postorder.append(root.get_data())      # get the data of current node
-        return self._postorder
+            # traverse to leftmost child
+            self.postorder(root.get_left())
+            # traverse to rightmost child
+            self.postorder(root.get_right())
+            # get the data of current node
+            self._post_order.append(root.get_data())      
+        return self._post_order
 
-    # easily retrieve the source code of the BSTNode class
-    def get_code(self):
-        ''' returns the code of current class '''
-        import inspect
+    @staticmethod
+    def get_code():
+        """
+        returns the code of current class
+        """
         return inspect.getsource(BSTNode)
 
+
 class BinarySearchTree(object):
+   
     def __init__(self):
         self.root = None
 
     def insert(self, data):
-        ''' inserts a node in the tree '''
+        """
+        inserts a node in the tree
+        """
         if self.root:
             return self.root.insert(data)
         else:
@@ -250,7 +326,9 @@ class BinarySearchTree(object):
             return True
 
     def delete(self, data):
-        ''' deletes the node with the specified data from the tree '''
+        """
+        deletes the node with the specified data from the tree
+        """
         if self.root is not None:
             return self.root.delete(data)
 
@@ -261,24 +339,29 @@ class BinarySearchTree(object):
             return False
 
     def preorder(self):
-        ''' finding the preorder of the tree '''
+        """
+        finding the preorder of the tree
+        """
         if self.root is not None:
             return self.root.preorder(self.root)
 
     def inorder(self):
-        ''' finding the inorder of the tree '''
-        print()
+        """
+        finding the inorder of the tree
+        """
         if self.root is not None:
             return self.root.inorder(self.root)
 
     def postorder(self):
-        ''' finding the postorder of the tree '''
-        print()
+        """
+        finding the postorder of the tree
+        """
         if self.root is not None:
             return self.root.postorder(self.root)
-
-    # easily retrieve the source code of the BinarySearchTree class
-    def get_code(self):
-        ''' returns the code of the current class '''
-        import inspect
+    
+    @staticmethod
+    def get_code():
+        """
+        returns the code of the current class
+        """
         return inspect.getsource(BinarySearchTree)
