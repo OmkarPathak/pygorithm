@@ -57,7 +57,7 @@ Features
     from pygorithm.pathing import dijkstra
 
     # for printing the source code of Dijkstra object
-    print(dijkstra.get_code())
+    print(dijkstra.Dijikstra.get_code())
 
 Dijkstra
 ---
