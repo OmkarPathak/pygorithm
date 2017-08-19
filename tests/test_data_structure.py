@@ -241,18 +241,18 @@ class TestHeap(unittest.TestCase):
 class TestTrie(unittest.TestCase):
     def test_stack(self):
         myTrie = trie.Trie()
-        myTrie.Insert('the')
-        myTrie.Insert('turtle')
-        myTrie.Insert('thesaurus')
-        myTrie.Insert('chocolate')
-        myTrie.Insert('flying')
+        myTrie.insert('the')
+        myTrie.insert('turtle')
+        myTrie.insert('thesaurus')
+        myTrie.insert('chocolate')
+        myTrie.insert('flying')
 
-        self.assertEqual(myTrie.FindWords('th'), ['the', 'thesaurus'])
-        self.assertEqual(myTrie.FindWords('e'), None)
+        self.assertEqual(myTrie.find_words('th'), ['the', 'thesaurus'])
+        self.assertEqual(myTrie.find_words('e'), None)
 
-        self.assertEqual(myTrie.Search('chocolate'), True)
-        self.assertEqual(myTrie.Search('flying'), True)
-        self.assertEqual(myTrie.Search('walking'), False)
+        self.assertEqual(myTrie.search('chocolate'), True)
+        self.assertEqual(myTrie.search('flying'), True)
+        self.assertEqual(myTrie.search('walking'), False)
 
 
 if __name__ == '__main__':
