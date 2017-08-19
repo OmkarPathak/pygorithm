@@ -254,12 +254,15 @@ class CheckCycleUndirectedGraph(object):
         for adding the edge between two vertices
         """
         # check if vertex is already present,
-        if from_vertex in self.graph.keys() and to_vertex in self.graph.keys():
+        if from_vertex in self.graph.keys():
             self.graph[from_vertex].append(to_vertex)
+        else:
+            # otherwise add it to the graph
+            self.graph[from_vertex] = [to_vertex]
+            
+        if to_vertex in self.graph.keys():
             self.graph[to_vertex].append(from_vertex)
         else:
-            # else make a new vertex
-            self.graph[from_vertex] = [to_vertex]
             self.graph[to_vertex] = [from_vertex]
 
     def check_cycle(self):
