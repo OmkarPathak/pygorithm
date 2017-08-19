@@ -82,6 +82,7 @@ Stack
 
     Stack
     -----
+
     .. autoclass:: Stack
        :members:
 
