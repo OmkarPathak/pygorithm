@@ -74,6 +74,7 @@ Features
     >>> from pygorithm.data_structures import graph
     >>> help(graph)
 
+
 Stack
 -----
 
@@ -82,6 +83,13 @@ Stack
     Stack
     -----
     .. autoclass:: Stack
+       :members:
+
+.. automodule:: pygorithm.data_structures.stack
+
+    Infix to Postfix
+    ----------------
+    .. autoclass:: InfixToPostfix
        :members:
 
 Queue
@@ -202,3 +210,13 @@ Heap
     -----
     .. autoclass:: Heap
        :members:
+
+Trie
+----
+
+.. automodule:: pygorithm.data_structures.trie
+
+    Trie
+    -----
+    .. autoclass:: Trie
+        :members:
