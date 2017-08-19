@@ -1,4 +1,3 @@
-===============
 Data Structures
 ===============
 
@@ -86,8 +85,6 @@ Stack
     .. autoclass:: Stack
        :members:
 
-.. automodule:: pygorithm.data_structures.stack
-
     Infix to Postfix
     ----------------
     .. autoclass:: InfixToPostfix
@@ -103,7 +100,6 @@ Queue
     .. autoclass:: Queue
      :members:
 
-.. automodule:: pygorithm.data_structures.queue
 
     Deque
     -----
@@ -121,19 +117,17 @@ Linked Lists
     .. autoclass:: Node
        :members:
 
-.. automodule:: pygorithm.data_structures.linked_list
 
     Singly Linked List
     ------------------
     .. autoclass:: SinglyLinkedList
        :members:
 
-.. automodule:: pygorithm.data_structures.linked_list
 
-   Doubly Linked List
-   ------------------
-   .. autoclass:: DoublyLinkedList
-      :members:
+    Doubly Linked List
+    ------------------
+    .. autoclass:: DoublyLinkedList
+       :members:
 
 Tree
 ----
@@ -145,14 +139,12 @@ Tree
     .. autoclass:: Node
        :members:
 
-.. automodule:: pygorithm.data_structures.tree
 
     Binary Tree
     -----------
     .. autoclass:: BinaryTree
        :members:
 
-.. automodule:: pygorithm.data_structures.tree
 
     Binary Search Tree Node
     -----------------------
@@ -174,28 +166,24 @@ Graph
     .. autoclass:: Graph
        :members:
 
-.. automodule:: pygorithm.data_structures.graph
 
     Weighted Graph
     --------------
     .. autoclass:: WeightedGraph
        :members:
 
-.. automodule:: pygorithm.data_structures.graph
 
     Topological Sort
     ----------------
     .. autoclass:: TopologicalSort
        :members:
 
-.. automodule:: pygorithm.data_structures.graph
 
     Check Cycle in Directed Graph
     -----------------------------
     .. autoclass:: CheckCycleDirectedGraph
        :members:
 
-.. automodule:: pygorithm.data_structures.graph
 
     Check Cycle in Undirected Graph
     -------------------------------
