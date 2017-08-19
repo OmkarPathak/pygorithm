@@ -14,5 +14,6 @@ __all__ = [
     'linked_list',
     'queue',
     'stack',
-    'tree'
+    'tree',
+    'trie'
 ]

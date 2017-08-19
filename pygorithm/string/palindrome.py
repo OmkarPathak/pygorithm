@@ -8,11 +8,11 @@ import inspect
 def is_palindrome(string):
     """
     Checks the string for palindrome
-    
+
     :param string: string to check
     :return: true if string is a palindrome false if not
     """
-    if string is string[::-1]:
+    if string == string[::-1]:
         return True
     return False
 

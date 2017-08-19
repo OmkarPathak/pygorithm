@@ -1,3 +1,8 @@
+'''
+Node class to create a node
+for trie
+'''
+
 class Node:
     def __init__(self, v, p=None, w=False):
         self.word = w #If the node represents the end of a word or not
@@ -10,9 +15,9 @@ class Trie:
     def __init__(self):
         self.root = Node('') #The root of the trie is always empty
 
-    def Insert(self, word):
+    def insert(self, word):
         """
-        Insert word in the trie. Starting from the root, move down the trie
+        Inserts a word in the trie. Starting from the root, move down the trie
         following the path of characters in the word. If the nodes for the word
         characters end, add them. When the last char is added, mark it as a
         word-ending node.
@@ -34,29 +39,29 @@ class Trie:
 
             curr = curr.children[c]
 
-    def Search(self, word):
+    def search(self, word):
         """
         Searches for given word in trie. We want to find the last node for the
         word. If we can't, then it means the word is not in the trie.
         """
-        if self.FindFinalNode(word):
+        if self.find_final_node(word):
             return True
         else:
             return False
 
-    def FindWords(self, prefix):
+    def find_words(self, prefix):
         """
         Find all words with the given prefix
         """
-        v = self.FindFinalNode(prefix)
-        wList = self.BuildWordList(v, prefix)
+        v = self.find_final_node(prefix)
+        wList = self.build_word_list(v, prefix)
         if(v and v.word):
             #v exists and the prefix is itself a word; add it to the list.
             wList.append(prefix)
 
         return wList
 
-    def FindFinalNode(self, word):
+    def find_final_node(self, word):
         """
         Returns the last node in given word. The process goes like this:
         Start from the root. For every char in word, go down one level.
@@ -81,7 +86,7 @@ class Trie:
 
         return None
 
-    def BuildWordList(self, v, cWord):
+    def build_word_list(self, v, cWord):
         """
         Recursively builds the list of words.
             * v: Node to check
@@ -99,6 +104,6 @@ class Trie:
                 wList.append(tempWord)
 
             #The list of words under tWord
-            wList.extend(self.BuildWordList(k, tempWord))
+            wList.extend(self.build_word_list(k, tempWord))
 
         return wList
