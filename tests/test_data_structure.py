@@ -192,6 +192,24 @@ class TestGraph(unittest.TestCase):
         myGraph.add_edge(3, 3)
 
         self.assertTrue(myGraph.check_cycle())
+    
+    def test_add_edge_in_undirected_graph(self):
+        myGraph = graph.CheckCycleUndirectedGraph()
+        myGraph.add_edge(0, 1)
+        myGraph.add_edge(0, 2)
+        
+        setFrom0 = myGraph.graph[0]
+        setFrom1 = myGraph.graph[1]
+        setFrom2 = myGraph.graph[2]
+        
+        self.assertIsNotNone(setFrom0)
+        self.assertIsNotNone(setFrom1)
+        self.assertIsNotNone(setFrom2)
+        
+        self.assertIn(1, setFrom0)
+        self.assertIn(0, setFrom1)
+        self.assertIn(2, setFrom0)
+        self.assertIn(0, setFrom2)
 
     def test_cycle_in_undirected_graph(self):
         myGraph = graph.CheckCycleUndirectedGraph()
