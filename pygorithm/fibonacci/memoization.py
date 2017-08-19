@@ -1,8 +1,8 @@
 """
 Fibonacci implementation through cache.
 """
-
 import inspect
+# TODO: Fix shadowed parameter names
 
 
 def get_sequence(n):
@@ -17,9 +17,7 @@ def get_sequence(n):
         """
         if n in cache:
             return cache[n]
-
         cache[n] = fib(n - 1) + fib(n - 2)
-
         return cache[n]
 
     def sequence(n):

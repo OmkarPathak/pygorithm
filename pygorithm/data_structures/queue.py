@@ -1,12 +1,18 @@
-# Author: OMKAR PATHAK
-# Created On: 3rd August 2017
+"""
+Author: OMKAR PATHAK
+Created On: 3rd August 2017
+"""
+import inspect
 
-# queue implementation
+
 class Queue(object):
-    def __init__(self, limit = 10):
-        '''
-        @param: limit: queue size
-        '''
+    """Queue
+    Queue implementation
+    """
+    def __init__(self, limit=10):
+        """
+        :param limit: Queue limit size, default @ 10
+        """
         self.queue = []
         self.front = None
         self.rear = None
@@ -17,17 +23,24 @@ class Queue(object):
         return ' '.join([str(i) for i in self.queue])
 
     def size(self):
-        ''' returns the current size of the queue '''
+        """
+        returns the current size of the queue
+        """
         return self.size
 
     def is_empty(self):
-        ''' checks if the queue is empty '''
+        """
+        checks if the queue is empty
+        """
         return self.size <= 0
 
     def enqueue(self, data):
-        ''' inserts an item into the queue '''
+        """
+        inserts an item into the queue
+        """
         if self.size >= self.limit:
-            return -1          # queue overflow
+            # queue overflow
+            return -1
         else:
             self.queue.append(data)
 
@@ -40,9 +53,12 @@ class Queue(object):
         self.size += 1
 
     def dequeue(self):
-        ''' pops an item from the queue which was first inserted '''
+        """
+        pops an item from the queue which was first inserted
+        """
         if self.is_empty():
-            return -1          # queue underflow
+            # queue underflow
+            return -1
         else:
             self.size -= 1
             if self.size == 0:
@@ -52,11 +68,18 @@ class Queue(object):
             return self.queue.pop(0)
 
     def get_code(self):
-        import inspect
+        """
+        Return source code for Queue class
+        :return:
+        """
         return inspect.getsource(Queue)
 
+
 class Deque(object):
-    def __init__(self, limit = 10):
+    """Deque
+    Deque implementation
+    """
+    def __init__(self, limit=10):
         self.queue = []
         self.limit = limit
 
@@ -64,42 +87,56 @@ class Deque(object):
         return ' '.join([str(i) for i in self.queue])
 
     def is_empty(self):
-        ''' checks whether the deque is empty '''
+        """
+        checks whether the deque is empty
+        """
         return len(self.queue) <= 0
 
     def is_full(self):
-        ''' checks whether the deque is full '''
+        """
+        checks whether the deque is full
+        """
         return len(self.queue) >= self.limit
 
     def insert_rear(self, data):
-        ''' inserts an element at the rear end of the deque '''
+        """
+        inserts an element at the rear end of the deque
+        """
         if self.is_full():
             return
         else:
             self.queue.insert(0, data)
 
     def insert_front(self, data):
-        ''' inserts an element at the front end of the deque '''
+        """
+        inserts an element at the front end of the deque
+        """
         if self.is_full():
             return -1
         else:
             self.queue.append(data)
 
     def delete_rear(self):
-        ''' deletes an element from the rear end of the deque '''
+        """
+        deletes an element from the rear end of the deque
+        """
         if self.is_empty():
             return -1
         else:
             return self.queue.pop(0)
 
     def delete_front(self):
-        ''' deletes an element from the front end of the deque '''
+        """
+        deletes an element from the front end of the deque
+        """
         if self.is_full():
             return
         else:
             return self.queue.pop()
 
-    def get_code(self):
-        ''' returns the code of the current class '''
-        import inspect
+    @staticmethod
+    def get_code():
+        """
+        returns the code of the current class
+        """
         return inspect.getsource(Deque)

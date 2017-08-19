@@ -1,6 +1,9 @@
-# Author: Ashutosh Gupta
-# Created On: 8/17/2017
-# Time: 10:03 PM
+"""
+Author: Ashutosh Gupta
+Created On: 8/17/2017
+Time: 10:03 PM
+"""
+import inspect
 
 
 def gcd(x, y):
@@ -15,18 +18,20 @@ def gcd(x, y):
     return x
 
 
-def lcm_using_gcd(List):
-    """ function to find LCM for given list of elements
-
-        :param List: List of which LCM is to be found out
+def lcm_using_gcd(_list):
     """
-    lcm = List[0]
-    for element in List:
-        lcm = lcm * element / gcd(lcm, element)
+    function to find LCM for given list of elements
 
+    :param _list: _list of which LCM is to be found out
+    """
+    lcm = _list[0]
+    for element in _list:
+        lcm = lcm * element / gcd(lcm, element)
     return lcm
 
+
 def get_code():
-    """ returns the code for the current class """
-    import inspect
+    """
+    returns the code for the gcd function
+    """
     return inspect.getsource(lcm_using_gcd)

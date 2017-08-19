@@ -38,7 +38,7 @@ class TestBinarySearch(TestSearchingAlgorithm):
         self.assertIs(alpha_result, 5)
 
         alpha_result = binary_search.search(self.array, 'n')
-        self.assertIs(alpha_result, -1)
+        self.assertIs(alpha_result, False)
 
 
 class TestBFSSearch(unittest.TestCase):
