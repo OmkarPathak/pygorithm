@@ -172,6 +172,12 @@ Graph
     .. autoclass:: WeightedGraph
        :members:
 
+ 
+    Weighted Undirected Graph
+    -------------------------
+    .. autoclass:: WeightedUndirectedGraph
+       :members:
+
 
     Topological Sort
     ----------------
@@ -189,6 +195,7 @@ Graph
     -------------------------------
     .. autoclass:: CheckCycleUndirectedGraph
        :members:
+
 
 Heap
 ----

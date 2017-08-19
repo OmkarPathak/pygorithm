@@ -13,3 +13,4 @@
  - Songzhuozhuo '[souo](https://github.com/souo)'
  - Emil '[Skeen](https://github.com/Skeen)' Madsen
  - Ian '[IanDoarn](https://github.com/IanDoarn)' Doarn
+ - Timothy '[Tjstretchalot](https://github.com/Tjstretchalot)' Moore
