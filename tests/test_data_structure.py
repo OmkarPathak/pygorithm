@@ -18,7 +18,7 @@ class TestStack(unittest.TestCase):
         myStack.push(10)
         myStack.push(12)
         myStack.push(3)
-
+        
         self.assertEqual(myStack.pop(), 3)
         self.assertEqual(myStack.peek(), 12)
         self.assertFalse(myStack.is_empty())
@@ -192,6 +192,24 @@ class TestGraph(unittest.TestCase):
         myGraph.add_edge(3, 3)
 
         self.assertTrue(myGraph.check_cycle())
+    
+    def test_add_edge_in_undirected_graph(self):
+        myGraph = graph.CheckCycleUndirectedGraph()
+        myGraph.add_edge(0, 1)
+        myGraph.add_edge(0, 2)
+        
+        setFrom0 = myGraph.graph[0]
+        setFrom1 = myGraph.graph[1]
+        setFrom2 = myGraph.graph[2]
+        
+        self.assertIsNotNone(setFrom0)
+        self.assertIsNotNone(setFrom1)
+        self.assertIsNotNone(setFrom2)
+        
+        self.assertIn(1, setFrom0)
+        self.assertIn(0, setFrom1)
+        self.assertIn(2, setFrom0)
+        self.assertIn(0, setFrom2)
 
     def test_cycle_in_undirected_graph(self):
         myGraph = graph.CheckCycleUndirectedGraph()
@@ -204,7 +222,91 @@ class TestGraph(unittest.TestCase):
 
         self.assertTrue(myGraph.check_cycle())
 
-
+    def test_creating_weighted_undirected_graph(self):
+        myGraph = graph.WeightedUndirectedGraph()
+        myGraph.add_edge(0, 1, 1)
+        
+        self.assertIn(0, myGraph.graph[1])
+        self.assertIn(1, myGraph.graph[0])
+        self.assertEqual(1, myGraph.get_edge_weight(0, 1))
+        self.assertEqual(1, myGraph.get_edge_weight(1, 0))
+        
+        myGraph.add_edge(0, 2, 3)
+        
+        self.assertIn(0, myGraph.graph[2])
+        self.assertIn(0, myGraph.graph[1])
+        self.assertIn(1, myGraph.graph[0])
+        self.assertIn(2, myGraph.graph[0])
+        self.assertEqual(1, myGraph.get_edge_weight(0, 1))
+        self.assertEqual(1, myGraph.get_edge_weight(1, 0))
+        self.assertEqual(3, myGraph.get_edge_weight(0, 2))
+        self.assertEqual(3, myGraph.get_edge_weight(2, 0))
+        
+        myGraph.add_edge(2, 3, 7)
+        self.assertIn(0, myGraph.graph[2])
+        self.assertIn(3, myGraph.graph[2])
+        self.assertIn(2, myGraph.graph[3])
+        self.assertNotIn(0, myGraph.graph[3])
+        self.assertNotIn(3, myGraph.graph[0])
+        self.assertEqual(7, myGraph.get_edge_weight(2, 3))
+        self.assertIsNone(myGraph.get_edge_weight(0, 3))
+    
+    def test_removing_from_weighted_undirected_graph(self):
+        myGraph = graph.WeightedUndirectedGraph()
+        myGraph.add_edge(0, 1, 1)
+        myGraph.add_edge(0, 2, 1)
+        myGraph.add_edge(0, 3, 1)
+        myGraph.add_edge(0, 4, 1)
+        myGraph.add_edge(4, 5, 1)
+        myGraph.add_edge(2, 6, 1)
+        
+        self.assertEqual(1, myGraph.get_edge_weight(0, 1))
+        self.assertEqual(1, myGraph.get_edge_weight(0, 2))
+        self.assertEqual(1, myGraph.get_edge_weight(0, 3))
+        self.assertEqual(1, myGraph.get_edge_weight(0, 4))
+        self.assertEqual(1, myGraph.get_edge_weight(4, 5))
+        self.assertEqual(1, myGraph.get_edge_weight(2, 6))
+        
+        myGraph.remove_edge(0, 1)
+        
+        self.assertIsNone(myGraph.get_edge_weight(0, 1))
+        self.assertEqual(1, myGraph.get_edge_weight(0, 2))
+        self.assertEqual(1, myGraph.get_edge_weight(0, 3))
+        self.assertEqual(1, myGraph.get_edge_weight(0, 4))
+        self.assertEqual(1, myGraph.get_edge_weight(4, 5))
+        self.assertEqual(1, myGraph.get_edge_weight(2, 6))
+        
+        myGraph.remove_edge(0, 2)
+        
+        self.assertIsNone(myGraph.get_edge_weight(0, 1))
+        self.assertIsNone(myGraph.get_edge_weight(0, 2))
+        self.assertEqual(1, myGraph.get_edge_weight(0, 3))
+        self.assertEqual(1, myGraph.get_edge_weight(0, 4))
+        self.assertEqual(1, myGraph.get_edge_weight(4, 5))
+        self.assertEqual(1, myGraph.get_edge_weight(2, 6))
+        
+        myGraph.remove_edge(0)
+        
+        self.assertIsNone(myGraph.get_edge_weight(0, 1))
+        self.assertIsNone(myGraph.get_edge_weight(0, 2))
+        self.assertIsNone(myGraph.get_edge_weight(0, 3))
+        self.assertIsNone(myGraph.get_edge_weight(0, 4))
+        self.assertEqual(1, myGraph.get_edge_weight(4, 5))
+        self.assertEqual(1, myGraph.get_edge_weight(2, 6))
+        
+    def test_gridify_weighted_undirected_graph(self):
+        rt2 = 1.4142135623730951
+        myGraph = graph.WeightedUndirectedGraph()
+        myGraph.gridify(4, 1)
+        
+        self.assertEqual(1, myGraph.get_edge_weight((0, 0), (0, 1)))
+        self.assertAlmostEqual(rt2, myGraph.get_edge_weight((0, 0), (1, 1)))
+        
+        self.assertIsNone(myGraph.get_edge_weight((0, 0), (2, 0)))
+        self.assertEqual(1, myGraph.get_edge_weight((2, 3), (3, 3)))
+        self.assertIsNone(myGraph.get_edge_weight((3, 3), (3, 4)))
+        
+        
 class TestHeap(unittest.TestCase):
     def test_heap(self):
         myHeap = heap.Heap()

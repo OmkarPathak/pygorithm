@@ -26,6 +26,7 @@ dstark85
 Songzhuozhuo 'souo'
 Emil 'Skeen' Madsen
 Ian 'IanDoarn' Doarn
+Timothy 'Tjsretchalot' Moore
 
 """
 
@@ -51,7 +52,8 @@ __contributors__ = [
     "dstark85",
     "Songzhuozhuo 'souo'",
     "Emil 'Skeen' Madsen",
-    "Ian 'IanDoarn' Doarn"
+    "Ian 'IanDoarn' Doarn",
+    "Timothy 'Tjstretchalot' Moore"
 ]
 
 __all__ = [
@@ -60,5 +62,6 @@ __all__ = [
     'math',
     'searching',
     'sorting',
-    'string'
+    'string',
+    'pathing',
 ]
