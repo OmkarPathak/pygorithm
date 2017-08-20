@@ -27,7 +27,7 @@ Quick Links
    Data_Structure
    Fibonacci
    Math
-   Pathing
+   Pathfinding
 
 Quick Start Guide
 -----------------
