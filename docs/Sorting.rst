@@ -15,7 +15,7 @@ Quick Start Guide
     my_list = [12, 4, 2, 14, 3, 7, 5]
 
     # to sort the _list
-    sorted__list = bubble_sort.sort(my_list)
+    sorted_list = bubble_sort.sort(my_list)
 
 Features
 --------
@@ -42,8 +42,6 @@ Features
             quick_sort
             selection_sort
             shell_sort
-    >>> from pygorithm.sorting import bubble_sort
-    >>> help(bubble_sort)
 
 * For sorting:
   Remember ``sort()`` function takes its parameter as a _list only.
@@ -56,7 +54,7 @@ Features
     my_list = [12, 4, 2, 14, 3, 7, 5]
 
     # to sort the _list
-    sorted__list = bubble_sort.sort(my_list)
+    sorted_list = bubble_sort.sort(my_list)
 
 * Get time complexities of all the sorting algorithms
 

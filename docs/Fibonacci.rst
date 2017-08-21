@@ -50,8 +50,6 @@ Features
             modules
             recursion
 
-    >>> from pygorithm.fibonacci import memoization
-    >>> help(memoization)
 
 Implementations API
 -------------------

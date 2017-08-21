@@ -70,8 +70,6 @@ Features
             queue
             stack
             tree
-    >>> from pygorithm.data_structures import graph
-    >>> help(graph)
 
 
 Stack

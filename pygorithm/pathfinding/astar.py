@@ -1,4 +1,19 @@
+"""
+A*
+
+Author: Timothy Moore
+
+A* is an informed search algorithm, or a best-first search,
+meaning that it solves problems by searching among all possible
+paths to the solution (goal) for the one that incurs the smallest
+cost (least distance travelled, shortest time, etc.), and among
+these paths it first considers the ones that appear to lead most
+quickly to the solution.
+https://en.wikipedia.org/wiki/A*_search_algorithm
+"""
 import heapq
+import inspect
+
 
 class OneDirectionalAStar(object):
     """AStar object
@@ -28,7 +43,7 @@ class OneDirectionalAStar(object):
     #
     # You would expand your side of center and find the top and bottom at 
     # (5 + 12) - WORSE than just going to them. This is the case where we
-    # would NOT add the path base->center->top to the open list because
+    # would NOT add the path base->center->top to the _open list because
     # (for these weights) it will never be better than base->top.
     #
     # You would also add the new node (55 + 0) or the destination.
@@ -37,14 +52,15 @@ class OneDirectionalAStar(object):
     # river with a cost of (18 + 12).
     #
     # You expand the top node on the other side of the river next and find
-    # one of the neighbors is already on the open list (the destination)
+    # one of the neighbors is already on the _open list (the destination)
     # at a score of (55 + 0), but your cost to get there is (30 + 0). This
     # is where you would REPLACE the old path with yourself.
     
     def __init__(self):
         pass
-    
-    def reverse_path(self, node):
+
+    @staticmethod
+    def reverse_path(node):
         """
         Walks backward from an end node to the start
         node and reconstructs a path. Meant for internal
@@ -75,7 +91,7 @@ class OneDirectionalAStar(object):
             - The distance between nodes are small
             - There are too many nodes for an exhaustive search 
               to ever be feasible.
-            - The world is mostly open (ie there are many paths
+            - The world is mostly _open (ie there are many paths
               from the start to the end that are acceptable)
             - Execution speed is more important than accuracy.
         The best way to do this is to make the heuristic slightly
@@ -94,21 +110,21 @@ class OneDirectionalAStar(object):
         """
         
         # It starts off very similiar to Dijkstra. However, we will need to lookup
-        # nodes in the open list before. There can be thousands of nodes in the open
+        # nodes in the _open list before. There can be thousands of nodes in the _open
         # list and any unordered search is too expensive, so we trade some memory usage for
         # more consistent performance by maintaining a dictionary (O(1) lookup) between
         # vertices and their nodes. 
-        open_lookup = {}
-        open = []
+        _open_lookup = {}
+        _open = []
         closed = set()
         
         # We require a bit more information on each node than Dijkstra
         # and we do slightly more calculation, so the heuristic must
         # prune enough nodes to offset those costs. In practice this
-        # is almost always the case if their are any large open areas
+        # is almost always the case if their are any large _open areas
         # (nodes with many connected nodes).
         
-        # Rather than simply expanding nodes that are on the open list
+        # Rather than simply expanding nodes that are on the _open list
         # based on how close they are to the start, we will expand based
         # on how much distance we predict is between the start and end 
         # node IF we go through that parent. That is a combination of 
@@ -120,15 +136,19 @@ class OneDirectionalAStar(object):
         
         counter = 0 
         heur = heuristic_fn(graph, start, end)
-        open_lookup[start] = { 'vertex': start, 'dist_start_to_here': 0, 'pred_dist_here_to_end': heur, 'pred_total_dist': heur, 'parent': None }
-        heapq.heappush(open, (heur, counter, start))
+        _open_lookup[start] = {'vertex': start,
+                               'dist_start_to_here': 0,
+                               'pred_dist_here_to_end': heur,
+                               'pred_total_dist': heur,
+                               'parent': None}
+        heapq.heappush(_open, (heur, counter, start))
         counter += 1
         
-        while len(open) > 0:
-            current = heapq.heappop(open)
+        while len(_open) > 0:
+            current = heapq.heappop(_open)
             current_vertex = current[2]
-            current_dict = open_lookup[current_vertex]
-            del open_lookup[current_vertex]
+            current_dict = _open_lookup[current_vertex]
+            del _open_lookup[current_vertex]
             closed.update(current_vertex)
             
             if current_vertex == end:
@@ -142,8 +162,10 @@ class OneDirectionalAStar(object):
                     # node first.
                     continue
                 
-                cost_start_to_neighbor = current_dict['dist_start_to_here'] + graph.get_edge_weight(current_vertex, neighbor)
-                neighbor_from_lookup = open_lookup.get(neighbor, None) # avoid searching twice
+                cost_start_to_neighbor = current_dict['dist_start_to_here'] \
+                    + graph.get_edge_weight(current_vertex, neighbor)
+                # avoid searching twice
+                neighbor_from_lookup = _open_lookup.get(neighbor, None)
                 if neighbor_from_lookup is not None:
                     # If our heuristic is NOT consistent or the grid is NOT uniform,
                     # it is possible that there is a better path to a neighbor of a 
@@ -158,50 +180,49 @@ class OneDirectionalAStar(object):
                     if cost_start_to_neighbor < old_dist_start_to_neighbor:
                         pred_dist_neighbor_to_end = neighbor_from_lookup['pred_dist_here_to_end']
                         pred_total_dist_through_neighbor_to_end = cost_start_to_neighbor + pred_dist_neighbor_to_end
-                        # Note, we've already shown that neighbor (the vector) is already in the open list,
+                        # Note, we've already shown that neighbor (the vector) is already in the _open list,
                         # but unfortunately we don't know where and we have to do a slow lookup to fix the 
                         # key its sorting by to the new predicted total distance.
                         
                         # In case we're using a fancy debugger we want to search in user-code so when 
                         # this lookup freezes we can see how much longer its going to take.
                         found = None
-                        for i in range(0, len(open)):
-                            if open[i][2] == neighbor:
+                        for i in range(0, len(_open)):
+                            if _open[i][2] == neighbor:
                                 found = i
                                 break
                         if found is None:
-                            raise Exception('A vertex is in the open lookup but not in open. This is impossible, please submit an issue + include the graph!')
-                        # todo I'm not certain about the performance characteristics of doing this with heapq, nor if 
-                        # it would be better to delete heapify and push or rather than replace
-                        open[i] = (pred_total_dist_through_neighbor_to_end, counter, neighbor)
+                            raise Exception('A vertex is in the _open lookup but not in _open. '
+                                            'This is impossible, please submit an issue + include the graph!')
+                        # TODO: I'm not certain about the performance characteristics of doing this with heapq, nor if
+                        # TODO: it would be better to delete heapify and push or rather than replace
+
+                        # TODO: Local variable 'i' could be referenced before assignment
+                        _open[i] = (pred_total_dist_through_neighbor_to_end, counter, neighbor)
                         counter += 1
-                        heapq.heapify(open)
-                        open_lookup[neighbor] = { 'vertex': neighbor,
+                        heapq.heapify(_open)
+                        _open_lookup[neighbor] = {'vertex': neighbor,
                                                   'dist_start_to_here': cost_start_to_neighbor, 
                                                   'pred_dist_here_to_end': pred_dist_neighbor_to_end, 
                                                   'pred_total_dist': pred_total_dist_through_neighbor_to_end, 
-                                                  'parent': current_dict }
+                                                  'parent': current_dict}
                     continue
-                    
-                
+
                 # We've found the first possible way to the path!
                 pred_dist_neighbor_to_end = heuristic_fn(graph, neighbor, end)
                 pred_total_dist_through_neighbor_to_end = cost_start_to_neighbor + pred_dist_neighbor_to_end
-                heapq.heappush(open, (pred_total_dist_through_neighbor_to_end, counter, neighbor))
-                open_lookup[neighbor] = { 'vertex': neighbor,
+                heapq.heappush(_open, (pred_total_dist_through_neighbor_to_end, counter, neighbor))
+                _open_lookup[neighbor] = {'vertex': neighbor,
                                           'dist_start_to_here': cost_start_to_neighbor,
                                           'pred_dist_here_to_end': pred_dist_neighbor_to_end,
                                           'pred_total_dist': pred_total_dist_through_neighbor_to_end,
-                                          'parent': current_dict }
+                                          'parent': current_dict}
         
         return None
             
     @staticmethod
-    def get_code(self):
+    def get_code():
         """
         returns the code for the current class
         """
         return inspect.getsource(OneDirectionalAStar)
-        
-        
-        

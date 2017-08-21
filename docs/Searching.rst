@@ -12,13 +12,13 @@ Quick Start Guide
     # import the required searching algorithm
     from pygorithm.searching import binary_search
 
-    myList = [12, 4, 2, 14, 3, 7, 5]
+    my_list = [12, 4, 2, 14, 3, 7, 5]
 
     # pre-requisite for binary search is that the list should be sorted
-    myList.sort()
+    my_list.sort()
 
     # to search an element in the above list
-    index = binary_search.search(myList, 7)
+    index = binary_search.search(my_list, 7)
     print(index)
 
 Features
@@ -48,8 +48,6 @@ Features
             linear_search
             modules
             quick_select
-    >>> from pygorithm.searching import binary_search)
-    >>> help(binary_search)
 
 
 * For Searching:
@@ -60,13 +58,13 @@ Features
     # import the required searching algorithm
     from pygorithm.searching import binary_search
 
-    myList = [12, 4, 2, 14, 3, 7, 5]
+    my_list = [12, 4, 2, 14, 3, 7, 5]
 
     # pre-requisite for binary search is that the list should be sorted
-    myList.sort()
+    my_list.sort()
 
     # to search an element in the above list
-    index = binary_search.search(myList, 7)
+    index = binary_search.search(my_list, 7)
     print(index)
 
 * Get time complexities of all the searching algorithms

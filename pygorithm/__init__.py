@@ -63,5 +63,5 @@ __all__ = [
     'searching',
     'sorting',
     'string',
-    'pathing',
+    'pathfinding',
 ]
