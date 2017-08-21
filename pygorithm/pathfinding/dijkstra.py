@@ -8,6 +8,13 @@ class Dijkstra(object):
         pass
     
     def reverse_path(self, node):
+        """
+        Walks backward from an end node to the start
+        node and reconstructs a path. Meant for internal
+        use.
+        :param node: dict containing { 'vertex': any hashable, 'parent': dict or None }
+        :return:     a list of vertices ending on the node
+        """
         result = []
         while node is not None:
             result.insert(0, node['vertex'])
@@ -33,21 +40,25 @@ class Dijkstra(object):
         # key for sorting. The second element in the tuple is just a counter and is used to avoid having
         # to hash the dictionary when the distance from the source is not unique.
         
+        # performance might be improved by also searching the open list and avoiding adding those nodes
+        # but since this algorithm is typically for examples only performance improvements are not made
+        
         counter = 0
         heapq.heappush(open, (0, counter, { 'vertex': start, 'parent': None }))
         counter += 1
         
         while len(open) > 0:
             current = heapq.heappop(open)
-            closed.update(current[2]['vertex'])
+            current_dict = current[2]
+            closed.update(current_dict['vertex'])
             
-            if current[2]['vertex'] == end:
-                return self.reverse_path(current[2])
+            if current_dict['vertex'] == end:
+                return self.reverse_path(current_dict)
             
-            neighbors = graph.graph[current[2]['vertex']]
+            neighbors = graph.graph[current_dict['vertex']]
             for neighbor in neighbors:
                 if neighbor not in closed:
-                    heapq.heappush(open, (current[0] + 1, counter, { 'vertex': neighbor, 'parent': current[2] }))
+                    heapq.heappush(open, (current[0] + 1, counter, { 'vertex': neighbor, 'parent': current_dict }))
                     counter += 1
             
         

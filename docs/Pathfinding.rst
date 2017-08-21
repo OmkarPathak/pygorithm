@@ -40,6 +40,7 @@ Features
 
 * Algorithms available:
     - Dijkstra (dijkstra)
+    - Unidirectional AStar (astar)
 
 
 * To see all the available functions in a module there is a `modules()` function available. For example,
@@ -48,7 +49,7 @@ Features
 
     >>> from pygorithm.pathfinding import modules
     >>> modules.modules()
-    ['dijkstra']
+    ['dijkstra', 'astar']
 
 * Get the code used for any of the algorithm
 
@@ -64,7 +65,7 @@ Dijkstra
 
 * Functions and their uses
 
-.. function:: dijkstra.find_path(pygorithm.data_structures.WeightedUndirectedGraph, vertex, vertex)
+.. function:: dijkstra.Dijkstra.find_path(pygorithm.data_structures.WeightedUndirectedGraph, vertex, vertex)
 
 - **pygorithm.data_structures.WeightedUndirectedGraph** : acts like an object with `graph` (see WeightedUndirectedGraph)
 - **vertex** : any hashable type for the start of the path
@@ -74,3 +75,16 @@ Dijkstra
 .. function:: dijkstra.get_code()
 
 - **Return Value**    : returns the code for the ``Dijkstra`` object
+
+Unidirectional AStar
+--------------------
+
+* Functions and their uses
+
+.. function:: astar.OneDirectionalAStar.find_path(pygorithm.data_structures.WeightedUndirectedGraph, vertex, vertex, function)
+
+- **pygorithm.data_structures.WeightedUndirectedGraph** : acts like an object with `graph` and `get_edge_weight` (see WeightedUndirectedGraph)
+- **vertex** : any hashable type for the start of the path
+- **vertex** : any hashable type for the end of the path
+- **function** : `function(graph, vertex, vertex)` returns numeric - a heuristic function for distance between two vertices
+- **Return Value** : returns a `List` of vertexes (of the same type of the graph) starting from from and going to to. This algorithm respects weights, but is only guarranteed to be optimal if the heuristic is admissable. An admissable function will never *overestimate* the cost from one node to another (in other words, it is optimistic).
