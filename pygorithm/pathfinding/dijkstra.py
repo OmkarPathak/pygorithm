@@ -1,13 +1,29 @@
+"""
+Dijkstra's Algorithm
+
+Author: Timothy Moore
+
+Dijkstra's algorithm is an algorithm for
+finding the shortest paths between nodes
+in a graph.
+https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
+
+"""
 import heapq
+import inspect
+
+
 class Dijkstra(object):
     """Dijkstra object
     Finds the optimal path between two nodes on
-    a graph."""
+    a graph.
+    """
     
     def __init__(self):
         pass
-    
-    def reverse_path(self, node):
+
+    @staticmethod
+    def reverse_path(node):
         """
         Walks backward from an end node to the start
         node and reconstructs a path. Meant for internal
@@ -33,7 +49,7 @@ class Dijkstra(object):
         :return:      a list starting with `start` and ending with `end`, or None if no path is possible.
         """
         
-        open = []
+        _open = []
         closed = set()
         
         # the first element in the tuple is the distance from the source. This is used as the primary
@@ -44,11 +60,11 @@ class Dijkstra(object):
         # but since this algorithm is typically for examples only performance improvements are not made
         
         counter = 0
-        heapq.heappush(open, (0, counter, { 'vertex': start, 'parent': None }))
+        heapq.heappush(_open, (0, counter, {'vertex': start, 'parent': None}))
         counter += 1
         
-        while len(open) > 0:
-            current = heapq.heappop(open)
+        while len(_open) > 0:
+            current = heapq.heappop(_open)
             current_dict = current[2]
             closed.update(current_dict['vertex'])
             
@@ -58,14 +74,12 @@ class Dijkstra(object):
             neighbors = graph.graph[current_dict['vertex']]
             for neighbor in neighbors:
                 if neighbor not in closed:
-                    heapq.heappush(open, (current[0] + 1, counter, { 'vertex': neighbor, 'parent': current_dict }))
+                    heapq.heappush(_open, (current[0] + 1, counter, {'vertex': neighbor, 'parent': current_dict}))
                     counter += 1
-            
-        
         return None
     
     @staticmethod
-    def get_code(self):
+    def get_code():
         """
         returns the code for the current class
         """

@@ -42,10 +42,10 @@ Quick Start Guide
     # This will print the code for bubble sort
     print(bubble_sort.get_code())
 
-    myList = [12, 4, 2, 14, 3, 7, 5]
+    my_list = [12, 4, 2, 14, 3, 7, 5]
 
     # to sort the list
-    sorted_list = bubble_sort.sort(myList)
+    sorted_list = bubble_sort.sort(my_list)
 
 Getting Started
 ---------------

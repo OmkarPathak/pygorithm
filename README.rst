@@ -47,28 +47,29 @@ Quick Start Guide
 
 .. code:: python
 
-    from pygorithm.sorting import bubble_sort
-    myList = [12, 4, 3, 5, 13, 1, 17, 19, 15]
-    sortedList = bubble_sort.sort(myList)
-    print(sortedList)
+    >>> from pygorithm.sorting import bubble_sort
+    >>> my_list = [12, 4, 3, 5, 13, 1, 17, 19, 15]
+    >>> sorted_list = bubble_sort.sort(my_list)
+    >>> print(sorted_list)
+    >>> [1, 3, 4, 5, 12, 13, 15, 17, 19]
 
 
 * To get the code for function used
 
 .. code:: python
 
-    from pygorithm.sorting import bubble_sort
-    code = bubble_sort.get_code()
-    print(code)
+    >>> from pygorithm.sorting import bubble_sort
+    >>> code = bubble_sort.get_code()
+    >>> print(code)
 
 
 * To get the time complexity of an algorithm
 
 .. code:: python
 
-    from pygorithm.sorting import bubble_sort
-    time_complexity = bubble_sort.time_complexities()
-    print(time_complexity)
+    >>> from pygorithm.sorting import bubble_sort
+    >>> time_complexity = bubble_sort.time_complexities()
+    >>> print(time_complexity)
 
 * To see all the available functions in a module, you can just type ``help()`` with the module name as argument. For example,
 
@@ -92,8 +93,6 @@ Quick Start Guide
             quick_sort
             selection_sort
             shell_sort
-    >>> from pygorithm.sorting import bubble_sort
-    >>> help(bubble_sort)
 
     
 Tests
