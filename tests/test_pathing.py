@@ -58,4 +58,14 @@ class TestAStarUnidirectionalTimed(SimplePathfindingTestCaseTimed):
             return math.sqrt(dx * dx + dy * dy)
         
         return my_pathfinder.find_path(my_graph, v1, v2, my_heuristic)
-    
+
+class TestAStarBiDirectionalTimed(SimplePathfindingTestCaseTimed):
+    def find_path(self, my_graph, v1, v2):
+        my_pathfinder = astar.BiDirectionalAStar()
+        
+        def my_heuristic(graph, v1, v2):
+            dx = v2[0] - v1[0]
+            dy = v2[1] - v1[1]
+            return math.sqrt(dx * dx + dy * dy)
+        
+        return my_pathfinder.find_path(my_graph, v1, v2, my_heuristic)
