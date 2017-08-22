@@ -14,11 +14,14 @@ https://en.wikipedia.org/wiki/A*_search_algorithm
 import heapq
 import inspect
 
+from enum import Enum
+
 
 class OneDirectionalAStar(object):
-    """AStar object
-    Finds the optimal path between two nodes on
-    a graph while taking into account weights.
+    """OneDirectionalAStar object
+    Finds the optimal path between two nodes on a graph while taking
+    into account weights. Expands the start node first until it finds
+    the end node.
     """
     
     # Some miscellaneous notes:
@@ -70,8 +73,9 @@ class OneDirectionalAStar(object):
         """
         result = []
         while node is not None:
-            result.insert(0, node['vertex'])
+            result.append(node['vertex'])
             node = node['parent']
+        result.reverse()
         return result
     
     def find_path(self, graph, start, end, heuristic_fn):
@@ -191,14 +195,11 @@ class OneDirectionalAStar(object):
                             if _open[i][2] == neighbor:
                                 found = i
                                 break
-                        if found is None:
-                            raise Exception('A vertex is in the _open lookup but not in _open. '
-                                            'This is impossible, please submit an issue + include the graph!')
+                        assert(found is not None)
                         # TODO: I'm not certain about the performance characteristics of doing this with heapq, nor if
                         # TODO: it would be better to delete heapify and push or rather than replace
 
-                        # TODO: Local variable 'i' could be referenced before assignment
-                        _open[i] = (pred_total_dist_through_neighbor_to_end, counter, neighbor)
+                        _open[found] = (pred_total_dist_through_neighbor_to_end, counter, neighbor)
                         counter += 1
                         heapq.heapify(_open)
                         _open_lookup[neighbor] = {'vertex': neighbor,
@@ -226,3 +227,272 @@ class OneDirectionalAStar(object):
         returns the code for the current class
         """
         return inspect.getsource(OneDirectionalAStar)
+
+class BiDirectionalAStar(object):
+    """BiDirectionalAStar object
+    Finds the optimal path between two nodes on a graph while taking
+    account weights. Expands from the start node and the end node 
+    simultaneously
+    """
+    
+    class NodeSource(Enum):
+        """NodeSource enum
+        Used to distinguish how a node was located
+        """
+        
+        BY_START = 1,
+        BY_END = 2
+    
+    def __init__(self):
+        pass
+        
+    @staticmethod
+    def reverse_path(node_from_start, node_from_end):
+        """
+        Reconstructs the path formed by walking from
+        node_from_start backward to start and combining
+        it with the path formed by walking from 
+        node_from_end to end. Both the start and end are
+        detected where 'parent' is None.
+        :param node_from_start: dict containing { 'vertex': any hashable, 'parent': dict or None }
+        :param node_from_end: dict containing { 'vertex' any hashable, 'parent': dict or None }
+        :return: list of vertices starting at the start and ending at the end
+        """
+        list_from_start = []
+        current = node_from_start
+        while current is not None:
+            list_from_start.append(current['vertex'])
+            current = current['parent']
+        list_from_start.reverse()
+        
+        list_from_end = []
+        current = node_from_end
+        while current is not None:
+            list_from_end.append(current['vertex'])
+            current = current['parent']
+        
+        return list_from_start + list_from_end
+    
+    def find_path(self, graph, start, end, heuristic_fn):
+        """
+        Calculates the optimal path from the start to the end. The
+        search occurs from both the start and end at the same rate,
+        which makes this algorithm have more consistent performance
+        if you regularly are trying to find paths where the destination
+        is unreachable and in a small room.
+        
+        The heuristic requirements are the same as in unidirectional A*
+        (it must be admissable).
+        
+        :param graph: the graph with 'graph' and 'get_edge_weight' (see WeightedUndirectedGraph)
+        :param start: the start vertex (must be hashable and same type as the graph)
+        :param end: the end vertex (must be hashable and same type as the graph)
+        :param heuristic_fn: an admissable heuristic. signature: function(graph, start, end) returns numeric
+        :return: a list of vertices starting at start ending at end or None
+        """
+        
+        # This algorithm is really just repeating unidirectional A* twice,
+        # but unfortunately it's just different enough that it requires 
+        # even more work to try to make a single function that can be called 
+        # twice.
+        
+        
+        # Note: The nodes in by_start will have heuristic distance to the end,
+        # whereas the nodes in by_end will have heuristic distance to the start.
+        # This means that the total predicted distance for the exact same node
+        # might not match depending on which side we found it from. However, 
+        # it won't make a difference since as soon as we evaluate the same node
+        # on both sides we've finished.
+        #
+        # This also means that we can use the same lookup table for both.
+        
+        open_by_start = []
+        open_by_end = []
+        open_lookup = {}
+        
+        closed = set()
+        
+        # used to avoid hashing the dict.
+        counter_arr = [0]
+        
+        total_heur_distance = heuristic_fn(graph, start, end)
+        heapq.heappush(open_by_start, (total_heur_distance, counter_arr[0], start))
+        counter_arr[0] += 1
+        open_lookup[start] = { 'vertex': start, 
+                               'parent': None, 
+                               'source': self.NodeSource.BY_START, 
+                               'dist_start_to_here': 0,
+                               'pred_dist_here_to_end': total_heur_distance,
+                               'pred_total_dist': total_heur_distance }
+        
+        heapq.heappush(open_by_end, (total_heur_distance, counter_arr, end))
+        counter_arr[0] += 1
+        open_lookup[end] = { 'vertex': end,
+                             'parent': None,
+                             'source': self.NodeSource.BY_END, 
+                             'dist_end_to_here': 0,
+                             'pred_dist_here_to_start': total_heur_distance,
+                             'pred_total_dist': total_heur_distance }
+        
+        # If the start runs out then the start is in a closed room,
+        # if the end runs out then the end is in a closed room,
+        # either way there is no path from start to end.
+        while len(open_by_start) > 0 and len(open_by_end) > 0:
+            result = self._evaluate_from_start(graph, start, end, heuristic_fn, open_by_start, open_by_end, open_lookup, closed, counter_arr)
+            if result is not None:
+                return result
+            
+            result = self._evaluate_from_end(graph, start, end, heuristic_fn, open_by_start, open_by_end, open_lookup, closed, counter_arr)
+            if result is not None:
+                return result
+        
+        return None
+            
+    def _evaluate_from_start(self, graph, start, end, heuristic_fn, open_by_start, open_by_end, open_lookup, closed, counter_arr):
+        """
+        Intended for internal use only. Expands one node from the open_by_start list.
+        
+        :param graph: the graph (see WeightedUndirectedGraph)
+        :param start: the start node
+        :param end: the end node
+        :heuristic_fn: the heuristic function (signature function(graph, start, end) returns numeric)
+        :open_by_start: the open vertices from the start
+        :open_by_end: the open vertices from the end
+        :open_lookup: dictionary of vertices -> dicts
+        :closed: the already expanded vertices (set)
+        :counter_arr: arr of one integer (counter)
+        """
+        current = heapq.heappop(open_by_start)
+        current_vertex = current[2]
+        current_dict = open_lookup[current_vertex]
+        del open_lookup[current_vertex]
+        closed.update(current_vertex)
+        
+        neighbors = graph.graph[current_vertex]
+        for neighbor in neighbors:
+            if neighbor in closed:
+                continue
+            
+            neighbor_dict = open_lookup.get(neighbor, None)
+            if neighbor_dict is not None and neighbor_dict['source'] is self.NodeSource.BY_END:
+                return self.reverse_path(current_dict, neighbor_dict)
+            
+            dist_to_neighb_through_curr_from_start = current_dict['dist_start_to_here'] \
+                + graph.get_edge_weight(current_vertex, neighbor)
+            
+            if neighbor_dict is not None:
+                assert(neighbor_dict['source'] is self.NodeSource.BY_START)
+                
+                if neighbor_dict['dist_start_to_here'] <= dist_to_neighb_through_curr_from_start:
+                    continue
+                
+                pred_dist_neighbor_to_end = neighbor_dict['pred_dist_here_to_end']
+                pred_total_dist_through_neighbor = dist_to_neighb_through_curr_from_start + pred_dist_neighbor_to_end
+                open_lookup[neighbor] = { 'vertex': neighbor,
+                                          'parent': current_dict,
+                                          'source': self.NodeSource.BY_START,
+                                          'dist_start_to_here': dist_to_neighb_through_curr_from_start, 
+                                          'pred_dist_here_to_end': pred_dist_neighbor_to_end, 
+                                          'pred_total_dist': pred_total_dist_through_neighbor }
+                
+                # TODO: I'm pretty sure theres a faster way to do this
+                found = None
+                for i in range(0, len(open_by_start)):
+                    if open_by_start[i][2] == neighbor:
+                        found = i
+                        break
+                assert(found is not None)
+                
+                open_by_start[found] = (pred_total_dist_through_neighbor, counter_arr[0], neighbor)
+                counter_arr[0] += 1
+                heapq.heapify(open_by_start)
+                continue
+            
+            pred_dist_neighbor_to_end = heuristic_fn(graph, neighbor, end)
+            pred_total_dist_through_neighbor = dist_to_neighb_through_curr_from_start + pred_dist_neighbor_to_end
+            open_lookup[neighbor] = { 'vertex': neighbor,
+                                      'parent': current_dict,
+                                      'source': self.NodeSource.BY_START,
+                                      'dist_start_to_here': dist_to_neighb_through_curr_from_start, 
+                                      'pred_dist_here_to_end': pred_dist_neighbor_to_end, 
+                                      'pred_total_dist': pred_total_dist_through_neighbor }
+            heapq.heappush(open_by_start, (pred_total_dist_through_neighbor, counter_arr[0], neighbor))
+            counter_arr[0] += 1
+    
+    def _evaluate_from_end(self, graph, start, end, heuristic_fn, open_by_start, open_by_end, open_lookup, closed, counter_arr):
+        """
+        Intended for internal use only. Expands one node from the open_by_end list.
+        
+        :param graph: the graph (see WeightedUndirectedGraph)
+        :param start: the start node
+        :param end: the end node
+        :heuristic_fn: the heuristic function (signature function(graph, start, end) returns numeric)
+        :open_by_start: the open vertices from the start
+        :open_by_end: the open vertices from the end
+        :open_lookup: dictionary of vertices -> dicts
+        :closed: the already expanded vertices (set)
+        :counter_arr: arr of one integer (counter)
+        """
+        current = heapq.heappop(open_by_end)
+        current_vertex = current[2]
+        current_dict = open_lookup[current_vertex]
+        del open_lookup[current_vertex]
+        closed.update(current_vertex)
+        
+        neighbors = graph.graph[current_vertex]
+        for neighbor in neighbors:
+            if neighbor in closed:
+                continue
+            
+            neighbor_dict = open_lookup.get(neighbor, None)
+            if neighbor_dict is not None and neighbor_dict['source'] is self.NodeSource.BY_START:
+                return self.reverse_path(neighbor_dict, current_dict)
+            
+            dist_to_neighb_through_curr_from_end = current_dict['dist_end_to_here'] \
+                + graph.get_edge_weight(current_vertex, neighbor)
+            
+            if neighbor_dict is not None:
+                assert(neighbor_dict['source'] is self.NodeSource.BY_END)
+                
+                if neighbor_dict['dist_end_to_here'] <= dist_to_neighb_through_curr_from_end:
+                    continue
+                
+                pred_dist_neighbor_to_start = neighbor_dict['pred_dist_here_to_start']
+                pred_total_dist_through_neighbor = dist_to_neighb_through_curr_from_end + pred_dist_neighbor_to_start
+                open_lookup[neighbor] = { 'vertex': neighbor,
+                                          'parent': current_dict,
+                                          'source': self.NodeSource.BY_END,
+                                          'dist_end_to_here': dist_to_neighb_through_curr_from_end, 
+                                          'pred_dist_here_to_start': pred_dist_neighbor_to_start, 
+                                          'pred_total_dist': pred_total_dist_through_neighbor }
+                
+                # TODO: I'm pretty sure theres a faster way to do this
+                found = None
+                for i in range(0, len(open_by_end)):
+                    if open_by_end[i][2] == neighbor:
+                        found = i
+                        break
+                assert(found is not None)
+                
+                open_by_end[found] = (pred_total_dist_through_neighbor, counter_arr[0], neighbor)
+                counter_arr[0] += 1
+                heapq.heapify(open_by_end)
+                continue
+            
+            pred_dist_neighbor_to_start = heuristic_fn(graph, neighbor, start)
+            pred_total_dist_through_neighbor = dist_to_neighb_through_curr_from_end + pred_dist_neighbor_to_start
+            open_lookup[neighbor] = { 'vertex': neighbor,
+                                      'parent': current_dict,
+                                      'source': self.NodeSource.BY_END,
+                                      'dist_end_to_here': dist_to_neighb_through_curr_from_end, 
+                                      'pred_dist_here_to_start': pred_dist_neighbor_to_start, 
+                                      'pred_total_dist': pred_total_dist_through_neighbor }
+            heapq.heappush(open_by_end, (pred_total_dist_through_neighbor, counter_arr[0], neighbor))
+            counter_arr[0] += 1
+        
+    @staticmethod
+    def get_code():
+        """
+        returns the code for the current class
+        """
+        return inspect.getsource(BiDirectionalAStar)
