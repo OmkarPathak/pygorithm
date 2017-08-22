@@ -153,7 +153,7 @@ Scales the vector by the specified factor. Will throw an exception if
 scale_factor is not a numeric - it will not perform the dot product (use 
 `dot` for that) Examples: 
 
-.. code-block::python
+.. code-block:: python
 
     from pygorithm.geometry import vector2
     
@@ -238,7 +238,7 @@ no unconsumed unamed arguments then the origin is assumed.
 
 Examples:
 
-.. code-block::python
+.. code-block:: python
 
     from pygorithm.geometry import vector2
     import math
@@ -271,7 +271,7 @@ Examples:
 
 Example:
 
-.. code-block::python
+.. code-block:: python
 
     from pygorithm.geometry import vector2
     
@@ -290,7 +290,7 @@ Example:
 
 Example:
 
-.. code-block::python
+.. code-block:: python
 
     from pygorithm.geometry import vector2
     
