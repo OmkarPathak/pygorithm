@@ -2,7 +2,7 @@
 Author: SHARAD BHAT
 Created On: 22nd August 2017
 
- - Best O()
+ - Best O(1)
  - Average O(log(logn))
  - Worst O(n)
 """
