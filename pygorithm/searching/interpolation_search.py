@@ -21,7 +21,7 @@ def search(_list, target):
     """
 
     if type(_list) is not list:
-        raise TypeError("binary search only excepts lists, not {}".format(str(type(_list))))
+        raise TypeError("interpolation search only excepts lists, not {}".format(str(type(_list))))
 
     # First element
     low = 0
