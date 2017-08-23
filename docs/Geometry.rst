@@ -196,24 +196,24 @@ index to the larger index will walk clockwise around the polygon.
 
 .. attribute:: Polygon2.points 
     
-    The ordered list of `Vector2`s in this polygon.
+    The ordered list of Vector2s in this polygon.
 
 .. attribute:: Polygon2.lines
 
-    The ordered list of `Line2`s in this polygon.
+    The ordered list of Line2s in this polygon.
 
 .. attribute:: Polygon2.normals
 
-    The orders list of normal `Vector2`s corresponding to the `Line2`'s 
+    The orders list of normal Vector2s corresponding to the Line2s 
     in lines
 
 .. attribute:: Polygon2.center
 
-    The `Vector2` center of the polygon. Lazily initialized.
+    The Vector2 center of the polygon. Lazily initialized.
 
 .. attribute:: Polygon2.aabb
 
-    The `Rect2` bounding box of this polygon. Lazily initialized.
+    The Rect2 bounding box of this polygon. Lazily initialized.
 
 .. method:: Polygon2(self, points)
 

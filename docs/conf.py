@@ -42,6 +42,8 @@ latex_documents = [
    u'Omkar Pathak', 'manual'),
 ]
 
+# Auto-Doc options
+autodoc_member_order = 'bysource' # alternatively 'alphabetical' (default) or 'groupwise'
 
 # -- Options for manual page output --------------------------------------------
 
