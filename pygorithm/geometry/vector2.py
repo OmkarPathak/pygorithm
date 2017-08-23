@@ -17,7 +17,9 @@ class Vector2(object):
         functions on vectors are immutable (they return a copy) 
     
     :ivar x: The first component of this vector.
+    :vartype x: :class:`numbers.Number`
     :ivar y: The second component of this vector.
+    :vartype y: :class:`numbers.Number`
     """
     
     def __init__(self, *args, **kwargs):
@@ -325,9 +327,35 @@ class Vector2(object):
         
         pass
     
+    def magnitude_squared(self):
+        """
+        Calculate the square of the magnitude of this vector.
+        
+        Example:
+        
+        .. code-block:: python
+        
+            from pygorithm.geometry import vector2
+            
+            vec1 = vector2.Vector2(5, 12)
+            magn_sq = vec1.magnitude_squared()
+            
+            # prints 169 (13^2)
+            print(magn_sq)
+        
+        :returns: square of the magnitude of this vector
+        :rtype: :class:`numbers.Number`
+        """
+        pass
+        
     def magnitude(self):
         """
         Calculate the magnitude of this vector
+        
+        .. note::
+        
+            It is substantially faster to operate on magnitude squared
+            where possible.
         
         Example:
 

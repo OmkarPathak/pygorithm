@@ -39,8 +39,11 @@ class AxisAlignedLine(object):
         into them.
     
     :ivar axis: the axis this line is on
+    :vartype axis: :class:`pygorithm.geometry.vector2.Vector2`
     :ivar min: the point closest to negative infinity
+    :vartype min: :class:`numbers.Number`
     :ivar max: the point closest to positive infinity
+    :vartype max: :class:`numbers.Number`
     """
     
     def __init__(self, axis, point1, point2):
@@ -77,8 +80,8 @@ class AxisAlignedLine(object):
         :type line1: :class:`pygorithm.geometry.axisall.AxisAlignedLine`
         :param line2: the second line
         :type line2: :class:`pygorithm.geometry.axisall.AxisAlignedLine`
-        :returns: touching, overlapping
-        :rtype: bool, bool
+        :returns: (touching, overlapping)
+        :rtype: (bool, bool)
         """
         
         pass
@@ -104,8 +107,8 @@ class AxisAlignedLine(object):
         :type line1: :class:`pygorithm.geometry.axisall.AxisAlignedLine`
         :param line2: the second line
         :type line2: :class:`pygorithm.geometry.axisall.AxisAlignedLine`
-        :returns: touching, mtv against 1
-        :rtype: bool, :class:`numbers.Number` or None
+        :returns: (touching, mtv against 1)
+        :rtype: (bool, :class:`numbers.Number` or None)
         """
         
         pass
@@ -125,7 +128,7 @@ class AxisAlignedLine(object):
         :type line: :class:`pygorithm.geometry.axisall.AxisAlignedLine`
         :param point: the point
         :type point: :class:`numbers.Number`
-        :returns: if the point is an edge of the line, if the point is contained by the line
-        :rtype: bool, bool
+        :returns: (if the point is an edge of the line, if the point is contained by the line)
+        :rtype: (bool, bool)
         """
         pass
