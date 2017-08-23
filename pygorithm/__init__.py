@@ -57,11 +57,12 @@ __contributors__ = [
 ]
 
 __all__ = [
+    'binary',
     'data_structures',
     'fibonacci',
     'math',
     'searching',
     'sorting',
     'string',
-    'pathfinding',
+    'pathfinding'
 ]
