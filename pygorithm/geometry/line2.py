@@ -171,7 +171,7 @@ class Line2(object):
         .. caution::
         
             This function will return a y-intercept for non-vertical 
-            line segments that do not reach :code:`x=0`. 
+            line segments that do not reach ``x=0``. 
         
         .. caution::
         
@@ -191,7 +191,7 @@ class Line2(object):
         Get if this line is horizontal, lazily initialized.
         
         A line is horizontal if it has a slope of 0. This also
-        means that :code:`start.y == end.y`
+        means that ``start.y == end.y``
         
         :returns: if this line is horizontal
         :rtype: bool
@@ -262,6 +262,18 @@ class Line2(object):
         
         pass
     
+    def calculate_y_intercept(offset):
+        """
+        Calculate the y-intercept of this line when it is at the
+        specified offset.
+        
+        :param offset: the offset of this line for this calculations
+        :type offset: :class:`pygorithm.geometry.vector2.Vector2`
+        :returns: the y-intercept of this line when at offset
+        :rtype: :class:`numbers.Number`
+        """
+        pass
+    
     @staticmethod
     def find_intersection(line1, line2, offset1=None, offset2=None, find_mtv=True):
         """
@@ -275,8 +287,8 @@ class Line2(object):
         
             There is only a very minor performance improvement by setting find_mtv to 
             false. It is rare that, if an mtv will be necessary, to find any performance
-            improvement by first searching with :code:`find_mtv=false` and then later 
-            with :code:`find_mtv=true`
+            improvement by first searching with ``find_mtv=False`` and then later 
+            with :``find_mtv=True``
         
         .. note::
             
