@@ -24,6 +24,11 @@ Features
 * Algorithms available:
     - LCM (lcm)
     - Sieve of Eratostenes (sieve_of_eratosthenes)
+    - Factorial
+    - Binary To decimal conversion
+    - Decimal to binary conversion
+    - Hex To decimal conversion
+    - Decimal to hex conversion
 
 * To see all the available functions in a module there is a `modules()` function available. For example,
 
