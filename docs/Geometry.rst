@@ -59,7 +59,7 @@ Features
 Vector2
 -------
 
-.. class: Vector2
+.. class:: Vector2
 
 Defines a simple two-dimensional, mutable vector.
 
@@ -229,12 +229,12 @@ Example:
 The named argument "degrees" or "radians" may be passed in to rotate 
 this vector by the specified amount in degrees (or radians), 
 respectively. If both are omitted, the first unnamed argument is 
-assummed to be the amount to rotate in radians. 
+assumed to be the amount to rotate in radians. 
 
 Additionally, the named argument "about" may be passed in to specify 
 about what the vector should be rotated. If omitted then the first 
 unconsumed unnamed argument is assumed to be the vector. If there are 
-no unconsumed unamed arguments then the origin is assumed. 
+no unconsumed unnamed arguments then the origin is assumed. 
 
 Examples:
 
@@ -417,24 +417,24 @@ Defines an undirected two-dimensional line by an axis, a minimum and a maximum.
 .. note::
     
     `min` and `max` are referring to nearness to negative and positive infinity,
-    respectively. The absolute value of `min` may be larger than `max`.
+    respectively. The absolute value of `min` may be larger than that of `max`.
 
 .. note::
 
-    `AxisAlignedLine`s are an intermediary operation, so offsets should be baked 
+    AxisAlignedLines are an intermediary operation, so offsets should be baked 
     into them.
 
-.. attribute AxisAlignedLine.axis
+.. attribute:: AxisAlignedLine.axis
 
     `Vector2` the axis this line is along.
     
-.. attribute AxisAlignedLine.min
+.. attribute:: AxisAlignedLine.min
 
     `numeric` the number (closest to negative infinity) that is still on this 
     line when walked along the axis. If negative, it may have a greater absolute
     value than max and implies walking in the opposite direction of the axis.
     
-.. attribute AxisAlignedLine.max
+.. attribute:: AxisAlignedLine.max
 
     `numeric` the number (closest to positive infinity) that is still on this 
     line when walked along the axis. If negative, it may have a smaller absolute
@@ -446,7 +446,7 @@ Defines an undirected two-dimensional line by an axis, a minimum and a maximum.
     - **point1**  - `numeric` one point on this line
     - **point2**  - `numeric` a different point on this line
     
-    Constructs an axis aligned line with the appropriate min and max.
+    Construct an axis aligned line with the appropriate min and max.
 
 .. staticmethod:: AxisAlignedLine.intersects(line1, line2)
 
@@ -454,8 +454,10 @@ Defines an undirected two-dimensional line by an axis, a minimum and a maximum.
     - **line2**        - `AxisAlignedLine` the second line
     - **Return Value** - `bool, bool` touching, overlapping
     
-    Determines if the two lines are touching and if they are, if 
-    they are overlapping. 
+    Determine if the two lines are touching and if they are, if 
+    they are overlapping. Lines are touching if they share only
+    one end point, whereas they are overlapping if they share
+    infinitely many points.
     
     .. note::
     
@@ -469,7 +471,7 @@ Defines an undirected two-dimensional line by an axis, a minimum and a maximum.
     - **line2**        - `AxisAlignedLine` the second line
     - **Return Value** - `bool, numeric or None` touching, mtv against 1
     
-    Determines if the two lines are touching, and then returns the 
+    Determine if the two lines are touching, and then returns the 
     minimum translation vector to move line 1 along axis. If the result
     is negative, it means line 1 should be moved in the opposite direction
     of the axis by the magnitude of the result.
@@ -484,10 +486,16 @@ Defines an undirected two-dimensional line by an axis, a minimum and a maximum.
 
     - **line**         - `AxisAlignedLine` the line
     - **point**        - `numeric` the point 
-    - **Return Value** - `bool` if point is contained (or an edge of) the line
+    - **Return Value** - `bool, bool` if point is contained, if the point is an edge
     
-    Determines if the line contains the specified point, which is assumed 
+    Determine if the line contains the specified point, which is assumed 
     to be defined the same way as min and max.
+    
+Axis-Aligned Line (autogen)
+---------------------------
+
+.. autoclass:: pygorithm.geometry.AxisAlignedLine
+    :members:
     
 Concave Polygon
 ---------------
