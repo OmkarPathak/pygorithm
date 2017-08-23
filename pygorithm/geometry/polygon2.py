@@ -62,7 +62,8 @@ class Polygon2(object):
             suppressed.
         
         :param points: the ordered set of points on this polygon
-        :type points: list of :class:`pygorithm.geometry.vector2.Vector2`
+        :type points: list of :class:`pygorithm.geometry.vector2.Vector2` or \
+        list of (:class:`numbers.Number`, :class:`numbers.Number`)
         
         :param suppress_errors: True to not do somewhat expensive sanity checks
         :type suppress_errors: bool
@@ -74,6 +75,20 @@ class Polygon2(object):
         """
         pass
     
+    @classmethod
+    def from_regular(cls, sides, length):
+        """
+        Create a new regular polygon.
+        
+        :param sides: the number of sides in the polygon
+        :type sides: :class:`numbers.Number`
+        :param length: the length of each sides
+        :type length: :class:`numbers.Number`
+        
+        :raises ValueError: if ``sides < 3`` or ``length <= 0``
+        """
+        pass
+        
     @property
     def area(self):
         """

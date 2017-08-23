@@ -14,7 +14,7 @@ Quick Start Guide
     from pygorithm.geometry import vector2
     
     # create a regular polygon
-    poly1 = polygon2.Polygon2(regular=True, sides=5, length=5)
+    poly1 = polygon2.Polygon2.from_regular(5, 5)
     
     # create a polygon from tuple (x, y) - note that the polygon must be concave
     poly2 = polygon2.Polygon2(points=[ (0, 0), (1, 0), (1, 1), (0, 1) ])
