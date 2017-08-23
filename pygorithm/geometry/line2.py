@@ -41,7 +41,7 @@ class Line2(object):
     
     def __init__(self, start, end):
         """
-        Create a new line 2 from start to end.
+        Create a new line from start to end.
         
         :param start: the start point
         :type start: :class:`pygorithm.geometry.vector2.Vector2`
@@ -151,7 +151,8 @@ class Line2(object):
             The slope may be 0 (horizontal line) or positive or negative
             infinity (vertical lines). It may be necessary to handle 
             these lines seperately, typically through checking the
-            :py:attr:`~horizontal` and :py:attr:`~vertical` properties.
+            :py:attr:`~pygorithm.geometry.line2.Line2.horizontal` and 
+            :py:attr:`~pygorithm.geometry.line2.Line2.vertical` properties.
             
         
         :returns: the slope of this line (rise over run).
@@ -170,13 +171,14 @@ class Line2(object):
         .. caution::
         
             This function will return a y-intercept for non-vertical 
-            line segments that do not reach x=0. 
+            line segments that do not reach :code:`x=0`. 
         
         .. caution::
         
             The y-intercept will change based on the offset in a somewhat
-            complex manner. :py:meth:`~calculate_y_intercept` accepts an
-            offset parameter.
+            complex manner. 
+            :py:meth:`~pygorithm.geometry.line2.Line2.calculate_y_intercept` 
+            accepts an offset parameter.
         
         :returns: the y-intercept of this line when unshifted
         :rtype: :class:`numbers.Number` or None
@@ -202,7 +204,7 @@ class Line2(object):
         Get if this line is vertical, lazily initialized.
         
         A line is vertical if it has a slope of +inf or -inf. This
-        also means that :code:`start.x == end.x`.
+        also means that ``start.x == end.x``.
         
         :returns: if this line is vertical
         :rtype: bool
