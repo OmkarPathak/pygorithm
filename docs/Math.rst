@@ -70,3 +70,43 @@ Sieve of Eratostenes
 .. function:: sieve_of_eratostenes.get_code()
 
 - **Return Value**    : returns the code for the ``sieve_of_eratostenes.sieve_of_eratostenes()`` function
+
+Factorial
+---------
+
+* Functions and their uses
+
+.. function:: factorial.factorial(number)
+
+- **number**          : integer number of which factorial is to be found
+- **Return Value**    : returns the integer of factorial of the number
+
+.. function:: factorial.get_code()
+
+- **Return Value**    : returns the code for the ``factorial.factorial()`` function
+
+
+Conversion
+----------
+
+* Functions and their uses
+
+.. function:: conversion.decimal_to_binary(number)
+
+- **number**          : decimal number in string or integer format
+- **Return Value**    : returns the string of equivalent binary number
+
+.. function:: conversion.binary_to_decimal(number)
+
+- **number**          : binary number in string or integer format
+- **Return Value**    : returns the integer of equivalent decimal number
+
+.. function:: conversion.decimal_to_hex(number)
+
+- **number**          : decimal number in string or integer format
+- **Return Value**    : returns the string of equivalent hex number
+
+.. function:: conversion.hex_to_decimal(number)
+
+- **number**          : hex number in string or integer format
+- **Return Value**    : returns the integer of equivalent decimal number
