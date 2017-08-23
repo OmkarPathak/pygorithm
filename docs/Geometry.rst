@@ -491,10 +491,15 @@ Defines an undirected two-dimensional line by an axis, a minimum and a maximum.
     Determine if the line contains the specified point, which is assumed 
     to be defined the same way as min and max.
     
+    .. tip::
+        
+            It is not possible for both returned booleans to be `True`.
+    
+
 Axis-Aligned Line (autogen)
 ---------------------------
 
-.. autoclass:: pygorithm.geometry.AxisAlignedLine
+.. autoclass:: pygorithm.geometry.axisall.AxisAlignedLine
     :members:
     
 Concave Polygon
@@ -519,14 +524,14 @@ index to the larger index will walk clockwise around the polygon.
     To reduce unnecessary recalculations, Polygons notably do not have 
     an easily modifiable position. However, where relevant, the class 
     methods will accept offsets to the polygons.
-    
+
 .. note::
 
     Unfortunately, operations on rotated polygons require recalculating
     the polygon based on its rotated points. This should be avoided 
     unless necessary through the use of Axis-Aligned Bounding Boxes
     and similar tools.
-    
+
 .. attribute:: Polygon2.points 
     
     The ordered list of `Vector2`s in this polygon.
@@ -543,15 +548,15 @@ index to the larger index will walk clockwise around the polygon.
 .. attribute:: Polygon2.center
 
     The `Vector2` center of the polygon. Lazily initialized.
-    
+
 .. attribute:: Polygon2.aabb
 
     The `Rect2` bounding box of this polygon. Lazily initialized.
-    
+
 .. method:: Polygon2(self, points)
 
     - **points** - The ordered list of points in this polygon.
-    
+
 .. staticmethod:: Polygon2.contains_point(polygon, offset, vec)
 
     - **polygon** - polygon to check

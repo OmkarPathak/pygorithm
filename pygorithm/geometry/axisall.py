@@ -48,7 +48,7 @@ class AxisAlignedLine(object):
         Construct an axis aligned line with the appropriate min and max.
         
         :param axis: axis this line is on
-        :type axis: :class:`pygorithm.geometry.Vector2`
+        :type axis: :class:`pygorithm.geometry.vector2.Vector2`
         :param point1: one point on this line
         :type point1: :class:`numbers.Number`
         :param point2: a different point on this line
@@ -74,9 +74,9 @@ class AxisAlignedLine(object):
             the same operations.
         
         :param line1: the first line
-        :type line1: :class:`pygorithm.geometry.AxisAlignedLine`
+        :type line1: :class:`pygorithm.geometry.axisall.AxisAlignedLine`
         :param line2: the second line
-        :type line2: :class:`pygorithm.geometry.AxisAlignedLine`
+        :type line2: :class:`pygorithm.geometry.axisall.AxisAlignedLine`
         :returns: touching, overlapping
         :rtype: bool, bool
         """
@@ -101,9 +101,9 @@ class AxisAlignedLine(object):
         
         
         :param line1: the first line
-        :type line1: :class:`pygorithm.geometry.AxisAlignedLine`
+        :type line1: :class:`pygorithm.geometry.axisall.AxisAlignedLine`
         :param line2: the second line
-        :type line2: :class:`pygorithm.geometry.AxisAlignedLine`
+        :type line2: :class:`pygorithm.geometry.axisall.AxisAlignedLine`
         :returns: touching, mtv against 1
         :rtype: bool, :class:`numbers.Number` or None
         """
@@ -122,7 +122,7 @@ class AxisAlignedLine(object):
             It is not possible for both returned booleans to be `True`.
         
         :param line: the line
-        :type line: :class:`pygorithm.geometry.AxisAlignedLine`
+        :type line: :class:`pygorithm.geometry.axisall.AxisAlignedLine`
         :param point: the point
         :type point: :class:`numbers.Number`
         :returns: if the point is an edge of the line, if the point is contained by the line
