@@ -275,7 +275,7 @@ class Line2(object):
         pass
     
     @staticmethod
-    def find_intersection(line1, line2, offset1=None, offset2=None, find_mtv=True):
+    def find_intersection(line1, line2, offset1 = None, offset2 = None, find_mtv = True):
         """
         Find the intersection between the two lines.
         
