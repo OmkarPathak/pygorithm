@@ -91,12 +91,12 @@ Binary Search
 
 * Functions and their uses
 
-.. function:: binary_search.search(List, key)
+.. function:: binary_search.search(_list, target)
    :module: pygorithm.searching
 
-- **List**            : *Sorted* list in which the key is to be searched
-- **key**             : key to be searched in the list
-- **Return Value**    : returns the position (index) of the key if key found, else returns -1
+- **_list**            : *Sorted* list in which the target is to be searched
+- **target**             : target to be searched in the list
+- **Return Value**    : returns the position (index) of the target if target found, else returns False
 
 .. function:: binary_search.time_complexities()
 
@@ -111,11 +111,11 @@ Linear Search
 
 * Functions and their uses
 
-.. function:: linear_search.search(List, key)
+.. function:: linear_search.search(_list, target)
 
-- **List**            : the list in which item is to searched
-- **key**             : key to be searched in the list
-- **Return Value**    : returns the position (index) of the key if key found, else returns -1
+- **_list**            : the list in which item is to searched
+- **target**             : target to be searched in the list
+- **Return Value**    : returns the position (index) of the target if target found, else returns False
 
 .. function:: linear_search.time_complexities()
 
@@ -182,3 +182,23 @@ Quick Select Search
 .. function:: quick_select.get_code()
 
 - **Return Value**    : returns the code for the ``quick_select.search()`` function
+
+Interpolation Search
+--------------------
+
+* Functions and their uses
+
+.. function:: interpolation_search.search(_list, target)
+   :module: pygorithm.searching
+
+- **_list**           : *Sorted* list in which the target is to be searched
+- **target**          : target to be searched in the list
+- **Return Value**    : returns the position (index) of the target if target found, else returns False
+
+.. function:: interpolation_search.time_complexities()
+
+- **Return Value**    : returns time complexities (Best, Average, Worst)
+
+.. function:: interpolation_search.get_code()
+
+- **Return Value**    : returns the code for the ``interpolation_search.search()`` function
