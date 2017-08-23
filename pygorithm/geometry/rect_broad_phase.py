@@ -8,6 +8,7 @@ Created On: 23 August 2017
 
 import inspect
 
+
 class Coord:
     """Coord
     Class to initialize Coordinate of one point
@@ -18,8 +19,8 @@ class Coord:
         self.y = y
 
 
-class Body:
-    """Body
+class SimpleRectangle:
+    """SimpleRectangle
     Class to initialize Body of Object
     """
 
@@ -34,15 +35,15 @@ class Body:
         self.max_y = coord2.y
 
 
-def broad_phase(body1, body2):
+def broad_phase(simpleRect1, simpleRect2):
     """
-    :type body1: object
-    :type body2: object
+    :type simpleRect1: object
+    :type simpleRect2: object
     """
-    d1x = body2.min_x - body1.max_x
-    d1y = body2.min_y - body1.max_y
-    d2x = body1.min_x - body2.max_x
-    d2y = body1.min_y - body2.max_y
+    d1x = simpleRect2.min_x - simpleRect1.max_x
+    d1y = simpleRect2.min_y - simpleRect1.max_y
+    d2x = simpleRect1.min_x - simpleRect2.max_x
+    d2y = simpleRect1.min_y - simpleRect2.max_y
 
     if d1x > 0 or d1y > 0:
         return False
@@ -58,12 +59,3 @@ def get_code():
     returns the code for the broad phase function
     """
     return inspect.getsource(broad_phase)
-
-if __name__ == '__main__':
-    coord1 = Coord(1, 1)
-    coord2 = Coord(6, 8)
-    body1 = Body(coord1, coord2)
-    coord3 = Coord(4, 0)
-    coord4 = Coord(7, 4)
-    body2 = Body(coord3, coord4)
-    print(broad_phase(body1, body2))
