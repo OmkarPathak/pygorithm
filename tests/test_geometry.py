@@ -1,5 +1,6 @@
 import unittest
 import math
+import random
 
 from pygorithm.geometry import (
     rect_broad_phase,
@@ -212,6 +213,193 @@ class TestVector2(unittest.TestCase):
         
         magn = vec1.magnitude()
         self.assertEqual(5, magn)
+        
+class TestLine2(unittest.TestCase):
+    def setUp(self):
+        random.seed()
+        
+        self.vec_origin = vector2.Vector2(0, 0)
+        self.vec_1_1 = vector2.Vector2(1, 1)
+        self.vec_2_1 = vector2.Vector2(2, 1)
+        self.vec_1_2 = vector2.Vector2(1, 2)
+        self.vec_3_4 = vector2.Vector2(3, 4)
+        self.vec_neg_1_neg_1 = vector2.Vector2(-1, -1)
+        
+        self.line_origin_1_1 = line2.Line2(self.vec_origin, self.vec_1_1)
+        self.line_1_1_3_4 = line2.Line2(self.vec_1_1, self.vec_3_4)
+        self.line_1_1_2_1 = line2.Line2(self.vec_1_1, self.vec_2_1)
+        self.line_1_1_1_2 = line2.Line2(self.vec_1_1, self.vec_1_2)
+        
+    def test_constructor(self):
+        _line = self.line_origin_1_1
+        
+        self.assertIsNotNone(_line.start)
+        self.assertIsNotNone(_line.end)
+        
+        self.assertEqual(0, _line.start.x)
+        self.assertEqual(0, _line.start.y)
+        self.assertEqual(1, _line.end.x)
+        self.assertEqual(1, _line.end.y)
+        
+        with self.assertRaises(ValueError):
+            _line2 = line2.Line2(self.vec_origin, self.vec_origin)
+    
+    def test_delta(self):
+        self.assertEqual(1, self.line_origin_1_1.delta.x)
+        self.assertEqual(1, self.line_origin_1_1.delta.y)
+        self.assertEqual(2, self.line_1_1_3_4.delta.x)
+        self.assertEqual(3, self.line_1_1_3_4.delta.y)
+        
+    def test_axis(self):
+        self.assertAlmostEqual(0.70710678118, self.line_origin_1_1.axis.x)
+        self.assertAlmostEqual(0.70710678118, self.line_origin_1_1.axis.y)
+        self.assertAlmostEqual(0.55470019622, self.line_1_1_3_4.axis.x)
+        self.assertAlmostEqual(0.83205029433, self.line_1_1_3_4.axis.y)
+        self.assertEqual(1, self.line_1_1_2_1.axis.x)
+        self.assertEqual(0, self.line_1_1_2_1.axis.y)
+        self.assertEqual(0, self.line_1_1_1_2.axis.x)
+        self.assertEqual(1, self.line_1_1_1_2.axis.y)
+        
+    def test_normal(self):
+        self.assertAlmostEqual(-0.70710678118, self.line_origin_1_1.normal.x)
+        self.assertAlmostEqual(0.70710678118,  self.line_origin_1_1.normal.y)
+        self.assertAlmostEqual(-0.83205029433, self.line_1_1_3_4.normal.x)
+        self.assertAlmostEqual(0.55470019622, self.line_1_1_3_4.normal.y)
+        self.assertEqual(0, self.line_1_1_2_1.normal.x)
+        self.assertEqual(1, self.line_1_1_2_1.normal.y)
+        self.assertEqual(-1, self.line_1_1_1_2.normal.x)
+        self.assertEqual(0, self.line_1_1_1_2.normal.y)
+        
+    def test_magnitude_squared(self):
+        self.assertAlmostEqual(2, self.line_origin_1_1.magnitude_squared)
+        self.assertAlmostEqual(13, self.line_1_1_3_4.magnitude_squared)
+        self.assertEqual(1, self.line_1_1_2_1.magnitude_squared)
+        self.assertEqual(1, self.line_1_1_1_2.magnitude_squared)
+        
+    def test_magnitude(self):
+        self.assertAlmostEqual(1.41421356237, self.line_origin_1_1.magnitude)
+        self.assertAlmostEqual(3.60555127546, self.line_1_1_3_4.magnitude)
+        self.assertEqual(1, self.line_1_1_2_1.magnitude)
+        self.assertEqual(1, self.line_1_1_1_2.magnitude)
+        
+    def test_line_boundaries_x(self): # min_x, min_y, max_x, max_y
+        _line = line2.Line2(vector2.Vector2(-2, 3), vector2.Vector2(1, -1))
+        self.assertEqual(-2, _line.min_x)
+        self.assertEqual(1, _line.max_x)
+        self.assertEqual(-1, _line.min_y)
+        self.assertEqual(3, _line.max_y)
+    
+    def test_slope(self):
+        self.assertEqual(1, self.line_origin_1_1.slope)
+        self.assertAlmostEqual(1.5, self.line_1_1_3_4.slope)
+        self.assertEqual(0, self.line_1_1_1_2.slope)
+        self.assertEqual(float('+inf'), self.line_1_1_2_1.slope)
+        
+    def test_y_intercept(self):
+        self.assertEqual(0, self.line_origin_1_1.y_intercept)
+        self.assertAlmostEqual(-0.5, self.line_1_1_3_4.y_intercept)
+        self.assertTrue(math.isnan(self.line_1_1_1_2.y_intercept))
+        self.assertEqul(1, self.line_1_1_2_1.y_intercept)
+    
+    def test_horizontal(self):
+        self.assertFalse(self.line_origin_1_1.horizontal)
+        self.assertFalse(self.line_1_1_3_4.horizontal)
+        self.assertFalse(self.line_1_1_1_2.horizontal)
+        self.assertTrue(self.line_1_1_2_1.horizontal)
+    
+    def test_vertical(self):
+        self.assertFalse(self.line_origin_1_1.vertical)
+        self.assertFalse(self.line_1_1_3_4.vertical)
+        self.assertTrue(self.line_1_1_1_2.vertical)
+        self.assertFalse(self.line_1_1_2_1.vertical)
+    
+    def test_repr(self):
+        self.assertEqual('line2(start=vector2(x=1, y=1), end=vector2(x=3, y=4))', repr(self.line_1_1_3_4))
+    
+    def test_str(self):
+        self.assertEqual('<1, 1> -> <3, 4>', str(self.line_1_1_3_4))
+    
+    def test_calculate_y_intercept(self):
+        self.assertAlmostEqual(0.66666666667, self.line_1_1_3_4.calculate_y_intercept(self.vec_1_1))
+    
+    def test_are_parallel(self):
+        self.assertFalse(line2.Line2.are_parallel(self.line_origin_1_1, self.line_1_1_3_4))
+        
+        _line = line2.Line2(vector2.Vector2(5, 4), vector2.Vector2(3, 1))
+        self.assertTrue(line2.Line2.are_parallel(self.line_1_1_3_4, _line))
+        
+    @staticmethod
+    def _find_intr_fuzzer(v1, v2, v3, v4, exp_touching, exp_overlap, exp_intr, number_fuzzes = 3):
+        for i in range(number_fuzzes):
+            offset1 = vector2.Vector2(random.randrange(-1000, 1000, 0.01), random.randrange(-1000, 1000, 0.01))
+            offset2 = vector2.Vector2(random.randrange(-1000, 1000, 0.01), random.randrange(-1000, 1000, 0.01))
+            
+            _line1 = line2.Line2(v1 - offset1, v2 - offset1)
+            _line2 = line2.Line2(v3 - offset2, v4 - offset2)
+            
+            help_msg = 'v1={}, v2={}, offset1={}\n_line1={}\nv3={}, v4={}, offset2={}\n_line2={}'.format(repr(v1), \
+                repr(v2), repr(offset1), repr(_line1), repr(v3), repr(v4), repr(offset2), repr(_line2))
+            
+            touching, overlap, intr = line2.Line2.find_intersection(_line1, _line2, offset1, offset2)
+            self.assertEqual(exp_touching, touching, help_msg)
+            self.assertEqual(exp_overlap, overlap, help_msg)
+            
+            if exp_intr is None:
+                self.assertIsNone(intr, help_msg)
+            else:
+                self.assertIsNotNone(intr, help_msg)
+                
+                if isinstance(exp_intr, vector2.Vector2):
+                    self.assertIsInstance(intr, vector2.Vector2, help_msg)
+                    
+                    self.assertAlmostEqual(exp_intr.x, intr.x)
+                    self.assertAlmostEqual(exp_intr.y, intr.y)
+                else:
+                    self.assertIsInstance(exp_intr, line2.Line2, help_msg)
+                    self.assertIsInstance(intr, line2.Line2, help_msg)
+                    
+                    self.assertAlmostEqual(exp_intr.start.x, intr.start.x)
+                    self.assertAlmostEqual(exp_intr.start.y, intr.start.y)
+                    self.assertAlmostEqual(exp_intr.end.x, intr.end.x)
+                    self.assertAlmostEqual(exp_intr.end.y, itnr.end.y)
+                
+            
+    def test_find_intersection_non_parallel_no_intersection(self):
+        self._find_intr_fuzzer(vector2.Vector2(3, 4), vector2.Vector2(5, 6), 
+                               vector2.Vector2(5, 4), vector2.Vector2(7, 3),
+                               False, False, None)
+   
+    def test_find_intersection_parallel_no_intersection(self):
+        self._find_intr_fuzzer(vector2.Vector2(1, 1), vector2.Vector2(3, 3),
+                               vector2.Vector2(2, 1), vector2.Vector2(4, 3),
+                               False, False, None)
+        
+    def test_find_intersection_non_parallel_intersect_at_edge(self):
+        self._find_intr_fuzzer(vector2.Vector2(3, 4), vector2.Vector2(5, 6),
+                               vector2.Vector2(1, 6), vector2.Vector2(5, 2),
+                               True, False, vector2.Vector2(3, 4))
+    
+    def test_find_intersection_non_parallel_intersect_not_edge(self):
+        self._find_intr_fuzzer(vector2.Vector2(3, 4), vector2.Vector2(5, 6),
+                               vector2.Vector2(3.5, 7), vector2.Vector2(4.5, 4),
+                               False, True, vector2.Vector2(4.125, 5.125))
+   
+    def test_find_intersection_parallel_intersect_at_edge(self):
+        self._find_intr_fuzzer(vector2.Vector2(3, 4), vector2.Vector2(5, 6),
+                               vector2.Vector2(5, 6), vector2.Vector2(7, 8),
+                               True, False, vector2.Vector2(5, 6))
+                               
+    def test_find_intersection_parallel_intersect_overlap(self):
+        self._find_intr_fuzzer(vector2.Vector2(3, 4), vector2.Vector2(5, 6),
+                               vector2.Vector2(4, 5), vector2.Vector2(7, 8),
+                               False, True, line2.Line2(vector2.Vector2(4, 5), vector2.Vector2(5, 6)))
+       
+    def test_find_intersection_parallel_overlap_compeletely(self):
+        self._find_intr_fuzzer(vector2.Vector2(3, 4), vector2.Vector2(5, 6),
+                               vector2.Vector2(2, 3), vector2.Vector2(7, 8),
+                               False, True, line2.Line2(vector2.Vector2(3, 4), vector2.Vector2(5, 6)))
+                               
+    
         
 
 if __name__ == '__main__':

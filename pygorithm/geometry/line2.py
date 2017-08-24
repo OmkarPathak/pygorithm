@@ -19,7 +19,7 @@ class Line2(object):
         points, and thus cannot be changed on their own and must be recalculated 
         if there were any changes to `start` or `end`. 
 
-    .. note::
+    .. tip::
 
         To prevent unnecessary recalculations, many functions on lines accept an 
         'offset' argument, which is used to perform calculations on lines that 
@@ -275,7 +275,23 @@ class Line2(object):
         pass
     
     @staticmethod
-    def find_intersection(line1, line2, offset1 = None, offset2 = None, find_mtv = True):
+    def are_parallel(line1, line2):
+        """
+        Determine if the two lines are parallel.
+        
+        Two lines are parallel if they have the same or opposite slopes.
+        
+        :param line1: the first line 
+        :type line1: :class:`pygorithm.geometry.line2.Line2`
+        :param line2: the second line
+        :type line2: :class:`pygorithm.geometry.line2.Line2`
+        :returns: if the lines are parallel
+        :rtype: bool
+        """
+        pass
+    
+    @staticmethod
+    def find_intersection(line1, line2, offset1 = None, offset2 = None):
         """
         Find the intersection between the two lines.
         
@@ -283,18 +299,14 @@ class Line2(object):
         will incur a minor performance penalty which is less than 
         that of recreating new lines.
         
-        .. note::
+        Two lines are considered touching if they only share exactly
+        one point and that point is an edge of one of the lines. 
         
-            There is only a very minor performance improvement by setting find_mtv to 
-            false. It is rare that, if an mtv will be necessary, to find any performance
-            improvement by first searching with ``find_mtv=False`` and then later 
-            with :``find_mtv=True``
+        If two lines are parallel, their intersection could be a line.
         
-        .. note::
-            
-            The resulting mtv is broken up into distance and axis. This falls naturally out
-            of the algorithm and is often convienent. To find the full mtv, simply multiply
-            the two.
+        .. tip::
+        
+            This will never return True, True
         
         :param line1: the first line
         :type line1: :class:`pygorithm.geometry.line2.Line2`
@@ -304,9 +316,8 @@ class Line2(object):
         :type offset1: :class:`pygorithm.geometry.vector2.Vector2` or None
         :param offset2: the offset of line 2
         :type offset2: :class:`pygorithm.geometry.vector2.Vector2` or None
-        :param find_mtv: if false, mtv will always be null.
-        :returns: (touching, overlapping, (distance, axis))
-        :rtype: (bool, bool, (:class:`numbers.Number`, :class:`pygorithm.geometry.vector2.Vector2`) or None)
+        :returns: (touching, overlapping, intersection_location)
+        :rtype: (bool, bool, :class:`pygorithm.geometry.line2.Line2` or :class:`pygorithm.geometry.vector2.Vector2` or None)
         """
         pass
         
