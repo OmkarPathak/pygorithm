@@ -27,9 +27,9 @@ Songzhuozhuo 'souo'
 Emil 'Skeen' Madsen
 Ian 'IanDoarn' Doarn
 Timothy 'Tjsretchalot' Moore
-Sharad '[sharadbhat](https://github.com/sharadbhat)' Bhat
-Alexey '[aesee](https://github.com/aesee)' Sarapulov
-Anthony '[MrDupin](https://github.com/MrDupin)' Marakis
+Sharad 'sharadbhat' Bhat
+Alexey 'aesee' Sarapulov
+Anthony 'MrDupin' Marakis
 
 """
 
