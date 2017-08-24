@@ -30,7 +30,7 @@ Timothy 'Tjsretchalot' Moore
 
 """
 
-__version__ = '1.0.3'
+__version__ = '1.0.0'
 __author__ = 'Omkar Pathak'
 
 # List maintainers here
@@ -64,5 +64,4 @@ __all__ = [
     'sorting',
     'string',
     'pathfinding',
-    'geometry',
 ]
