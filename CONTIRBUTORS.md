@@ -14,3 +14,6 @@
  - Emil '[Skeen](https://github.com/Skeen)' Madsen
  - Ian '[IanDoarn](https://github.com/IanDoarn)' Doarn
  - Timothy '[Tjstretchalot](https://github.com/Tjstretchalot)' Moore
+ - Sharad '[sharadbhat](https://github.com/sharadbhat)' Bhat
+ - Alexey '[aesee](https://github.com/aesee)' Sarapulov
+ - Anthony '[MrDupin](https://github.com/MrDupin)' Marakis
