@@ -1,10 +1,21 @@
 """
 Collection of pathfinding examples
 """
-from . import dijkstra
-from . import astar
+import pkgutil
 
-__all__ = [
-    'dijkstra',
-    'astar'
-]
+def modules():
+    """
+    Find all functions in pygorithm.pathfinding
+    """
+    from pygorithm import pathfinding
+    package = pathfinding
+    modules_list = []
+    for importer, modname, ispkg in pkgutil.iter_modules(package.__path__):
+        modules_list.append(modname)
+    modules_list.remove('modules')
+    modules_list.sort()
+    return modules_list
+
+modules_list = modules()
+
+__all__ = modules_list

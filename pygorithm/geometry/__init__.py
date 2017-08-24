@@ -1,14 +1,14 @@
 """
-Collection of string methods and functions
+Collection of special geometry functions
 """
 import pkgutil
 
 def modules():
     """
-    Find all functions in pygorithm.string
+    Find all functions in pygorithm.geometry
     """
-    from pygorithm import string
-    package = string
+    from pygorithm import geometry
+    package = geometry
     modules_list = []
     for importer, modname, ispkg in pkgutil.iter_modules(package.__path__):
         modules_list.append(modname)
