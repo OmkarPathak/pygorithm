@@ -16,7 +16,7 @@ Quick Start Guide
     # create a regular polygon
     poly1 = polygon2.Polygon2.from_regular(5, 5)
     
-    # create a polygon from tuple (x, y) - note that the polygon must be concave
+    # create a polygon from tuple (x, y) - note that the polygon must be convex
     poly2 = polygon2.Polygon2(points=[ (0, 0), (1, 0), (1, 1), (0, 1) ])
     
     # create a polygon from vector2s. 
