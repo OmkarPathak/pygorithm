@@ -27,10 +27,13 @@ Songzhuozhuo 'souo'
 Emil 'Skeen' Madsen
 Ian 'IanDoarn' Doarn
 Timothy 'Tjsretchalot' Moore
+Sharad 'sharadbhat' Bhat
+Alexey 'aesee' Sarapulov
+Anthony 'MrDupin' Marakis
 
 """
 
-__version__ = '1.0.3'
+__version__ = '1.0.0'
 __author__ = 'Omkar Pathak'
 
 # List maintainers here
@@ -65,5 +68,5 @@ __all__ = [
     'sorting',
     'string',
     'pathfinding'
-    'geometry',
+    'geometry'
 ]

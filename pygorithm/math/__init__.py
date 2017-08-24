@@ -14,3 +14,4 @@ __all__ = [
     'lcm',
     'sieve_of_eratosthenes'
 ]
+
