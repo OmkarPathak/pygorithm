@@ -1,16 +1,21 @@
 """
 Collection of searching algorithms
 """
-from . import binary_search
-from . import breadth_first_search
-from . import depth_first_search
-from . import linear_search
-from . import quick_select
+import pkgutil
 
-__all__ = [
-    'binary_search',
-    'breadth_first_search',
-    'depth_first_search',
-    'linear_search',
-    'quick_select'
-]
+def modules():
+    """
+    Find all functions in pygorithm.searching
+    """
+    from pygorithm import searching
+    package = searching
+    modules_list = []
+    for importer, modname, ispkg in pkgutil.iter_modules(package.__path__):
+        modules_list.append(modname)
+    modules_list.remove('modules')
+    modules_list.sort()
+    return modules_list
+
+modules_list = modules()
+
+__all__ = modules_list

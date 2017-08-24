@@ -1,24 +1,21 @@
 """
 Collection of sorting methods
 """
-from . import quick_sort
-from . import bucket_sort
-from . import bubble_sort
-from . import heap_sort
-from . import counting_sort
-from . import insertion_sort
-from . import merge_sort
-from . import selection_sort
-from . import shell_sort
+import pkgutil
 
-__all__ = [
-    'bubble_sort',
-    'bucket_sort',
-    'counting_sort',
-    'heap_sort',
-    'insertion_sort',
-    'merge_sort',
-    'quick_sort',
-    'selection_sort',
-    'shell_sort'
-]
+def modules():
+    """
+    Find all functions in pygorithm.sorting
+    """
+    from pygorithm import sorting
+    package = sorting
+    modules_list = []
+    for importer, modname, ispkg in pkgutil.iter_modules(package.__path__):
+        modules_list.append(modname)
+    modules_list.remove('modules')
+    modules_list.sort()
+    return modules_list
+
+modules_list = modules()
+
+__all__ = modules_list

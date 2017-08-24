@@ -1,15 +1,21 @@
 """
 Collection of string methods and functions
 """
-from . import anagram
-from . import pangram
-from . import isogram
-from . import modules
-from . import palindrome
+import pkgutil
 
-__all__ = [
-    'anagram',
-    'pangram',
-    'isogram',
-    'palindrome'
-]
+def modules():
+    """
+    Find all functions in pygorithm.string
+    """
+    from pygorithm import string
+    package = string
+    modules_list = []
+    for importer, modname, ispkg in pkgutil.iter_modules(package.__path__):
+        modules_list.append(modname)
+    modules_list.remove('modules')
+    modules_list.sort()
+    return modules_list
+
+modules_list = modules()
+
+__all__ = modules_list
