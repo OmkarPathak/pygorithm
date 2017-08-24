@@ -27,6 +27,9 @@ Songzhuozhuo 'souo'
 Emil 'Skeen' Madsen
 Ian 'IanDoarn' Doarn
 Timothy 'Tjsretchalot' Moore
+Sharad 'sharadbhat' Bhat
+Alexey 'aesee' Sarapulov
+Anthony 'MrDupin' Marakis
 
 """
 
