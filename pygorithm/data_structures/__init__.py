@@ -7,6 +7,7 @@ from . import linked_list
 from . import queue
 from . import stack
 from . import tree
+from . import trie
 
 __all__ = [
     'graph',
@@ -16,4 +17,3 @@ __all__ = [
     'stack',
     'tree',
     'trie'
-]

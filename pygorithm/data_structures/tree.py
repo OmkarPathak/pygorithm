@@ -127,7 +127,7 @@ class BinaryTree(object):
 
 class BSTNode(object):
     """
-    class for creating a node for Binary Search tree
+    class for creating a node for binary Search tree
     """
     def __init__(self, data):
         self.data = data
