@@ -1,0 +1,32 @@
+'''
+Author: Omkar Pathak
+Created At: 25th August 2017
+'''
+
+def knapsack(W, value, weight, n):
+    '''
+        :param W: maximum weight capacity
+        :param value: an array of values of items in the knapsack
+        :param weight: an array of weights of items in the knapsack
+        :param n: number of items in the knapsack
+    '''
+    knap_sack = [[0 for x in range(W+1)] for x in range(n+1)]
+
+    for j in range(W + 1):
+        knap_sack[0][j] = 0
+
+    for i in range(n + 1):
+        for w in range(W + 1):
+            if weight[i - 1] <= w:
+                knap_sack[i][w] = max(value[i - 1] + knap_sack[i - 1][w - weight[i - 1]], knap_sack[i - 1][w])
+            else:
+                knap_sack[i][w] = knap_sack[i - 1][w]
+
+    return knap_sack[n][w]
+
+
+def get_code():
+    """
+    returns the code for the knapsack function
+    """
+    return inspect.getsource(knapsack)
