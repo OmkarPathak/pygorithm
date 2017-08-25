@@ -33,7 +33,7 @@ Anthony 'MrDupin' Marakis
 
 """
 
-__version__ = '1.0.0'
+__version__ = '1.0.3'
 __author__ = 'Omkar Pathak'
 
 # List maintainers here
@@ -62,6 +62,7 @@ __contributors__ = [
 __all__ = [
     'binary',
     'data_structures',
+    'dynamic_programming',
     'fibonacci',
     'math',
     'searching',
