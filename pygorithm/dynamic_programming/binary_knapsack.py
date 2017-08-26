@@ -3,13 +3,25 @@ Author: Omkar Pathak
 Created At: 25th August 2017
 '''
 
-def knapsack(W, value, weight, n):
+import inspect
+
+def knapsack(W, value, weight):
     '''
         :param W: maximum weight capacity
         :param value: an array of values of items in the knapsack
         :param weight: an array of weights of items in the knapsack
-        :param n: number of items in the knapsack
     '''
+    if type(value) is not list:
+        raise TypeError("binary knapsack only accepts lists, not {}".format(str(type(value))))
+    if type(weight) is not list:
+        raise TypeError("binary knapsack only accepts lists, not {}".format(str(type(weight))))
+
+    if len(value) != len(weight):
+        raise ValueError("both the lists must be of same length")
+
+    # n = number of items
+    n = len(value)
+
     knap_sack = [[0 for x in range(W+1)] for x in range(n+1)]
 
     for j in range(W + 1):

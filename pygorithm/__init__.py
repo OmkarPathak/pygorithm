@@ -56,7 +56,8 @@ __contributors__ = [
     "Songzhuozhuo 'souo'",
     "Emil 'Skeen' Madsen",
     "Ian 'IanDoarn' Doarn",
-    "Timothy 'Tjstretchalot' Moore"
+    "Timothy 'Tjstretchalot' Moore",
+    "Sharad 'sharadbhat' Bhat"
 ]
 
 __all__ = [
@@ -69,5 +70,6 @@ __all__ = [
     'sorting',
     'string',
     'pathfinding'
-    'geometry'
+    'geometry',
+    'greedy_algorithm'
 ]
