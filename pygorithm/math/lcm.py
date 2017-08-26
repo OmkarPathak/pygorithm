@@ -2,7 +2,7 @@
 Author: OMKAR PATHAK
 Created at: 16th August 2017
 """
-from functools import reduce # need this line if you're using Python3.x
+from functools import reduce
 import inspect
 
 

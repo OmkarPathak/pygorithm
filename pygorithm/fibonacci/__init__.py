@@ -4,7 +4,6 @@ Collection of fibonacci methods and functions
 from . import generator
 from . import goldenratio
 from . import memoization
-from . import modules
 from . import recursion
 
 __all__ = [

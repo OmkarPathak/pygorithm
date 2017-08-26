@@ -1,10 +1,10 @@
 """
 Collection of pathfinding examples
 """
-from . import dijkstra
 from . import astar
+from . import dijkstra
 
 __all__ = [
-    'dijkstra',
-    'astar'
+    'astar',
+    'dijkstra'
 ]

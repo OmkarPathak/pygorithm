@@ -12,5 +12,5 @@ __all__ = [
     'axisall',
     'line2',
     'polygon2',
-    'collision_detection.py'
+    'rect_broad_phase'
 ]

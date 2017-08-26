@@ -33,7 +33,7 @@ Anthony 'MrDupin' Marakis
 
 """
 
-__version__ = '1.0.0'
+__version__ = '1.0.3'
 __author__ = 'Omkar Pathak'
 
 # List maintainers here
@@ -56,16 +56,20 @@ __contributors__ = [
     "Songzhuozhuo 'souo'",
     "Emil 'Skeen' Madsen",
     "Ian 'IanDoarn' Doarn",
-    "Timothy 'Tjstretchalot' Moore"
+    "Timothy 'Tjstretchalot' Moore",
+    "Sharad 'sharadbhat' Bhat"
 ]
 
 __all__ = [
+    'binary',
     'data_structures',
+    'dynamic_programming',
     'fibonacci',
     'math',
     'searching',
     'sorting',
     'string',
-    'pathfinding',
-    'geometry'
+    'pathfinding'
+    'geometry',
+    'greedy_algorithm'
 ]
