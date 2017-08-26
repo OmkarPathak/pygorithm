@@ -400,6 +400,132 @@ class TestLine2(unittest.TestCase):
                                False, True, line2.Line2(vector2.Vector2(3, 4), vector2.Vector2(5, 6)))
                                
     
+class TestAxisAlignedLine(unittest.TestCase):
+    def setUp(self):
+        self.vec_1_1 = vector2.Vector2(1, 1)
+        
+    def test_constructor(self):
+        _aal = axisall.AxisAlignedLine(self.vec_1_1, 0, 1)
+        
+        self.assertIsNotNone(_aal.axis)
+        self.assertIsNotNone(_aal.min)
+        self.assertIsNotNone(_aal.max)
+        
+        self.assertEqual(1, _aal.axis.start.x)
+        self.assertEqual(1, _aal.axis.start.y)
+        self.assertEqual(0, _aal.min)
+        self.assertEqual(1, _aal.max)
+        
+        _aal2 = axisall.AxisAlignedLine(self.vec_1_1, 1, 0)
+        
+        self.assertEqual(0, _aal.min)
+        self.assertEqual(1, _aal.max)
+    
+    def test_intersects_false(self):
+        _aal1 = axisall.AxisAlignedLine(self.vec_1_1, 0, 1)
+        _aal2 = axisall.AxisAlignedLine(self.vec_1_1, 2, 3)
+        
+        touching, overlapping = axisall.AxisAlignedLine.intersects(_aal1, _aal2)
+        self.assertFalse(touching)
+        self.assertFalse(overlapping)
+        
+        touching, overlapping = axisall.AxisAlignedLine.intersects(_aal2, _aal1)
+        self.assertFalse(touching)
+        self.assertFalse(overlapping)
+    
+    def test_intersects_touching(self):
+        _aal1 = axisall.AxisAlignedLine(self.vec_1_1, 0, 1)
+        _aal2 = axisall.AxisAlignedLine(self.vec_1_1, 1, 2)
+        
+        touching, overlapping = axisall.AxisAlignedLine.intersects(_aal1, _aal2)
+        self.assertTrue(touching)
+        self.assertFalse(overlapping)
+        
+        touching, overlapping = axisall.AxisAlignedLine.intersects(_aal2, _aal1)
+        self.assertTrue(touching)
+        self.assertFalse(overlapping)
+        
+    def test_intersects_overlapping(self):
+        _aal1 = axisall.AxisAlignedLine(self.vec_1_1, -1, -3)
+        _aal2 = axisall.AxisAlignedLine(self.vec_1_1, -2, 5)
+        
+        touching, overlapping = axisall.AxisAlignedLine.intersects(_aal1, _aal2)
+        self.assertFalse(touching)
+        self.assertTrue(overlapping)
+        
+        touching, overlapping = axisall.AxisAlignedLine.intersects(_aal2, _aal1)
+        self.assertFalse(touching)
+        self.assertTrue(overlapping)
+        
+        
+    def test_find_intersection_false(self):
+        _aal1 = axisall.AxisAlignedLine(self.vec_1_1, 0, 1)
+        _aal2 = axisall.AxisAlignedLine(self.vec_1_1, 2, 3)
+        
+        touching, mtv = axisall.AxisAlignedLine.find_intersection(_aal1, _aal2)
+        self.assertFalse(touching)
+        self.assertIsNone(mtv)
+        
+        touching, mtv = axisall.AxisAlignedLine.find_intersection(_aal2, _aal1)
+        self.assertFalse(touching)
+        self.assertIsNone(mtv)
+        
+    def test_find_intersection_touching(self):
+        _aal1 = axisall.AxisAlignedLine(self.vec_1_1, 0, 1)
+        _aal2 = axisall.AxisAlignedLine(self.vec_1_1, 1, 2)
+        
+        touching, mtv = axisall.AxisAlignedLine.find_intersection(_aal1, _aal2)
+        self.assertTrue(touching)
+        self.assertIsNone(mtv)
+        
+        touching, mtv = axisall.AxisAlignedLine.find_intersection(_aal2, _aal1)
+        self.assertTrue(touching)
+        self.assertIsNone(mtv)
+        
+    def test_find_intersection_overlapping(self):
+        _aal1 = axisall.AxisAlignedLine(self.vec_1_1, -3, -1)
+        _aal2 = axisall.AxisAlignedLine(self.vec_1_1, -2, 5)
+        
+        touching, mtv = axisall.AxisAlignedLine.find_intersection(_aal1, _aal2)
+        self.assertFalse(touching)
+        self.assertEquals(-1, mtv)
+        
+        touching, mtv = axisall.AxisAlignedLine.find_intersection(_aal2, _aal1)
+        self.assertFalse(touching)
+        self.assertEquals(1, mtv)
+        
+    def test_contains_point_false(self):
+        _aal1 = axisall.AxisAlignedLine(self.vec_1_1, 0, 1)
+        
+        outer, inner = axisall.AxisAlignedLine.contains_point(_aal1, -1)
+        self.assertFalse(outer)
+        self.assertFalse(inner)
+        
+        outer, inner = axisall.AxisAlignedLine.contains_point(_aal1, 1.5)
+        self.assertFalse(outer)
+        self.assertFalse(inner)
+        
+    def test_contains_point_outer(self):
+        _aal1 = axisall.AxisAlignedLine(self.vec_1_1, 0, 1)
+        
+        outer, inner = axisall.AxisAlignedLine.contains_point(_aal1, 0)
+        self.assertTrue(outer)
+        self.assertFalse(inner)
+        
+        outer, inner = axisall.AxisAlignedLine.contains_point(_aal1, 1)
+        self.assertTrue(outer)
+        self.assertFalse(inner)
+        
+    def test_contains_point_inner(self):
+        _aal1 = axisall.AxisAlignedLine(self.vec_1_1, 0, 1)
+        
+        outer, inner = axisall.AxisAlignedLine.contains_point(_aal1, 0.25)
+        self.assertFalse(outer)
+        self.assertTrue(inner)
+        
+        outer, inner = axisall.AxisAlignedLine.contains_point(_aal1, 0.75)
+        self.assertFalse(outer)
+        self.assertTrue(inner)
         
 
 if __name__ == '__main__':

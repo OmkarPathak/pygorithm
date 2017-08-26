@@ -67,7 +67,7 @@ class AxisAlignedLine(object):
         
         Determine if the two lines are touching and if they are, if 
         they are overlapping. Lines are touching if they share only
-        one end point, whereas they are overlapping if they share
+        one end point, whereas they are overlapping if they share 
         infinitely many points.
         
         .. note::
@@ -91,11 +91,12 @@ class AxisAlignedLine(object):
         """
         Calculate the MTV between line1 and line2 to move line1
         
-        Determine if the two lines are touching, and then returns the 
-        minimum translation vector to move line 1 along axis. If the result
-        is negative, it means line 1 should be moved in the opposite direction
-        of the axis by the magnitude of the result.
-        
+        Determine if the two lines are touching and/or overlapping and then 
+        returns the minimum translation vector to move line 1 along axis. If the 
+        result is negative, it means line 1 should be moved in the opposite 
+        direction of the axis by the magnitude of the result. 
+
+
         Returns `true, None` if the lines are touching.
         
         .. note::
