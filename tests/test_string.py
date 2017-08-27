@@ -4,6 +4,7 @@ from pygorithm.string import (
     anagram,
     isogram,
     pangram,
+    manacher_algorithm,
     palindrome)
 
 class TestAnagram(unittest.TestCase):
@@ -24,6 +25,10 @@ class TestPalindrome(unittest.TestCase):
     def test_palindrome(self):
         self.assertTrue(palindrome.is_palindrome('madam'))
         self.assertFalse(palindrome.is_palindrome('eleven'))
+
+class TestManacherAlgorithm(unittest.TestCase):
+    def test_manacher_algorithm(self):
+        self.assertEqual(manacher_algorithm.manacher('babcbabcbaccba'), 'abcbabcba')
 
 if __name__ == '__main__':
     unittest.main()
