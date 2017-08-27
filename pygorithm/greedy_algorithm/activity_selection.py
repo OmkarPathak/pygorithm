@@ -2,8 +2,9 @@
 Author: OMKAR PATHAK
 Created On: 26th August 2017
 """
-
 import inspect
+# TODO: Explain what this is / how it works
+
 
 def activity_selection(start_times, finish_times):
     """
@@ -36,6 +37,7 @@ def activity_selection(start_times, finish_times):
             i = j
 
     return activity
+
 
 def get_code():
     """

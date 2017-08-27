@@ -1,16 +1,17 @@
-'''
+"""
 Author: Omkar Pathak
 Created At: 25th August 2017
-'''
-
+"""
 import inspect
+# TODO: Explain how this works / Explain what a knapsack is
 
-def knapsack(W, value, weight):
-    '''
-        :param W: maximum weight capacity
-        :param value: an array of values of items in the knapsack
-        :param weight: an array of weights of items in the knapsack
-    '''
+
+def knapsack(w, value, weight):
+    """
+    :param w: maximum weight capacity
+    :param value: an array of values of items in the knapsack
+    :param weight: an array of weights of items in the knapsack
+    """
     if type(value) is not list:
         raise TypeError("binary knapsack only accepts lists, not {}".format(str(type(value))))
     if type(weight) is not list:
@@ -22,13 +23,13 @@ def knapsack(W, value, weight):
     # n = number of items
     n = len(value)
 
-    knap_sack = [[0 for x in range(W+1)] for x in range(n+1)]
+    knap_sack = [[0 for _ in range(w+1)] for _ in range(n+1)]
 
-    for j in range(W + 1):
+    for j in range(w + 1):
         knap_sack[0][j] = 0
 
     for i in range(n + 1):
-        for w in range(W + 1):
+        for w in range(w + 1):
             if weight[i - 1] <= w:
                 knap_sack[i][w] = max(value[i - 1] + knap_sack[i - 1][w - weight[i - 1]], knap_sack[i - 1][w])
             else:

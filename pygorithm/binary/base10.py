@@ -62,7 +62,7 @@ def to_base16(n, visualize=False):
             print("{} % 16 = {} -> hex = {}".format(
                 str(n), str(n % 16), HEX_VALUES[n % 16]
             ))
-            _list.append(HEX_VALUES[n % 16])
+        _list.append(HEX_VALUES[n % 16])
         n = int(n / 16)
 
     if visualize:

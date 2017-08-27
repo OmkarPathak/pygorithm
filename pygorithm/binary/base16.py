@@ -9,6 +9,7 @@ Conversions from base16 to:
 Author: Ian Doarn
 """
 from pygorithm.binary.base2 import to_ascii as b2_to_ascii
+from pygorithm.binary.binary_utils import pad
 from math import pow
 
 HEX_BINARY_VALUES = {
@@ -45,7 +46,7 @@ def to_base2(h, visualize=False):
             print("{} -> {}".format(
                 value, HEX_BINARY_VALUES[value]
             ))
-        _list.append(HEX_BINARY_VALUES[value])
+        _list.append(pad(HEX_BINARY_VALUES[value]))
 
     return int(''.join(_list))
 

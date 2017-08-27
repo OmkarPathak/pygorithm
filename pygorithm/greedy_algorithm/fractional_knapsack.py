@@ -2,12 +2,13 @@
 Author: SHARAD BHAT
 Created On: 22nd August 2017
 """
-
 import inspect
+# TODO: Explain how this works / Explain what a knapsack is
 
-def knapsack(W, item_values, item_weights):
+
+def knapsack(w, item_values, item_weights):
     """
-    :param W: maximum weight capacity
+    :param w: maximum weight capacity
     :param item_values: a list of values of items in the knapsack
     :param item_weights: a list of weights of items in the knapsack
     """
@@ -38,7 +39,7 @@ def knapsack(W, item_values, item_weights):
         item_weights[i], item_weights[maximum] = item_weights[maximum], item_weights[i]
 
     # Placing items in knapsack
-    remaining_space = W
+    remaining_space = w
     profit = 0
     for i in range(0, n):
         if remaining_space > item_weights[i]:
@@ -46,11 +47,9 @@ def knapsack(W, item_values, item_weights):
             remaining_space -= item_weights[i]
         else:
             profit += fractional_weights[i] * remaining_space
-            remaining_space = 0
             break
 
     return profit
-
 
 
 def get_code():
