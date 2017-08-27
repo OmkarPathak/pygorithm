@@ -6,5 +6,5 @@ from . import activity_selection
 
 __all__ = [
     'fractional_knapsack',
-    'activity_selection',
+    'activity_selection'
 ]

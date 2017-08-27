@@ -7,6 +7,7 @@ Conversions from ASCII to:
 
 Author: Ian Doarn
 """
+from pygorithm.binary.binary_utils import pad
 from pygorithm.binary.base10 import to_base2 as b10_to_b2
 from pygorithm.binary.base2 import to_base16 as b2_to_b16, \
     to_ascii as b2_to_ascii
@@ -47,7 +48,8 @@ def to_base2(string, visualize=False, as_string=False):
                 x, str(ord(x)),
                 str(b10_to_b2(ord(x)))
             ))
-        _list.append(str(b10_to_b2(ord(x))))
+        value = pad(str(b10_to_b2(ord(x))))
+        _list.append(value)
 
     if as_string:
         return ' '.join(_list)

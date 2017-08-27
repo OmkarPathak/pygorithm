@@ -1,6 +1,6 @@
 import unittest
 
-from pygorithm.string import (
+from pygorithm.strings import (
     anagram,
     isogram,
     pangram,

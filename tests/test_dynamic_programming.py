@@ -12,8 +12,7 @@ class TestBinaryKnapsack(unittest.TestCase):
         value = [60, 100, 120]
         weight = [10, 20, 30]
         W = 50
-        n = len(value)
-        self.assertEqual(binary_knapsack.knapsack(W, value, weight, n), 220)
+        self.assertEqual(binary_knapsack.knapsack(W, value, weight), 220)
 
 class TestLongestIncreasingSubsequence(unittest.TestCase):
     def test_lis(self):
