@@ -68,7 +68,7 @@ __all__ = [
     'math',
     'searching',
     'sorting',
-    'string',
+    'strings',
     'pathfinding'
     'geometry',
     'greedy_algorithm'

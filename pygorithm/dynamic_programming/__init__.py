@@ -6,5 +6,5 @@ from . import lis
 
 __all__ = [
     'binary_knapsack',
-    'lis',
+    'lis'
 ]

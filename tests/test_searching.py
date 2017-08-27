@@ -4,7 +4,10 @@ from pygorithm.searching import (
     linear_search,
     binary_search,
     breadth_first_search,
-    depth_first_search)
+    depth_first_search,
+    exponential_search,
+    interpolation_search,
+    ternary_search)
 
 
 class TestSearchingAlgorithm(unittest.TestCase):
@@ -74,6 +77,23 @@ class TestDFSSearch(unittest.TestCase):
         result = depth_first_search.search(self.graph, 'G')
         self.assertEqual(result, ['G', 'C', 'A', 'B', 'D', 'F', 'E'])
 
+class TestExponentialSearch(TestSearchingAlgorithm):
+    def test_exponential_search(self):
+        self.assertEqual(exponential_search.search(self.array, 7), 7)
+
+        alpha_result = linear_search.search(self.alphaArray, 'n')
+        self.assertIs(alpha_result, 5)
+
+class TestInterpolationSearch(TestSearchingAlgorithm):
+    def test_interpolation_search(self):
+        self.assertEqual(interpolation_search.search(self.array, 7), 7)
+
+class TestTernarySearch(TestSearchingAlgorithm):
+    def test_ternary_search(self):
+        self.assertEqual(ternary_search.search(self.array, 0, len(self.array), 7), 7)
+
+        alpha_result = ternary_search.search(self.alphaArray, 0, len(self.alphaArray), 'n')
+        self.assertIs(alpha_result, 5)
 
 if __name__ == '__main__':
     unittest.main()
