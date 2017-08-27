@@ -37,8 +37,8 @@ class Polygon2(object):
 
     .. caution::
         
-        The normals in the :py:attr:`~pygorithm.geometry.polygon2.Polygon2.normals`
-        are not necessarily the same length as 
+        The length of :py:attr:`~pygorithm.geometry.polygon2.Polygon2.normals`
+        is not necessarily the same as 
         :py:attr:`~pygorithm.geometry.polygon2.Polygon2.points` or 
         :py:attr:`~pygorithm.geometry.polygon2.Polygon2.lines`. It is only 
         guarranteed to have no two vectors that are the same or opposite 

@@ -581,7 +581,22 @@ class TestPolygon(unittest.TestCase):
         
         with self.assertRaises(StopIteration):
             next(i for i in range(4) if poly.points[i].x != poly2.points[i].x or poly.points[i].y != poly2.points[i].y)
+    
+    def test_constructor_repeated(self):
+        with self.assertRaises(ValueError):
+            poly = polygon2.Polygon2([ (0, 1), (1, 1), (1, 0), (0, 0), (0, 1) ])
+    
+    def test_constructor_two_points(self):
+        with self.assertRaises(ValueError):
+            poly = polygon2.Polygon2([ (0, 1), (1, 1) ])
         
+    def test_constructor_not_convex(self):
+        with self.assertRaises(ValueError):
+            poly = polygon2.Polygon2([ (0, 1), (0.5, 0.8), (1, 1), (1, 0), (0, 0) ])
+    
+    def test_cosntructor_not_clockwise(self):
+        with self.assertRaises(ValueError):
+            poly = polygon2.Polygon2([ (0, 0), (1, 0), (1, 1), (0, 1) ])
     
     def test_from_regular(self):
         diamond = polygon2.Polygon2.from_regular(4, 1)
