@@ -488,11 +488,11 @@ class TestAxisAlignedLine(unittest.TestCase):
         
         touching, mtv = axisall.AxisAlignedLine.find_intersection(_aal1, _aal2)
         self.assertFalse(touching)
-        self.assertEquals(-1, mtv)
+        self.assertEqual(-1, mtv)
         
         touching, mtv = axisall.AxisAlignedLine.find_intersection(_aal2, _aal1)
         self.assertFalse(touching)
-        self.assertEquals(1, mtv)
+        self.assertEqual(1, mtv)
         
     def test_contains_point_false(self):
         _aal1 = axisall.AxisAlignedLine(self.vec_1_1, 0, 1)
@@ -526,7 +526,184 @@ class TestAxisAlignedLine(unittest.TestCase):
         outer, inner = axisall.AxisAlignedLine.contains_point(_aal1, 0.75)
         self.assertFalse(outer)
         self.assertTrue(inner)
+
+class TestPolygon(unittest.TestCase):
+    def setUp(self):
+        random.seed()
         
+    def test_constructor_standard(self):
+        poly = polygon2.Polygon2([ vector2.Vector2(0, 1), 
+                                   vector2.Vector2(1, 1),
+                                   vector2.Vector2(1, 0),
+                                   vectro2.Vector2(0, 0) ])
+        
+        self.assertEqual(4, len(poly.points))
+        self.assertEqual(4, len(poly.lines))
+        self.assertEqual(2, len(poly.normals))
+        
+        self.assertEqual(0, poly.points[0].x)
+        self.assertEqual(1, poly.points[0].y)
+        self.assertEqual(1, poly.points[1].x)
+        self.assertEqual(1, poly.points[1].y)
+        self.assertEqual(1, poly.points[2].x)
+        self.assertEqual(0, poly.points[2].y)
+        self.assertEqual(0, poly.points[3].x)
+        self.assertEqual(0, poly.points[3].y)
+        
+        self.assertEqual(0, poly.lines[0].start.x)
+        self.assertEqual(1, poly.lines[0].start.y)
+        self.assertEqual(1, poly.lines[0].end.x)
+        self.assertEqual(1, poly.lines[0].end.y)
+        self.assertEqual(1, poly.lines[1].start.x)
+        self.assertEqual(1, poly.lines[1].start.y)
+        self.assertEqual(1, poly.lines[1].end.x)
+        self.assertEqual(0, poly.lines[1].end.y)
+        self.assertEqual(1, poly.lines[2].start.x)
+        self.assertEqual(0, poly.lines[2].start.y)
+        self.assertEqual(0, poly.lines[2].end.x)
+        self.assertEqual(0, poly.lines[2].end.y)
+        self.assertEqual(0, poly.lines[3].start.x)
+        self.assertEqual(0, poly.lines[3].start.y)
+        self.assertEqual(0, poly.lines[3].end.x)
+        self.assertEqual(1, poly.lines[3].end.y)
+        
+        self.assertIsNotNone(next(vec for vec in poly.normals if vec.horizontal, None))
+        self.assertIsNotNone(next(vec for vec in poly.normals if vec.vertical, None))
+        
+        self.assertAlmostEqual(0.5, poly.center.x)
+        self.assertAlmostEqual(0.5, poly.center.y)
+        
+        poly2 = polygon2.Polygon2([ (0, 1), (1, 1), (1, 0), (0, 0) ])
+        
+        self.assertEqual(4, len(poly2.points))
+        self.assertEqual(4, len(poly2.lines))
+        self.assertEqual(2, len(poly2.normals))
+        
+        with self.assertRaises(StopIteration):
+            next(i for i in range(4) if poly.points[i].x != poly2.points[i].x or poly.points[i].y != poly2.points[i].y)
+        
+    
+    def test_from_regular(self):
+        diamond = polygon2.Polygon2.from_regular(4, 1)
+        
+        self.assertEqual(2, diamond.points[0].x)
+        self.assertEqual(1, diamond.points[0].y)
+        self.assertEqual(1, diamond.points[1].x)
+        self.assertEqual(0, diamond.points[1].y)
+        self.assertEqual(0, diamond.points[2].x)
+        self.assertEqual(1, diamond.points[2].y)
+        self.assertEqual(1, diamond.points[3].x)
+        self.assertEqual(2, diamond.points[3].y)
+        
+        diamond_shifted = polygon2.Polygon2.from_regular(4, 1, center = vector2.Vector2(0, 0))
+        
+        with self.assertRaises(StopIteration):
+            next(i for i in range(4) if diamond.points[i].x != diamond_shifted.points[i].x + 1 or diamond.points[i].y != diamond_shifted.points[i].y + 1)
+        
+        square = polygon2.Polygon2.from_regular(4, 1, math.pi / 4)
+        
+        self.assertEqual(0, poly.points[0].x)
+        self.assertEqual(1, poly.points[0].y)
+        self.assertEqual(1, poly.points[1].x)
+        self.assertEqual(1, poly.points[1].y)
+        self.assertEqual(1, poly.points[2].x)
+        self.assertEqual(0, poly.points[2].y)
+        self.assertEqual(0, poly.points[3].x)
+        self.assertEqual(0, poly.points[3].y)
+        
+        square2 = polygon2.Polygon2.from_regular(4, 1, start_degs = 45)
+        
+        with self.assertRaises(StopIteration):
+            next(i for i in range(4) if square.points[i].x != square2.points[i].x or square.points[i].y != square2.points[i].y)
+        
+        
+    def test_from_rotated(self):
+        # isos triangle 
+        # weighted total = (0 + 1 + 2, 0 + 1 + 1) = (3, 2)
+        # center = (1, 2/3)
+        triangle = polygon2.Polygon2([ (0, 0), (1, 1), (2, 1) ])
+        
+        triangle_rot = polygon2.Polygon2.from_rotated(triangle, math.pi / 4)
+        
+        # example of how to calculate:
+        # shift so you rotate about origin (subtract center)
+        # (0, 0) - (1, 2/3) = (-1, -2/3)
+        # rotate 45 degrees clockwise = (-1 * cos(45) - (-2/3) * sin(45), (-2/3) * cos(45) + (-1) * sin(45)) = (-0.23570226039, -1.17851130198)
+        # shift back (add center): (0.76429773961, -0.51184463531)
+        self.assertAlmostEqual(0.76429773961, triangle_rot.points[0].x)
+        self.assertAlmostEqual(-0.51184463531, triangle_rot.points[0].y)
+        self.assertAlmostEqual(1.23570226039, triangle_rot.points[1].x)
+        self.assertAlmostEqual(0.90236892706, triangle_rot.points[1].y)
+        self.assertAlmostEqual(0.47140452079, triangle_rot.points[2].x)
+        self.assertAlmostEqual(1.60947570825, triangle_rot.points[2].y)
+        self.assertAlmostEqual(1, triangle_rot.center.x)
+        self.assertAlmostEqual(0.66666666667, triangle_rot.center.y)
+        
+        
+    def test_area(self):
+        # http://www.mathopenref.com/coordpolygonareacalc.html# helpful for checking
+        poly = polygon2.Polygon2.from_regular(4, 1)
+        self.assertAlmostEqual(1, poly.area)
+        
+        poly2 = polygon2.Polygon2.from_regular(4, 2)
+        self.assertAlmostEqual(4, poly2.area)
+        
+        poly3 = polygon2.Polygon2.from_regular(8, 3.7)
+        self.assertAlmostEqual(38.7, poly3.area)
+        
+        poly4 = polygon2.Polygon2([ (0, 0), (1, 1), (2, 1) ])
+        self.assertAlmostEqual(0.5, poly4.area)
+        
+        poly5 = polygon2.Polygon2([ (0, 0), (1, 1), (2, 1), (1, -0.25) ])
+        self.assertAlmostEqual(1.25, poly5.area)
+    
+    def _proj_onto_axis_fuzzer(self, points, axis, expected):
+        for i in range(3):
+            offset = vector2.Vector2(random.randrange(-1000, 1000, 0.01), random.randrange(-1000, 1000, 0.01))
+            
+            new_points = []
+            for pt in points:
+                new_points.append(pt - offset)
+            
+            new_poly = polygon2.Polygon2(new_points)
+            
+            proj = polygon2.Polygon2.project_onto_axis(new_poly, offset, axis)
+            
+            help_msg = "points={}, axis={}, expected={} proj={} [offset = {}, new_points={}]".format(points, axis, expected, proj, offset, new_points)
+            self.assertAlmostEqual(expected.min, proj.min, help_msg)
+            self.assertAlmostEqual(expected.max, proj.max, help_msg)
+            
+            
+    def test_project_onto_axis(self):
+        poly = polygon2.Polygon2.from_regular(4, 1, math.pi / 4)
+        
+        _axis = vector2.Vector2(0, 1)
+        self._proj_onto_axis_fuzzer(poly.points, _axis, axisall.AxisAlignedLine(_axis, 0, 1))
+        
+        _axis2 = vector2.Vector2(1, 0)
+        self._proj_onto_axis_fuzzer(poly.points, _axis2, axisall.AxisAlignedLine(_axis2, 0, 1))
+        
+        _axis3 = vector2.Vector2(0.70710678118, 0.70710678118)
+        self._proj_onto_axis_fuzzer(poly.points, _axis3, axisall.AxisAlignedLine(_axis3, 0, 1.41421356236))
+        
+        
+    def test_contains_point_false(self):
+        pass
+        
+    def test_contains_point_edge(self):
+        pass
+        
+    def test_contains_point_contained(self):
+        pass
+        
+    def test_find_intersection_false(self):
+        pass
+        
+    def test_find_intersection_touching(self):
+        pass
+        
+    def test_find_intersection_overlapping(self):
+        pass
 
 if __name__ == '__main__':
     unittest.main()

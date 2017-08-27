@@ -35,13 +35,23 @@ class Polygon2(object):
         unless necessary through the use of Axis-Aligned Bounding Boxes
         and similar tools.
 
-    :ivar points: the ordered set of points on this polygon
+    .. caution::
+        
+        The normals in the :py:attribute:~pygorithm.geometry.polygon2.Polygon2.normals:
+        are not necessarily the same length as 
+        :py:attribute:~pygorithm.geometry.polygon2.Polygon2.points: or 
+        :py:attribute:~pygorithm.geometry.polygon2.Polygon2.lines:. It is only 
+        guarranteed to have no two vectors that are the same or opposite 
+        directions, and contain either the vector in the same direction or opposite
+        direction of the normal vector for every line in the polygon.
+    
+    :ivar points: the ordered list of points on this polygon
     :vartype points: list of :class:`pygorithm.geometry.vector2.Vector2`
     
-    :ivar lines: the ordered set of lines on this polygon
+    :ivar lines: the ordered list of lines on this polygon
     :vartype lines: list of :class:`pygorithm.geometry.line2.Line2`
     
-    :ivar normals: the ordered set of normals on this polygon
+    :ivar normals: the unordered list of unique normals on this polygon
     :vartype normals: list of :class:`pygorithm.geometry.vector2.Vector2`
     
     :ivar center: the center of this polygon when unshifted.
@@ -76,19 +86,93 @@ class Polygon2(object):
         pass
     
     @classmethod
-    def from_regular(cls, sides, length):
+    def from_regular(cls, sides, length, start_rads = None, start_degs = None, center = None):
         """
         Create a new regular polygon.
+        
+        .. hint::
+        
+            If no rotation is specified there is always a point at ``(length, 0)``
+        
+        If no center is specified, the center will be ``(length / 2, length / 2)``
+        which makes the top-left bounding box of the polygon the origin. 
+        
+        May specify the angle of the first point. For example, if the coordinate
+        system is x to the right and y upward, then if the starting offset is 0
+        then the first point will be at the right and the next point counter-clockwise.
+        
+        This would make for the regular quad (sides=4) to look like a diamond. To make
+        the bottom side a square, the whole polygon needs to be rotated 45 degrees, like
+        so:
+        
+        .. code-block:: python
+        
+            from pygorithm.geometry import (vector2, polygon2)
+            import math
+            
+            # This is a diamond shape (rotated square) (0 degree rotation assumed)
+            diamond = polygon2.Polygon2.from_regular(4, 1)
+            
+            # This is a flat square
+            square = polygon2.Polygon2.from_regular(4, 1, start_degs = 45)
+            
+            # Creating a flat square with radians 
+            square2 = polygon2.Polygon2.from_regular(4, 1, math.pi / 4)
         
         :param sides: the number of sides in the polygon
         :type sides: :class:`numbers.Number`
         :param length: the length of each sides
         :type length: :class:`numbers.Number`
+        :param start_rads: the starting radians or None 
+        :type start_rads: :class:`numbers.Number` or None
+        :param start_degs: the starting degrees or None 
+        :type start_degs: :class:`numbers.Number` or None
+        :param center: the center of the polygon
+        :type center: :class:`pygorithm.geometry.vector2.Vector2`
+        :returns: the new regular polygon
+        :rtype: :class:`pygorithm.geometry.polygon2.Polygon2`
         
         :raises ValueError: if ``sides < 3`` or ``length <= 0``
+        :raises ValueError: if ``start_rads is not None and start_degs is not None``
         """
         pass
         
+    @classmethod
+    def from_rotated(cls, original, rotation, rotation_degrees = None):
+        """
+        Create a regular polygon that is a rotation of
+        a different polygon.
+        
+        The rotation must be in radians, or null and rotation_degrees
+        must be specified. Positive rotations are clockwise.
+        
+        Examples:
+        
+        .. code-block:: python
+        
+            from pygorithm.goemetry import (vector2, polygon2)
+            import math
+            
+            poly = polygon2.Polygon2.from_regular(4, 1)
+            
+            # the following are equivalent (within rounding)
+            rotated1 = polygon2.Polygon2.from_rotated(poly, math.pi / 4)
+            rotated2 = polygon2.Polygon2.from_rotated(poly, None, 45)
+        
+        :param original: the polygon to rotate
+        :type original: :class:`pygorithm.geometry.polygon2.Polygon2`
+        :param rotation: the rotation in radians or None
+        :type rotation: :class:`numbers.Number`
+        :param rotation_degrees: the rotation in degrees or None
+        :type rotation_degrees: :class:`numbers.Number`
+        :returns: the rotated polygon
+        :rtype: :class:`pygorithm.geometry.polygon2.Polygon2`
+        
+        :raises ValueError: if ``rotation is not None and rotation_degrees is not None``
+        :raises ValueError: if ``rotation is None and rotation_degrees is None``
+        """
+        pass
+    
     @property
     def area(self):
         """
@@ -99,6 +183,23 @@ class Polygon2(object):
         """
         pass
         
+        
+    @staticmethod 
+    def project_onto_axis(polygon, offset, axis):
+        """
+        Find the projection of the polygon along the axis.
+        
+        :param polygon: the polygon to project
+        :type polygon: :class:`pygorithm.geometry.polygon2.Polygon2`
+        :param offset: the offset of the polygon
+        :type offset: :class:`pygorithm.geometry.vector2.Vector2`
+        :param axis: the axis to project onto
+        :type axis: :class:`pygorithm.geometry.vector2.Vector2`
+        :returns: the projection of the polygon along the axis
+        :rtype: :class:`pygorithm.geometry.axisall.AxisAlignedLine`
+        """
+        pass
+    
     @staticmethod
     def contains_point(polygon, offset, point):
         """
