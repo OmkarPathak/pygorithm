@@ -37,10 +37,10 @@ class Polygon2(object):
 
     .. caution::
         
-        The normals in the :py:attribute:~pygorithm.geometry.polygon2.Polygon2.normals:
+        The normals in the :py:attr:`~pygorithm.geometry.polygon2.Polygon2.normals`
         are not necessarily the same length as 
-        :py:attr:~pygorithm.geometry.polygon2.Polygon2.points: or 
-        :py:attr:~pygorithm.geometry.polygon2.Polygon2.lines:. It is only 
+        :py:attr:`~pygorithm.geometry.polygon2.Polygon2.points` or 
+        :py:attr:`~pygorithm.geometry.polygon2.Polygon2.lines`. It is only 
         guarranteed to have no two vectors that are the same or opposite 
         directions, and contain either the vector in the same direction or opposite
         direction of the normal vector for every line in the polygon.
