@@ -113,7 +113,7 @@ class TestVector2(unittest.TestCase):
         
         vec_repr = repr(vec)
         
-        self.assertEqual('vector2(x=7, y=1)', vec_repr)
+        self.assertEqual('vector2(x=7, y=11)', vec_repr)
     
     def test_str(self):
         vec = vector2.Vector2(7, 11)
@@ -158,20 +158,20 @@ class TestVector2(unittest.TestCase):
         self.assertAlmostEqual(0.70710678118, vec3.y)
         
         vec4 = vec1.rotate(math.pi, vector2.Vector2(1, 1))
-        self.assertEqual(1, vec4.x)
-        self.assertEqual(2, vec4.y)
+        self.assertAlmostEqual(1, vec4.x)
+        self.assertAlmostEqual(2, vec4.y)
         
         vec5 = vec1.rotate(radians = math.pi, about = vector2.Vector2(1, 1))
-        self.assertEqual(1, vec5.x)
-        self.assertEqual(2, vec5.y)
+        self.assertAlmostEqual(1, vec5.x)
+        self.assertAlmostEqual(2, vec5.y)
         
         vec6 = vec1.rotate(degrees = 180, about = vector2.Vector2(1, 1))
-        self.assertEqual(1, vec6.x)
-        self.assertEqual(2, vec6.y)
+        self.assertAlmostEqual(1, vec6.x)
+        self.assertAlmostEqual(2, vec6.y)
         
         vec7 = vec1.rotate(vector2.Vector2(1, 1), degrees = 180)
-        self.assertEqual(1, vec7.x)
-        self.assertEqual(2, vec7.y)
+        self.assertAlmostEqual(1, vec7.x)
+        self.assertAlmostEqual(2, vec7.y)
         
     def test_normalize(self):
         vec1 = vector2.Vector2(2, 0)
@@ -567,8 +567,8 @@ class TestPolygon(unittest.TestCase):
         self.assertEqual(0, poly.lines[3].end.x)
         self.assertEqual(1, poly.lines[3].end.y)
         
-        self.assertIsNotNone(next(vec for vec in poly.normals if vec.horizontal, None))
-        self.assertIsNotNone(next(vec for vec in poly.normals if vec.vertical, None))
+        self.assertIsNotNone(next((vec for vec in poly.normals if vec.horizontal), None))
+        self.assertIsNotNone(next((vec for vec in poly.normals if vec.vertical), None))
         
         self.assertAlmostEqual(0.5, poly.center.x)
         self.assertAlmostEqual(0.5, poly.center.y)

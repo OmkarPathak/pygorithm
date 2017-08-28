@@ -17,6 +17,7 @@ Quick Start Guide
     poly1 = polygon2.Polygon2.from_regular(5, 5)
     
     # create a polygon from tuple (x, y) - note that the polygon must be convex
+    # and the points must be clockwise
     poly2 = polygon2.Polygon2(points=[ (0, 0), (1, 0), (1, 1), (0, 1) ])
     
     # create a polygon from vector2s. 
@@ -38,9 +39,6 @@ Quick Start Guide
         print('They intersect. The best way to push poly1 is {} units along {}'.format(mtv_dist, mtv_vec))
     else:
         print('No intersection')
-    
-    # check complete overlap
-    overlap = polygon2.Polygon2.contains_polygon(poly1, poly2, (0, 2), (3, 1))
     
 Features
 --------
