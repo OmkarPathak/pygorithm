@@ -292,14 +292,14 @@ class TestLine2(unittest.TestCase):
     def test_slope(self):
         self.assertEqual(1, self.line_origin_1_1.slope)
         self.assertAlmostEqual(1.5, self.line_1_1_3_4.slope)
-        self.assertEqual(0, self.line_1_1_1_2.slope)
-        self.assertEqual(float('+inf'), self.line_1_1_2_1.slope)
+        self.assertEqual(float('+inf'), self.line_1_1_1_2.slope)
+        self.assertEqual(0, self.line_1_1_2_1.slope)
         
     def test_y_intercept(self):
         self.assertEqual(0, self.line_origin_1_1.y_intercept)
         self.assertAlmostEqual(-0.5, self.line_1_1_3_4.y_intercept)
-        self.assertTrue(math.isnan(self.line_1_1_1_2.y_intercept))
-        self.assertEqul(1, self.line_1_1_2_1.y_intercept)
+        self.assertIsNone(self.line_1_1_1_2.y_intercept)
+        self.assertEqual(1, self.line_1_1_2_1.y_intercept)
     
     def test_horizontal(self):
         self.assertFalse(self.line_origin_1_1.horizontal)
@@ -320,7 +320,7 @@ class TestLine2(unittest.TestCase):
         self.assertEqual('<1, 1> -> <3, 4>', str(self.line_1_1_3_4))
     
     def test_calculate_y_intercept(self):
-        self.assertAlmostEqual(0.66666666667, self.line_1_1_3_4.calculate_y_intercept(self.vec_1_1))
+        self.assertAlmostEqual(-1, self.line_1_1_3_4.calculate_y_intercept(self.vec_1_1))
     
     def test_are_parallel(self):
         self.assertFalse(line2.Line2.are_parallel(self.line_origin_1_1, self.line_1_1_3_4))
@@ -328,11 +328,10 @@ class TestLine2(unittest.TestCase):
         _line = line2.Line2(vector2.Vector2(5, 4), vector2.Vector2(3, 1))
         self.assertTrue(line2.Line2.are_parallel(self.line_1_1_3_4, _line))
         
-    @staticmethod
-    def _find_intr_fuzzer(v1, v2, v3, v4, exp_touching, exp_overlap, exp_intr, number_fuzzes = 3):
+    def _find_intr_fuzzer(self, v1, v2, v3, v4, exp_touching, exp_overlap, exp_intr, number_fuzzes = 3):
         for i in range(number_fuzzes):
-            offset1 = vector2.Vector2(random.randrange(-1000, 1000, 0.01), random.randrange(-1000, 1000, 0.01))
-            offset2 = vector2.Vector2(random.randrange(-1000, 1000, 0.01), random.randrange(-1000, 1000, 0.01))
+            offset1 = vector2.Vector2(random.uniform(-1000, 1000), random.uniform(-1000, 1000))
+            offset2 = vector2.Vector2(random.uniform(-1000, 1000), random.uniform(-1000, 1000))
             
             _line1 = line2.Line2(v1 - offset1, v2 - offset1)
             _line2 = line2.Line2(v3 - offset2, v4 - offset2)
@@ -361,7 +360,7 @@ class TestLine2(unittest.TestCase):
                     self.assertAlmostEqual(exp_intr.start.x, intr.start.x)
                     self.assertAlmostEqual(exp_intr.start.y, intr.start.y)
                     self.assertAlmostEqual(exp_intr.end.x, intr.end.x)
-                    self.assertAlmostEqual(exp_intr.end.y, itnr.end.y)
+                    self.assertAlmostEqual(exp_intr.end.y, intr.end.y)
                 
             
     def test_find_intersection_non_parallel_no_intersection(self):
@@ -411,8 +410,8 @@ class TestAxisAlignedLine(unittest.TestCase):
         self.assertIsNotNone(_aal.min)
         self.assertIsNotNone(_aal.max)
         
-        self.assertEqual(1, _aal.axis.start.x)
-        self.assertEqual(1, _aal.axis.start.y)
+        self.assertEqual(1, _aal.axis.x)
+        self.assertEqual(1, _aal.axis.y)
         self.assertEqual(0, _aal.min)
         self.assertEqual(1, _aal.max)
         
@@ -476,23 +475,33 @@ class TestAxisAlignedLine(unittest.TestCase):
         
         touching, mtv = axisall.AxisAlignedLine.find_intersection(_aal1, _aal2)
         self.assertTrue(touching)
-        self.assertIsNone(mtv)
+        self.assertIsNotNone(mtv)
+        self.assertIsNone(mtv[0])
+        self.assertEqual(1, mtv[1])
+        self.assertEqual(1, mtv[2])
         
         touching, mtv = axisall.AxisAlignedLine.find_intersection(_aal2, _aal1)
         self.assertTrue(touching)
-        self.assertIsNone(mtv)
+        self.assertIsNotNone(mtv)
+        self.assertIsNone(mtv[0])
+        self.assertEqual(1, mtv[1])
+        self.assertEqual(1, mtv[2])
         
     def test_find_intersection_overlapping(self):
         _aal1 = axisall.AxisAlignedLine(self.vec_1_1, -3, -1)
         _aal2 = axisall.AxisAlignedLine(self.vec_1_1, -2, 5)
         
         touching, mtv = axisall.AxisAlignedLine.find_intersection(_aal1, _aal2)
-        self.assertFalse(touching)
-        self.assertEqual(-1, mtv)
+        self.assertTrue(touching)
+        self.assertEqual(-1, mtv[0])
+        self.assertEqual(-2, mtv[1])
+        self.assertEqual(-1, mtv[2])
         
         touching, mtv = axisall.AxisAlignedLine.find_intersection(_aal2, _aal1)
-        self.assertFalse(touching)
-        self.assertEqual(1, mtv)
+        self.assertTrue(touching)
+        self.assertEqual(1, mtv[0])
+        self.assertEqual(-2, mtv[1])
+        self.assertEqual(-1, mtv[2])
         
     def test_contains_point_false(self):
         _aal1 = axisall.AxisAlignedLine(self.vec_1_1, 0, 1)
@@ -674,7 +683,7 @@ class TestPolygon(unittest.TestCase):
     
     def _proj_onto_axis_fuzzer(self, points, axis, expected):
         for i in range(3):
-            offset = vector2.Vector2(random.randrange(-1000, 1000, 0.01), random.randrange(-1000, 1000, 0.01))
+            offset = vector2.Vector2(random.uniform(-1000, 1000), random.uniform(-1000, 1000))
             
             new_points = []
             for pt in points:
@@ -703,7 +712,7 @@ class TestPolygon(unittest.TestCase):
         
     def _contains_point_fuzzer(self, points, point, expected_edge, expected_contains):
         for i in range(3):
-            offset = vector2.Vector2(random.randrange(-1000, 1000, 0.01), random.randrange(-1000, 1000, 0.01))
+            offset = vector2.Vector2(random.uniform(-1000, 1000), random.uniform(-1000, 1000))
             
             new_points = []
             for pt in points:
@@ -745,8 +754,8 @@ class TestPolygon(unittest.TestCase):
             points2 = points2.points
         
         for i in range(3):
-            offset1 = vector2.Vector2(random.randrange(-1000, 1000, 0.01), random.randrange(-1000, 1000, 0.01))
-            offset2 = vector2.Vector2(random.randrange(-1000, 1000, 0.01), random.randrange(-1000, 1000, 0.01))
+            offset1 = vector2.Vector2(random.uniform(-1000, 1000), random.uniform(-1000, 1000))
+            offset2 = vector2.Vector2(random.uniform(-1000, 1000), random.uniform(-1000, 1000))
             
             new_points1 = []
             for pt in points1:

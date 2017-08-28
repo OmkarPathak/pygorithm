@@ -11,6 +11,8 @@ These are 2dimensional axis-aligned objects
 https://en.wikipedia.org/wiki/Axis-aligned_object
 """
 
+import math
+
 class AxisAlignedLine(object):
     """
     Define an axis aligned line.
@@ -50,7 +52,7 @@ class AxisAlignedLine(object):
         """
         Construct an axis aligned line with the appropriate min and max.
         
-        :param axis: axis this line is on
+        :param axis: axis this line is on (for bookkeeping only, may be None)
         :type axis: :class:`pygorithm.geometry.vector2.Vector2`
         :param point1: one point on this line
         :type point1: :class:`numbers.Number`
@@ -58,23 +60,45 @@ class AxisAlignedLine(object):
         :type point2: :class:`numbers.Number`
         """
     
-        pass
+        self.axis = axis
+        self.min = min(point1, point2)
+        self.max = max(point1, point2)
+    
+    @staticmethod
+    def _approx(a, b):
+        """
+        Same as math.isclose but supports python < 3.5
+        
+        :param a: first numeric
+        :type a: :class:`numbers.Number`
+        :param b: second numeric
+        :type b: :class:`numbers.Number`
+        :returns: if the are close
+        :rtype: bool
+        """
+        
+        if hasattr(math, 'isclose'):
+            return math.isclose(a, b)
+        return abs(a - b) <= 1e-09 * max(abs(a), abs(b))
     
     @staticmethod
     def intersects(line1, line2):
         """
         Determine if the two lines intersect
         
-        Determine if the two lines are touching and if they are, if 
-        they are overlapping. Lines are touching if they share only
-        one end point, whereas they are overlapping if they share 
-        infinitely many points.
+        Determine if the two lines are touching, if they are overlapping, or if 
+        they are disjoint. Lines are touching if they share only one end point, 
+        whereas they are overlapping if they share infinitely many points. 
         
         .. note::
         
             It is rarely faster to check intersection before finding intersection if
             you will need the minimum translation vector, since they do mostly 
             the same operations.
+        
+        .. tip::
+        
+            This will never return ``True, True``
         
         :param line1: the first line
         :type line1: :class:`pygorithm.geometry.axisall.AxisAlignedLine`
@@ -84,7 +108,16 @@ class AxisAlignedLine(object):
         :rtype: (bool, bool)
         """
         
-        pass
+        if AxisAlignedLine._approx(line1.max, line2.min):
+            return True, False
+        elif AxisAlignedLine._approx(line1.min, line2.max):
+            return True, False
+        elif line1.max < line2.min:
+            return False, False
+        elif line1.min > line2.max:
+            return False, False
+        
+        return False, True
     
     @staticmethod
     def find_intersection(line1, line2):
@@ -97,22 +130,39 @@ class AxisAlignedLine(object):
         direction of the axis by the magnitude of the result. 
 
 
-        Returns `true, None` if the lines are touching.
+        Returns `true, (None, touch_point_numeric, touch_point_numeric)` if the lines are touching
+        and not overlapping.
         
         .. note::
         
-            Ensure your program correctly handles `true, None`
+            Ensure your program correctly handles `true, (None, numeric, numeric)`
         
         
         :param line1: the first line
         :type line1: :class:`pygorithm.geometry.axisall.AxisAlignedLine`
         :param line2: the second line
         :type line2: :class:`pygorithm.geometry.axisall.AxisAlignedLine`
-        :returns: (touching, mtv against 1)
-        :rtype: (bool, :class:`numbers.Number` or None)
+        :returns: (touching, (mtv against 1, intersection min, intersection max))
+        :rtype: (bool, (:class:`numbers.Number` or None, :class:`numbers.Number`, :class:`numbers.Number`) or None)
         """
         
-        pass
+        if AxisAlignedLine._approx(line1.max, line2.min):
+            return True, (None, line2.min, line2.min)
+        elif AxisAlignedLine._approx(line1.min, line2.max):
+            return True, (None, line1.min, line1.min)
+        elif line1.max < line2.min or line2.max < line1.min:
+            return False, None
+        else:
+            opt_1 = line2.min - line1.max
+            opt_2 = line2.max - line1.min
+            
+            res_min = max(line1.min, line2.min)
+            res_max = min(line1.max, line2.max)
+            
+            if abs(opt_1) < abs(opt_2):
+                return True, (opt_1, res_min, res_max)
+            else:
+                return True, (opt_2, res_min, res_max)
     
     @staticmethod
     def contains_point(line, point):
@@ -132,4 +182,10 @@ class AxisAlignedLine(object):
         :returns: (if the point is an edge of the line, if the point is contained by the line)
         :rtype: (bool, bool)
         """
-        pass
+        
+        if AxisAlignedLine._approx(line.min, point) or AxisAlignedLine._approx(line.max, point):
+            return True, False
+        elif point < line.min or point > line.max:
+            return False, False
+        else:
+            return False, True
