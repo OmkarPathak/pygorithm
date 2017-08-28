@@ -233,7 +233,7 @@ class Polygon2(object):
         amount of space.
         
         The resulting MTV should be applied to the first polygon (or its offset), 
-        or its negation can be applied to the second polyogn (or its offset).
+        or its negation can be applied to the second polygon (or its offset).
         
         The MTV will be non-null if overlapping is True and find_mtv is True.
         
@@ -243,6 +243,10 @@ class Polygon2(object):
             False. It is rarely an improvement to first check without finding 
             mtv and then to find the mtv.
         
+        .. caution::
+            
+            The first value in the mtv could be negative (used to inverse the direction
+            of the axis)
         
         :param poly1: the first polygon
         :type poly1: :class:`pygorithm.geometry.polygon2.Polygon2`

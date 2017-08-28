@@ -594,7 +594,7 @@ class TestPolygon(unittest.TestCase):
         with self.assertRaises(ValueError):
             poly = polygon2.Polygon2([ (0, 1), (0.5, 0.8), (1, 1), (1, 0), (0, 0) ])
     
-    def test_cosntructor_not_clockwise(self):
+    def test_constructor_not_clockwise(self):
         with self.assertRaises(ValueError):
             poly = polygon2.Polygon2([ (0, 0), (1, 0), (1, 1), (0, 1) ])
     
@@ -701,24 +701,123 @@ class TestPolygon(unittest.TestCase):
         _axis3 = vector2.Vector2(0.70710678118, 0.70710678118)
         self._proj_onto_axis_fuzzer(poly.points, _axis3, axisall.AxisAlignedLine(_axis3, 0, 1.41421356236))
         
-        
+    def _contains_point_fuzzer(self, points, point, expected_edge, expected_contains):
+        for i in range(3):
+            offset = vector2.Vector2(random.randrange(-1000, 1000, 0.01), random.randrange(-1000, 1000, 0.01))
+            
+            new_points = []
+            for pt in points:
+                new_points.append(pt - offset)
+            
+            new_poly = polygon2.Polygon2(new_points)
+            
+            edge, cont = polygon2.Polygon2.contains_point(new_poly, offset, point)
+            
+            help_msg = "points={}, point={}, expected_edge={}, expected_contains={}, edge={}, cont={}".format(points, point, expected_edge, expected_contains, edge, cont)
+            self.assertEqual(expected_edge, edge. help_msg)
+            self.assertEqual(expected_contains, cont, help_msg)
+            
     def test_contains_point_false(self):
-        pass
+        poly = polygon2.Polygon2([ (1, 1), (2, 3), (4, 0) ])
+        
+        self._contains_point_fuzzer(poly.points, vector2.Vector2(1, 2), False, False)
+        self._contains_point_fuzzer(poly.points, vector2.Vector2(4, 2), False, False)
+        self._contains_point_fuzzer(poly.points, vector2.Vector2(3, 0), False, False)
         
     def test_contains_point_edge(self):
-        pass
+        poly = polygon2.Polygon2([ (2, 3), (3, 5), (5, 4), (3, 2) ])
+        
+        self._contains_point_fuzzer(poly.points, vector2.Vector2(4, 3), True, False)
+        self._contains_point_fuzzer(poly.points, vector2.Vector2(2.5, 2.5), True, False)
+        self._contains_point_fuzzer(poly.points, vector2.Vector2(4, 4.5), True, False)
         
     def test_contains_point_contained(self):
-        pass
+        poly = polygon2.Polygon2([ (-3, -6), (-2, -3), (2, -2), (0, -5) ])
         
+        self._contains_point_fuzzer(poly.points, vector2.Vector2(-1, -4), False, True)
+        self._contains_point_fuzzer(poly.points, vector2.Vector2(-1, -5), False, True)
+        self._contains_point_fuzzer(poly.points, vector2.Vector2(1, -3), False, True)
+    
+    def _find_intersection_fuzzer(self, points1, points2, exp_touching, exp_overlap, exp_mtv):
+        if type(points1) != list:
+            points1 = points1.points
+        if type(points2) != list:
+            points2 = points2.points
+        
+        for i in range(3):
+            offset1 = vector2.Vector2(random.randrange(-1000, 1000, 0.01), random.randrange(-1000, 1000, 0.01))
+            offset2 = vector2.Vector2(random.randrange(-1000, 1000, 0.01), random.randrange(-1000, 1000, 0.01))
+            
+            new_points1 = []
+            for pt in points1:
+                new_points1.append(pt - offset1)
+            
+            new_points2 = []
+            for pt in points2:
+                new_points2.append(pt - offset2)
+            
+            new_poly1 = polygon2.Polygon2(new_points1)
+            new_poly2 = polygon2.Polygon2(new_points2)
+            
+            touch, overlap, mtv = polygon2.Polygon2.find_intersection(new_poly1, new_poly2, offset1, offset2, True)
+            _invtouch, _invoverlap, _invmtv = polygon2.Polygon2.find_intersection(new_poly2, new_poly1, offset2, offset1, True)
+            
+            help_msg = "points1={}, points2={}, offset1={}, offset2={}, exp_touching={}, " \
+                       "exp_overlap={}, exp_mtv={}, touch={}, overlap={}, mtv={}".format(points1, points2, offset1, 
+                       offset2, exp_touching, exp_overlap, exp_mtv, touch, overlap, mtv)
+            self.assertEqual(exp_touching, touch, help_msg)
+            self.assertEqual(exp_overlap, overlap, help_msg)
+            self.assertEqual(exp_touching, _invtouch, help_msg)
+            self.assertEqual(exp_overlap, _invoverlap, help_msg)
+            
+            if exp_mtv is not None:
+                self.assertIsNotNone(mtv, help_msg)
+                exp_mult_x = exp_mtv[0] * exp_mtv[1].x
+                exp_mult_y = exp_mtv[0] * exp_mtv[1].y
+                mult_x = mtv[0] * mtv[1].x
+                mult_y = mtv[0] * mtv[1].y
+                self.assertAlmostEqual(exp_mult_x, mult_x, help_msg)
+                self.assertAlmostEqual(exp_mult_y, mult_y, help_msg)
+                
+                self.assertIsNotNone(_invmtv, help_msg)
+                inv_mult_x = _invmtv[0] * _invmtv[1].x
+                inv_mult_y = _invmtv[0] * _invmtv[1].y
+                self.assertAlmostEqual(-exp_mult_x, inv_mult_x, help_msg)
+                self.assertAlmostEqual(-exp_mult_y, inv_mult_y, help_msg)
+            else:
+                self.assertIsNone(mtv, help_msg)
+                self.assertIsNone(_invmtv, help_msg)
+                
+            _touch, _overlap, _mtv = polygon2.Polygon2.find_intersection(new_poly1, new_poly2, offset1, offset2, False)
+            
+            self.assertEqual(exp_touching, _touch, help_msg)
+            self.assertEqual(exp_overlap, _overlap, help_msg)
+            self.assertIsNone(_mtv, help_msg)
+            
     def test_find_intersection_false(self):
-        pass
+        poly1 = polygon2.Polygon2([ (0, 1), (0, 3), (5, 3), (5, 1) ])
+        poly2 = polygon2.Polygon2([ (3, 4), (2, 6), (7, 5) ])
+        poly3 = polygon2.Polygon2([ (6, 2), (9, 3), (9, 1) ])
+        
+        self._find_intersection_fuzzer(poly1, poly2, False, False, None)
+        self._find_intersection_fuzzer(poly1, poly3, False, False, None)
+        self._find_intersection_fuzzer(poly2, poly3, False, False, None)
         
     def test_find_intersection_touching(self):
-        pass
+        poly1 = polygon2.Polygon2([ (3, 3), (3, 6), (7, 5), (5, 3) ])
+        poly2 = polygon2.Polygon2([ (4, 3), (8, 2), (6, -1) ])
+        poly3 = polygon2.Polyogn2([ (5, 5.5), (1, 6.5), (3, 7), (7, 6) ])
+        
+        self._find_intersection_fuzzer(poly1, poly2, True, False, None)
+        self._find_intersection_fuzzer(poly1, poly3, True, False, None)
         
     def test_find_intersection_overlapping(self):
-        pass
+        poly1 = polygon2.Polygon2([ (2, 1), (4, 3), (6, 3), (6, 1) ])
+        poly2 = polygon2.Polygon2([ (5, 2), (5, 5), (7, 5) ])
+        poly3 = polygon2.Polygon2([ (1, 3), (3, 3), (3, 1), (1, 1) ])
+        
+        self._find_intersection_fuzzer(poly1, poly2, False, True, (1, vector2.Vector2(0, -1)))
+        self._find_intersection_fuzzer(poly1, poly3, False, True, (0.5, vector2.Vector2(-0.70710678118, 0.70710678118)))
 
 if __name__ == '__main__':
     unittest.main()
