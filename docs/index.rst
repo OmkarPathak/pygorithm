@@ -28,6 +28,7 @@ Quick Links
    Fibonacci
    Math
    Pathfinding
+   strings
 
 Quick Start Guide
 -----------------
