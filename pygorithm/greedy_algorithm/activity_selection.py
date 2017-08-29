@@ -3,11 +3,16 @@ Author: OMKAR PATHAK
 Created On: 26th August 2017
 """
 import inspect
-# TODO: Explain what this is / how it works
 
 
 def activity_selection(start_times, finish_times):
     """
+    The activity selection problem is a combinatorial optimization problem concerning the selection of
+    non-conflicting activities to perform within a given time frame, given a set of activities each marked
+    by a start time (si) and finish time (fi). The problem is to select the maximum number of activities
+    that can be performed by a single person or machine, assuming that a person can only work on a single
+    activity at a time.
+
     :param start_times: An array that contains start time of all activities
     :param finish_times: An array that conatins finish time of all activities
     """

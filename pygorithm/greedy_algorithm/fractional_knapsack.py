@@ -3,11 +3,16 @@ Author: SHARAD BHAT
 Created On: 22nd August 2017
 """
 import inspect
-# TODO: Explain how this works / Explain what a knapsack is
 
 
 def knapsack(w, item_values, item_weights):
     """
+    The knapsack problem or rucksack problem is a problem in combinatorial optimization: Given a set of
+    items, each with a weight and a value, determine the number of each item to include in a collection so
+    that the total weight is less than or equal to a given limit and the total value is as large as
+    possible. It derives its name from the problem faced by someone who is constrained by a fixed-size
+    knapsack and must fill it with the most valuable items.
+
     :param w: maximum weight capacity
     :param item_values: a list of values of items in the knapsack
     :param item_weights: a list of weights of items in the knapsack
