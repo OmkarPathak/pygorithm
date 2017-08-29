@@ -118,7 +118,7 @@ class SinglyLinkedList(object):
                 # node not found
                 if temp is None:
                     return
-                
+
                 # TODO: local variable 'prev' might be referenced before assignment
                 # TODO: Fix this
                 prev.next = temp.next
@@ -214,3 +214,72 @@ class DoublyLinkedList(object):
         returns the code of the current class
         """
         return inspect.getsource(DoublyLinkedList)
+
+class CircularLinkedList(object):
+    '''
+    Class for circular linked list
+    '''
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
+
+    def clear(self):
+        ''' clears the head and tails of the linked list '''
+        self.tail = None
+        self.head = None
+
+    def get_data(self):
+        """
+        prints the elements in the linked list
+        """
+        l_list = []
+        current = self.tail
+        while True:
+            l_list.append(current.data)
+            current = current.next
+            if current == self.tail:
+                break
+        return l_list
+
+    def insert(self, data):
+        ''' inserts the data in to the linked list '''
+        node = Node(data)
+        if self.head:
+            self.head.next = node
+            self.head = node
+        else:
+            self.head = node
+            self.tail = node
+        self.head.next = self.tail
+        self.size += 1
+
+    def delete(self, data):
+        ''' deletes the specified element from linked list '''
+        current = self.tail
+        prev = self.tail
+        while prev == current or prev != self.head:
+            if current.data == data:
+                if current == self.tail:
+                    self.tail = current.next
+                    self.head.next = self.tail
+                else:
+                    prev.next = current.next
+                self.size -= 1
+                return
+            prev = current
+            current = current.next
+
+    @staticmethod
+    def get_code():
+        """
+        returns the code of the current class
+        """
+        return inspect.getsource(CircularLinkedList)
+
+if __name__ == '__main__':
+    cll = CircularLinkedList()
+    cll.insert(1)
+    cll.insert(2)
+    cll.insert(3)
+    print(cll.get_data())
