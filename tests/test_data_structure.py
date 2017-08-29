@@ -2,6 +2,7 @@
 import unittest
 
 from pygorithm.data_structures import (
+    base,
     stack,
     queue,
     linked_list,
@@ -11,7 +12,31 @@ from pygorithm.data_structures import (
     trie)
 
 
-class TestStack(unittest.TestCase):
+class TestDSInterfaceMixin(object):
+    
+    DS_Class = None
+
+    def _check_ds_class_set(self):
+        if self.DS_Class is None:
+            raise ValueError(
+                'When inherit from TestDataStructureMixin, set ds_class class variable'
+            )
+
+    def test_get_code_method_exists(self):
+        import inspect
+        
+        self._check_ds_class_set()
+        self.assertEqual(self.DS_Class.get_code(), inspect.getsource(self.DS_Class))
+
+    def test_time_complexities_method_exists(self):
+        self._check_ds_class_set()
+        self.assertTrue(hasattr(self.DS_Class, 'time_complexities'))
+
+
+class TestStack(TestDSInterfaceMixin, unittest.TestCase):
+
+    DS_Class = stack.Stack
+
     def test_stack(self):
         myStack = stack.Stack()  # create a stack with default stack size 10
         myStack.push(2)
@@ -30,7 +55,10 @@ class TestStack(unittest.TestCase):
         self.assertTrue(nullStack.is_empty())
 
 
-class TestInfixToPostfix(unittest.TestCase):
+class TestInfixToPostfix(TestDSInterfaceMixin, unittest.TestCase):
+
+    DS_Class = stack.InfixToPostfix
+
     def test_infix_to_postfix(self):
         myExp = 'a+b*(c^d-e)^(f+g*h)-i'
         myExp = [i for i in myExp]

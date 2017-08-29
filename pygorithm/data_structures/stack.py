@@ -3,10 +3,11 @@ Author: OMKAR PATHAK
 Created On: 3rd August 2017
 """
 from string import ascii_letters
-import inspect
+
+from .base import BaseDataStructure
 
 
-class Stack(object):
+class Stack(BaseDataStructure):
     """
     Stack object
     """
@@ -66,15 +67,8 @@ class Stack(object):
         """
         return len(self.stack)
 
-    @staticmethod
-    def get_code():
-        """
-        returns the code for current class
-        """
-        return inspect.getsource(Stack)
 
-
-class InfixToPostfix(object):
+class InfixToPostfix(BaseDataStructure):
     """InfixToPostfix
     get the postfix of the given infix expression
     """
@@ -136,10 +130,3 @@ class InfixToPostfix(object):
         while not self.my_stack.is_empty():
             postfix.append(self.my_stack.pop())
         return ' '.join(postfix)
-
-    @staticmethod
-    def get_code():
-        """
-        returns the code of the current class
-        """
-        return inspect.getsource(InfixToPostfix)
