@@ -545,6 +545,22 @@ class TestAxisAlignedLine(unittest.TestCase):
         outer, inner = axisall.AxisAlignedLine.contains_point(_aal1, 0.75)
         self.assertFalse(outer)
         self.assertTrue(inner)
+        
+    def test_repr(self):
+        _aal = axisall.AxisAlignedLine(self.vec_1_1, 0, 1)
+        
+        exp = "AxisAlignedLine(axis=vector2(x=1, y=1), min=0, max=1)"
+        self.assertEqual(exp, repr(_aal))
+        
+    def test_str(self):
+        _aal1 = axisall.AxisAlignedLine(self.vec_1_1, 0, 1)
+        _aal2 = axisall.AxisAlignedLine(self.vec_1_1, 0.707123, 0.707123)
+        
+        exp1 = "axisall(along <1, 1> from 0 to 1)"
+        exp2 = "axisall(along <1, 1> from 0.707 to 0.707)"
+        
+        self.assertEqual(exp1, str(_aal1))
+        self.assertEqual(exp2, str(_aal2))
 
 class TestPolygon(unittest.TestCase):
     def setUp(self):

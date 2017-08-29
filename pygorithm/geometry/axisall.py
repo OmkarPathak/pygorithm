@@ -222,4 +222,4 @@ class AxisAlignedLine(object):
         if pretty_max == math.floor(pretty_max):
             pretty_max = math.floor(pretty_max)
         
-        return "axisall(along {} from {} to {})".format(str(axis), pretty_min, pretty_max)
+        return "axisall(along {} from {} to {})".format(str(self.axis), pretty_min, pretty_max)
