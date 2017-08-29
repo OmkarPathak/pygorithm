@@ -31,5 +31,5 @@ Anagram
 
 * Functions and their uses
 
-.. automodule:: strings.anagram
+.. automodule:: pygorithm.strings.anagram
    :members:
