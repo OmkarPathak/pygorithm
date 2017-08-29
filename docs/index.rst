@@ -25,10 +25,10 @@ Quick Links
    Data_Structure
    DynamicP
    Fibonacci
+   Geometry
    Greedy
    Math
    Pathfinding
-   Geometry
    Searching
    Sorting
    strings
