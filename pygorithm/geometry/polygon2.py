@@ -509,6 +509,17 @@ class Polygon2(object):
     
     @staticmethod
     def _create_link(pts):
+        """
+        Create a webmath link to display the polygon. 
+        
+        This isn't a perfect drawing since it doesn't show connections (so order is
+        invisible). Avoid programatically connecting to the website. This is mostly
+        used because it's very difficult to visualize polygons from lists of points.
+        
+        :param pts: a set of points (order, number, etc. are irrelevant)
+        :type pts: list of :class:`pygorithm.geometry.vector2.Vector2`
+        """
+        
         param0 = "+".join(('%28{}%2C+{}%29'.format(v.x, v.y)) for v in pts)
         xmin = pts[0].x
         xmax = xmin

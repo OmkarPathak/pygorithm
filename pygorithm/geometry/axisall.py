@@ -172,3 +172,54 @@ class AxisAlignedLine(object):
             return False, False
         else:
             return False, True
+            
+    def __repr__(self):
+        """
+        Create an unambiguous representation of this axis aligned
+        line.
+        
+        Example:
+        
+        .. code-block:: python
+        
+            from pygorithm.geometry import axisall
+            
+            aal = axisall.AxisAlignedLine(None, 3, 5)
+            
+            # prints AxisAlignedLine(axis=None, min=3, max=5)
+            print(repr(aal))
+        
+        :returns: un-ambiguous representation of this line
+        :rtype: string
+        """
+        
+        return "AxisAlignedLine(axis={}, min={}, max={})".format(repr(self.axis), self.min, self.max)
+    
+    def __str__(self):
+        """
+        Create a human-readable representation of this axis aligned line.
+        
+        Example:
+        
+        .. code-block:: python
+        
+            from pygorithm.geometry import axisall
+            
+            aal = axisall.AxisAlignedLine(None, 0.7071234, 0.7071234)
+            
+            # prints axisall(along None from 0.707 to 0.707)
+            print(aal)
+        
+        :returns: human-readable representation of this line
+        :rtype: string
+        """
+        
+        pretty_min = round(self.min * 1000) / 1000
+        if pretty_min == math.floor(pretty_min):
+            pretty_min = math.floor(pretty_min)
+            
+        pretty_max = round(self.max * 1000) / 1000
+        if pretty_max == math.floor(pretty_max):
+            pretty_max = math.floor(pretty_max)
+        
+        return "axisall(along {} from {} to {})".format(str(axis), pretty_min, pretty_max)
