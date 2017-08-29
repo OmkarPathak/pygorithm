@@ -65,23 +65,6 @@ class AxisAlignedLine(object):
         self.max = max(point1, point2)
     
     @staticmethod
-    def _approx(a, b):
-        """
-        Same as math.isclose but supports python < 3.5
-        
-        :param a: first numeric
-        :type a: :class:`numbers.Number`
-        :param b: second numeric
-        :type b: :class:`numbers.Number`
-        :returns: if the are close
-        :rtype: bool
-        """
-        
-        if hasattr(math, 'isclose'):
-            return math.isclose(a, b)
-        return abs(a - b) <= 1e-09 * max(abs(a), abs(b))
-    
-    @staticmethod
     def intersects(line1, line2):
         """
         Determine if the two lines intersect
@@ -108,9 +91,9 @@ class AxisAlignedLine(object):
         :rtype: (bool, bool)
         """
         
-        if AxisAlignedLine._approx(line1.max, line2.min):
+        if math.isclose(line1.max, line2.min):
             return True, False
-        elif AxisAlignedLine._approx(line1.min, line2.max):
+        elif math.isclose(line1.min, line2.max):
             return True, False
         elif line1.max < line2.min:
             return False, False
@@ -146,9 +129,9 @@ class AxisAlignedLine(object):
         :rtype: (bool, (:class:`numbers.Number` or None, :class:`numbers.Number`, :class:`numbers.Number`) or None)
         """
         
-        if AxisAlignedLine._approx(line1.max, line2.min):
+        if math.isclose(line1.max, line2.min):
             return True, (None, line2.min, line2.min)
-        elif AxisAlignedLine._approx(line1.min, line2.max):
+        elif math.isclose(line1.min, line2.max):
             return True, (None, line1.min, line1.min)
         elif line1.max < line2.min or line2.max < line1.min:
             return False, None
@@ -183,7 +166,7 @@ class AxisAlignedLine(object):
         :rtype: (bool, bool)
         """
         
-        if AxisAlignedLine._approx(line.min, point) or AxisAlignedLine._approx(line.max, point):
+        if math.isclose(line.min, point) or math.isclose(line.max, point):
             return True, False
         elif point < line.min or point > line.max:
             return False, False

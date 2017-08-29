@@ -378,23 +378,6 @@ class Line2(object):
         return self.start.y + offset.y - self.slope * (self.start.x + offset.x)
     
     @staticmethod
-    def _approx(a, b):
-        """
-        Same as math.isclose but supports python < 3.5
-        
-        :param a: first numeric
-        :type a: :class:`numbers.Number`
-        :param b: second numeric
-        :type b: :class:`numbers.Number`
-        :returns: if the are close
-        :rtype: bool
-        """
-        
-        if hasattr(math, 'isclose'):
-            return math.isclose(a, b)
-        return abs(a - b) <= 1e-09 * max(abs(a), abs(b))
-    
-    @staticmethod
     def are_parallel(line1, line2):
         """
         Determine if the two lines are parallel.
@@ -412,7 +395,7 @@ class Line2(object):
         if line1.vertical and line2.vertical:
             return True
         
-        return Line2._approx(line1.slope, line2.slope)
+        return math.isclose(line1.slope, line2.slope)
     
     @staticmethod
     def find_intersection(line1, line2, offset1 = None, offset2 = None):
@@ -467,7 +450,7 @@ class Line2(object):
         
         if line1.vertical and line2.vertical:
             # Two vertical lines
-            if not Line2._approx(l1_st_x, l2_st_x):
+            if not math.isclose(l1_st_x, l2_st_x):
                 return False, False, None
             
             aal1 = axisall.AxisAlignedLine(None, l1_st_y, l1_en_y)
@@ -484,7 +467,7 @@ class Line2(object):
             
         if line1.horizontal and line2.horizontal:
             # Two horizontal lines
-            if not Line2._approx(l1_st_y, l2_st_y):
+            if not math.isclose(l1_st_y, l2_st_y):
                 return False, False, None
             
             aal1 = axisall.AxisAlignedLine(None, l1_st_x, l1_en_x)
@@ -503,7 +486,7 @@ class Line2(object):
             # Two non-vertical, non-horizontal, parallel lines
             yintr1 = line1.calculate_y_intercept(offset1)
             yintr2 = line2.calculate_y_intercept(offset2)
-            if not Line2._approx(yintr1, yintr2):
+            if not math.isclose(yintr1, yintr2):
                 return False, False, None
             
             axis = line1.axis
@@ -544,7 +527,7 @@ class Line2(object):
             
             pt = vector2.Vector2(l1_st_x, l2_st_y)
             
-            if Line2._approx(l2_st_y, l1_min) or Line2._approx(l2_st_y, l2_max) or Line2._approx(l1_st_x, l2_min) or Line2._approx(l2_st_y, l2_max):
+            if math.isclose(l2_st_y, l1_min) or math.isclose(l2_st_y, l2_max) or math.isclose(l1_st_x, l2_min) or math.isclose(l2_st_y, l2_max):
                 return True, False, pt
             else:
                 return False, True, pt
@@ -556,7 +539,7 @@ class Line2(object):
             l1_min = min(l1_st_y, l1_en_y) if offset1 is not None else line1.min_y
             l1_max = max(l1_st_y, l1_en_y) if offset1 is not None else line1.max_y
             
-            if Line2._approx(line2_y_at_line1_x, l1_min) or Line2._approx(line2_y_at_line1_x, l1_max):
+            if math.isclose(line2_y_at_line1_x, l1_min) or math.isclose(line2_y_at_line1_x, l1_max):
                 return True, False, vector2.Vector2(l1_st_x, line2_y_at_line1_x)
             elif line2_y_at_line1_x < l1_min or line2_y_at_line1_x > l2_max:
                 return False, False, None
@@ -571,7 +554,7 @@ class Line2(object):
             l1_min = min(l1_st_x, l1_en_x) if offset1 is not None else line1.min_x
             l1_max = max(l1_st_x, l1_en_x) if offset1 is not None else line1.max_x
             
-            if Line2._approx(line2_x_at_line1_y, l1_min) or Line2._approx(line2_x_at_line1_y, l1_max):
+            if math.isclose(line2_x_at_line1_y, l1_min) or math.isclose(line2_x_at_line1_y, l1_max):
                 return True, False, vector2.Vector2(line2_x_at_line1_y, l1_st_y)
             elif line2_x_at_line1_y < l1_min or line2_x_at_line1_y > l1_max:
                 return False, False, None
@@ -593,8 +576,8 @@ class Line2(object):
         # Some caution needs to be taken here to ensure we do approximately before range
         # checks. It's possible for _approx(a, b) to be True and a < b to be True
         
-        on_edge1 = Line2._approx(intr_x, l1_st_x) or Line2._approx(intr_x, l1_en_x)
-        on_edge2 = Line2._approx(intr_x, l2_st_x) or Line2._approx(intr_x, l2_en_x)
+        on_edge1 = math.isclose(intr_x, l1_st_x) or math.isclose(intr_x, l1_en_x)
+        on_edge2 = math.isclose(intr_x, l2_st_x) or math.isclose(intr_x, l2_en_x)
         
         if on_edge1 and on_edge2:
             intr_y = line1.slope * intr_x + yintr1

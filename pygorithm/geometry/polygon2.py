@@ -115,7 +115,7 @@ class Polygon2(object):
             
             if not suppress_errors:
                 for prev_pt in self.points:
-                    if Polygon2._approx(prev_pt.x, act_pt.x) and Polygon2._approx(prev_pt.y, act_pt.y):
+                    if math.isclose(prev_pt.x, act_pt.x) and math.isclose(prev_pt.y, act_pt.y):
                         raise ValueError('Repeated points! points={} (repeated={})'.format(points, act_pt))
             
             
@@ -133,7 +133,7 @@ class Polygon2(object):
                 norm.x *= -1
                 norm.y *= -1
             
-            already_contains = next((v for v in self.normals if Polygon2._approx(v.x, norm.x) and Polygon2._approx(v.y, norm.y)), None)
+            already_contains = next((v for v in self.normals if math.isclose(v.x, norm.x) and math.isclose(v.y, norm.y)), None)
             if already_contains is None:
                 self.normals.append(norm)
             
@@ -164,24 +164,6 @@ class Polygon2(object):
                 if cross_product < -1e-09:
                     raise ValueError('Detected concavity at index {} - {} cross {} = {}\nself={}'.format(middlepointin, vec1, vec2, cross_product, str(self)))
             
-        
-    @staticmethod
-    def _approx(a, b):
-        """
-        Same as math.isclose but supports python < 3.5
-        
-        :param a: first numeric
-        :type a: :class:`numbers.Number`
-        :param b: second numeric
-        :type b: :class:`numbers.Number`
-        :returns: if the are close
-        :rtype: bool
-        """
-        
-        if hasattr(math, 'isclose'):
-            return math.isclose(a, b)
-        return abs(a - b) <= 1e-09 * max(abs(a), abs(b))
-    
     @classmethod
     def from_regular(cls, sides, length, start_rads = None, start_degs = None, center = None):
         """
@@ -438,7 +420,7 @@ class Polygon2(object):
             cross = vec1.cross(vec2)
             _previous = curr
             
-            if Polygon2._approx(cross, 0):
+            if math.isclose(cross, 0):
                 return True, False
             
             if cross > 0:
@@ -494,7 +476,7 @@ class Polygon2(object):
         for n in poly2.normals:
             found = False
             for old_n in poly1.normals:
-                if Polygon2._approx(n.x, old_n.x) and Polygon2._approx(n.y, old_n.y):
+                if math.isclose(n.x, old_n.x) and math.isclose(n.y, old_n.y):
                     found = True
                     break
             if not found:
