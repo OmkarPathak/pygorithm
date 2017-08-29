@@ -27,9 +27,41 @@ Features
 
 
 Anagram
------------
+-------
 
 * Functions and their uses
 
 .. automodule:: pygorithm.strings.anagram
+   :members:
+
+Isogram
+-------
+
+* Functions and their uses
+
+.. automodule:: pygorithm.strings.isogram
+   :members:
+
+Palindrome
+----------
+
+* Functions and their uses
+
+.. automodule:: pygorithm.strings.palindrome
+   :members:
+
+Pangram
+-------
+
+* Functions and their uses
+
+.. automodule:: pygorithm.strings.pangram
+   :members:
+
+Manacher's Algorithm
+--------------------
+
+* Functions and their uses
+
+.. automodule:: pygorithm.strings.manacher_algorithm
    :members:

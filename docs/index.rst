@@ -22,13 +22,16 @@ Quick Links
    :maxdepth: 2
    :caption: Documentation:
 
-   Sorting
-   Searching
    Data_Structure
+   DynamicP
    Fibonacci
+   Greedy
    Math
    Pathfinding
+   Searching
+   Sorting
    strings
+
 
 Quick Start Guide
 -----------------
