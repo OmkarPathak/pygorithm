@@ -18,7 +18,7 @@ class TestDSInterfaceMixin(object):
     def _check_ds_class_set(self):
         if self.DS_Class is None:
             raise ValueError(
-                'When inherit from TestDataStructureMixin, set ds_class class variable'
+                'When inherit from TestDataStructureMixin, set DS_Class class variable'
             )
 
     def test_get_code_method_exists(self):
