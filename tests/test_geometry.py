@@ -145,7 +145,17 @@ class TestVector2(unittest.TestCase):
         
         dot_21 = vec2.dot(vec1)
         self.assertEqual(76, dot_21)
+    
+    def test_cross(self):
+        vec1 = vector2.Vector2(3, 5)
+        vec2 = vector2.Vector2(7, 11)
         
+        cross_12 = vec1.cross(vec2)
+        self.assertEqual(-2, cross_12)
+        
+        cross_21 = vec2.cross(vec1)
+        self.assertEqual(2, cross_21)
+    
     def test_rotate(self):
         vec1 = vector2.Vector2(1, 0)
         
@@ -544,7 +554,7 @@ class TestPolygon(unittest.TestCase):
         poly = polygon2.Polygon2([ vector2.Vector2(0, 1), 
                                    vector2.Vector2(1, 1),
                                    vector2.Vector2(1, 0),
-                                   vectro2.Vector2(0, 0) ])
+                                   vector2.Vector2(0, 0) ])
         
         self.assertEqual(4, len(poly.points))
         self.assertEqual(4, len(poly.lines))
@@ -576,8 +586,8 @@ class TestPolygon(unittest.TestCase):
         self.assertEqual(0, poly.lines[3].end.x)
         self.assertEqual(1, poly.lines[3].end.y)
         
-        self.assertIsNotNone(next((vec for vec in poly.normals if vec.horizontal), None))
-        self.assertIsNotNone(next((vec for vec in poly.normals if vec.vertical), None))
+        self.assertIsNotNone(next((vec for vec in poly.normals if vec.y == 0), None))
+        self.assertIsNotNone(next((vec for vec in poly.normals if vec.x == 0), None))
         
         self.assertAlmostEqual(0.5, poly.center.x)
         self.assertAlmostEqual(0.5, poly.center.y)
@@ -608,37 +618,39 @@ class TestPolygon(unittest.TestCase):
             poly = polygon2.Polygon2([ (0, 0), (1, 0), (1, 1), (0, 1) ])
     
     def test_from_regular(self):
-        diamond = polygon2.Polygon2.from_regular(4, 1)
+        diamond = polygon2.Polygon2.from_regular(4, 1.414213562373095)
         
-        self.assertEqual(2, diamond.points[0].x)
-        self.assertEqual(1, diamond.points[0].y)
-        self.assertEqual(1, diamond.points[1].x)
-        self.assertEqual(0, diamond.points[1].y)
-        self.assertEqual(0, diamond.points[2].x)
-        self.assertEqual(1, diamond.points[2].y)
-        self.assertEqual(1, diamond.points[3].x)
-        self.assertEqual(2, diamond.points[3].y)
+        self.assertAlmostEqual(2, diamond.points[0].x)
+        self.assertAlmostEqual(1, diamond.points[0].y)
+        self.assertAlmostEqual(1, diamond.points[1].x)
+        self.assertAlmostEqual(0, diamond.points[1].y)
+        self.assertAlmostEqual(0, diamond.points[2].x)
+        self.assertAlmostEqual(1, diamond.points[2].y)
+        self.assertAlmostEqual(1, diamond.points[3].x)
+        self.assertAlmostEqual(2, diamond.points[3].y)
         
-        diamond_shifted = polygon2.Polygon2.from_regular(4, 1, center = vector2.Vector2(0, 0))
+        diamond_shifted = polygon2.Polygon2.from_regular(4, 1.414213562373095, center = vector2.Vector2(0, 0))
         
-        with self.assertRaises(StopIteration):
-            next(i for i in range(4) if diamond.points[i].x != diamond_shifted.points[i].x + 1 or diamond.points[i].y != diamond_shifted.points[i].y + 1)
+        for i in range(4):
+            self.assertAlmostEqual(diamond.points[i].x, diamond_shifted.points[i].x + 1)
+            self.assertAlmostEqual(diamond.points[i].y, diamond_shifted.points[i].y + 1)
         
         square = polygon2.Polygon2.from_regular(4, 1, math.pi / 4)
         
-        self.assertEqual(0, poly.points[0].x)
-        self.assertEqual(1, poly.points[0].y)
-        self.assertEqual(1, poly.points[1].x)
-        self.assertEqual(1, poly.points[1].y)
-        self.assertEqual(1, poly.points[2].x)
-        self.assertEqual(0, poly.points[2].y)
-        self.assertEqual(0, poly.points[3].x)
-        self.assertEqual(0, poly.points[3].y)
+        self.assertAlmostEqual(1, square.points[0].x)
+        self.assertAlmostEqual(1, square.points[0].y)
+        self.assertAlmostEqual(1, square.points[1].x)
+        self.assertAlmostEqual(0, square.points[1].y)
+        self.assertAlmostEqual(0, square.points[2].x)
+        self.assertAlmostEqual(0, square.points[2].y)
+        self.assertAlmostEqual(0, square.points[3].x)
+        self.assertAlmostEqual(1, square.points[3].y)
         
         square2 = polygon2.Polygon2.from_regular(4, 1, start_degs = 45)
         
-        with self.assertRaises(StopIteration):
-            next(i for i in range(4) if square.points[i].x != square2.points[i].x or square.points[i].y != square2.points[i].y)
+        for i in range(4):
+            self.assertAlmostEqual(square.points[i].x, square2.points[i].x)
+            self.assertAlmostEqual(square.points[i].y, square2.points[i].y)
         
         
     def test_from_rotated(self):
@@ -654,18 +666,18 @@ class TestPolygon(unittest.TestCase):
         # (0, 0) - (1, 2/3) = (-1, -2/3)
         # rotate 45 degrees clockwise = (-1 * cos(45) - (-2/3) * sin(45), (-2/3) * cos(45) + (-1) * sin(45)) = (-0.23570226039, -1.17851130198)
         # shift back (add center): (0.76429773961, -0.51184463531)
-        self.assertAlmostEqual(0.76429773961, triangle_rot.points[0].x)
-        self.assertAlmostEqual(-0.51184463531, triangle_rot.points[0].y)
-        self.assertAlmostEqual(1.23570226039, triangle_rot.points[1].x)
-        self.assertAlmostEqual(0.90236892706, triangle_rot.points[1].y)
-        self.assertAlmostEqual(0.47140452079, triangle_rot.points[2].x)
-        self.assertAlmostEqual(1.60947570825, triangle_rot.points[2].y)
-        self.assertAlmostEqual(1, triangle_rot.center.x)
-        self.assertAlmostEqual(0.66666666667, triangle_rot.center.y)
+        self.assertAlmostEqual(0.76429773961, triangle_rot.points[0].x, msg='original={}\n\nrotated={}'.format(triangle, triangle_rot))
+        self.assertAlmostEqual(-0.51184463531, triangle_rot.points[0].y, msg='original={}\n\nrotated={}'.format(triangle, triangle_rot))
+        self.assertAlmostEqual(0.76429773960, triangle_rot.points[1].x, msg='original={}\n\nrotated={}'.format(triangle, triangle_rot))
+        self.assertAlmostEqual(0.90236892706, triangle_rot.points[1].y, msg='original={}\n\nrotated={}'.format(triangle, triangle_rot))
+        self.assertAlmostEqual(1.47140452079, triangle_rot.points[2].x, msg='original={}\n\nrotated={}'.format(triangle, triangle_rot))
+        self.assertAlmostEqual(1.60947570825, triangle_rot.points[2].y, msg='original={}\n\nrotated={}'.format(triangle, triangle_rot))
+        self.assertAlmostEqual(1, triangle_rot.center.x, msg='original={}\n\nrotated={}'.format(triangle, triangle_rot))
+        self.assertAlmostEqual(0.66666666667, triangle_rot.center.y, msg='original={}\n\nrotated={}'.format(triangle, triangle_rot))
         
         
     def test_area(self):
-        # http://www.mathopenref.com/coordpolygonareacalc.html# helpful for checking
+        # https://www.calculatorsoup.com/calculators/geometry-plane/polygon.php helpful for checking
         poly = polygon2.Polygon2.from_regular(4, 1)
         self.assertAlmostEqual(1, poly.area)
         
@@ -673,7 +685,7 @@ class TestPolygon(unittest.TestCase):
         self.assertAlmostEqual(4, poly2.area)
         
         poly3 = polygon2.Polygon2.from_regular(8, 3.7)
-        self.assertAlmostEqual(38.7, poly3.area)
+        self.assertAlmostEqual(66.1011673, poly3.area, msg=str(poly3))
         
         poly4 = polygon2.Polygon2([ (0, 0), (1, 1), (2, 1) ])
         self.assertAlmostEqual(0.5, poly4.area)
@@ -723,8 +735,8 @@ class TestPolygon(unittest.TestCase):
             edge, cont = polygon2.Polygon2.contains_point(new_poly, offset, point)
             
             help_msg = "points={}, point={}, expected_edge={}, expected_contains={}, edge={}, cont={}".format(points, point, expected_edge, expected_contains, edge, cont)
-            self.assertEqual(expected_edge, edge. help_msg)
-            self.assertEqual(expected_contains, cont, help_msg)
+            self.assertEqual(expected_edge, edge, msg=help_msg)
+            self.assertEqual(expected_contains, cont, msg=help_msg)
             
     def test_contains_point_false(self):
         poly = polygon2.Polygon2([ (1, 1), (2, 3), (4, 0) ])
@@ -771,37 +783,42 @@ class TestPolygon(unittest.TestCase):
             touch, overlap, mtv = polygon2.Polygon2.find_intersection(new_poly1, new_poly2, offset1, offset2, True)
             _invtouch, _invoverlap, _invmtv = polygon2.Polygon2.find_intersection(new_poly2, new_poly1, offset2, offset1, True)
             
-            help_msg = "points1={}, points2={}, offset1={}, offset2={}, exp_touching={}, " \
-                       "exp_overlap={}, exp_mtv={}, touch={}, overlap={}, mtv={}".format(points1, points2, offset1, 
-                       offset2, exp_touching, exp_overlap, exp_mtv, touch, overlap, mtv)
-            self.assertEqual(exp_touching, touch, help_msg)
-            self.assertEqual(exp_overlap, overlap, help_msg)
-            self.assertEqual(exp_touching, _invtouch, help_msg)
-            self.assertEqual(exp_overlap, _invoverlap, help_msg)
+            help_msg = "\n\npoints1={}, points2={}, offset1={}, offset2={}\n\nexp_touching={}, " \
+                       "exp_overlap={}, exp_mtv={}\n\ntouch={}, overlap={}, mtv={}\n\n" \
+                       "_invtouch={}, _invoverlap={}, _invmtv={}\n\n" \
+                       "orig_poly1={}\n\n" \
+                       "orig_poly2={}\n\n".format(points1, points2, offset1, 
+                       offset2, exp_touching, exp_overlap, exp_mtv, touch, overlap, mtv, 
+                       _invtouch, _invoverlap, _invmtv, polygon2.Polygon2(points1),
+                       polygon2.Polygon2(points2))
+            self.assertEqual(exp_touching, touch, msg=help_msg)
+            self.assertEqual(exp_overlap, overlap, msg=help_msg)
+            self.assertEqual(exp_touching, _invtouch, msg=help_msg)
+            self.assertEqual(exp_overlap, _invoverlap, msg=help_msg)
             
             if exp_mtv is not None:
-                self.assertIsNotNone(mtv, help_msg)
+                self.assertIsNotNone(mtv, msg=help_msg)
                 exp_mult_x = exp_mtv[0] * exp_mtv[1].x
                 exp_mult_y = exp_mtv[0] * exp_mtv[1].y
                 mult_x = mtv[0] * mtv[1].x
                 mult_y = mtv[0] * mtv[1].y
-                self.assertAlmostEqual(exp_mult_x, mult_x, help_msg)
-                self.assertAlmostEqual(exp_mult_y, mult_y, help_msg)
+                self.assertAlmostEqual(exp_mult_x, mult_x, msg=help_msg)
+                self.assertAlmostEqual(exp_mult_y, mult_y, msg=help_msg)
                 
-                self.assertIsNotNone(_invmtv, help_msg)
+                self.assertIsNotNone(_invmtv, msg=help_msg)
                 inv_mult_x = _invmtv[0] * _invmtv[1].x
                 inv_mult_y = _invmtv[0] * _invmtv[1].y
-                self.assertAlmostEqual(-exp_mult_x, inv_mult_x, help_msg)
-                self.assertAlmostEqual(-exp_mult_y, inv_mult_y, help_msg)
+                self.assertAlmostEqual(-exp_mult_x, inv_mult_x, msg=help_msg)
+                self.assertAlmostEqual(-exp_mult_y, inv_mult_y, msg=help_msg)
             else:
-                self.assertIsNone(mtv, help_msg)
-                self.assertIsNone(_invmtv, help_msg)
+                self.assertIsNone(mtv, msg=help_msg)
+                self.assertIsNone(_invmtv, msg=help_msg)
                 
             _touch, _overlap, _mtv = polygon2.Polygon2.find_intersection(new_poly1, new_poly2, offset1, offset2, False)
             
-            self.assertEqual(exp_touching, _touch, help_msg)
-            self.assertEqual(exp_overlap, _overlap, help_msg)
-            self.assertIsNone(_mtv, help_msg)
+            self.assertEqual(exp_touching, _touch, msg=help_msg)
+            self.assertEqual(exp_overlap, _overlap, msg=help_msg)
+            self.assertIsNone(_mtv, msg=help_msg)
             
     def test_find_intersection_false(self):
         poly1 = polygon2.Polygon2([ (0, 1), (0, 3), (5, 3), (5, 1) ])
@@ -815,18 +832,18 @@ class TestPolygon(unittest.TestCase):
     def test_find_intersection_touching(self):
         poly1 = polygon2.Polygon2([ (3, 3), (3, 6), (7, 5), (5, 3) ])
         poly2 = polygon2.Polygon2([ (4, 3), (8, 2), (6, -1) ])
-        poly3 = polygon2.Polyogn2([ (5, 5.5), (1, 6.5), (3, 7), (7, 6) ])
+        poly3 = polygon2.Polygon2([ (5, 5.5), (1, 6.5), (3, 7), (7, 6) ])
         
         self._find_intersection_fuzzer(poly1, poly2, True, False, None)
         self._find_intersection_fuzzer(poly1, poly3, True, False, None)
         
     def test_find_intersection_overlapping(self):
         poly1 = polygon2.Polygon2([ (2, 1), (4, 3), (6, 3), (6, 1) ])
-        poly2 = polygon2.Polygon2([ (5, 2), (5, 5), (7, 5) ])
+        poly2 = polygon2.Polygon2([ (5, 2.5), (5, 5), (7, 5) ])
         poly3 = polygon2.Polygon2([ (1, 3), (3, 3), (3, 1), (1, 1) ])
         
-        self._find_intersection_fuzzer(poly1, poly2, False, True, (1, vector2.Vector2(0, -1)))
-        self._find_intersection_fuzzer(poly1, poly3, False, True, (0.5, vector2.Vector2(-0.70710678118, 0.70710678118)))
+        self._find_intersection_fuzzer(poly1, poly2, False, True, (0.5, vector2.Vector2(0, -1)))
+        self._find_intersection_fuzzer(poly1, poly3, False, True, (0.70710678118, vector2.Vector2(0.70710678118, -0.70710678118)))
 
 if __name__ == '__main__':
     unittest.main()

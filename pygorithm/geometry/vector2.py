@@ -278,7 +278,26 @@ class Vector2(object):
         """
         
         return self.x * other.x + self.y * other.y
+    
+    def cross(self, other):
+        """
+        Calculate the z-component of the cross product between this vector and other.
         
+        The cross product of two vectors is calculated as so::
+        
+            Let v1 be a vector such that v1 = <v1_x, v1_y>
+            Let v2 be a vector such that v2 = <v2_x, v2_y>
+            
+            v1 x v2 = v1.x * v2.y - v1.y * v2.x
+        
+        .. caution::
+        
+            This is the special case of a cross product in 2 dimensions returning 1 
+            value. This is really a vector in the z direction!
+        """
+        
+        return self.x * other.y - self.y * other.x
+    
     def rotate(self, *args, **kwargs):
         """
         The named argument "degrees" or "radians" may be passed in to rotate 
