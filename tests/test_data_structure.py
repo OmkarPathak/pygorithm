@@ -2,7 +2,6 @@
 import unittest
 
 from pygorithm.data_structures import (
-    base,
     stack,
     queue,
     linked_list,
