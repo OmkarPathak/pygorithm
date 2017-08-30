@@ -22,6 +22,7 @@ Quick Links
    :maxdepth: 2
    :caption: Documentation:
 
+   Binary
    Data_Structure
    DynamicP
    Fibonacci
