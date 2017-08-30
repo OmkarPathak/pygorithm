@@ -25,13 +25,13 @@ Quick Links
    Data_Structure
    DynamicP
    Fibonacci
+   Geometry
    Greedy
    Math
    Pathfinding
    Searching
    Sorting
    strings
-
 
 Quick Start Guide
 -----------------
