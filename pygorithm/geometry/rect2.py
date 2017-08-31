@@ -168,7 +168,7 @@ class Rect2(object):
         pass
     
     @staticmethod
-    def find_intersection(*args, find_mtv=True):
+    def find_intersection(find_mtv=True, *args):
         """
         Determine the state of intersection between a rect and a 
         polygon.
@@ -215,10 +215,10 @@ class Rect2(object):
             # find mtv for big square against square 
             touching, overlapping, mtv = rect2.Rect2.find_intersection(big_square, unit_square)
         
-        :param args: 2 arguments for rect-rect, 3 arguments for rect-polygon (see above)
-        :type args: list
         :param find_mtv: if mtv should be found where possible (default ``True``)
         :type find_mtv: bool
+        :param args: 2 arguments for rect-rect, 3 arguments for rect-polygon (see above)
+        :type args: list
         :returns: (touching, overlapping, (mtv distance, mtv axis))
         :rtype: (bool, bool, (:class:`numbers.Number`, :class:`pygorithm.geometry.vector2.Vector2`) or None)
         """
