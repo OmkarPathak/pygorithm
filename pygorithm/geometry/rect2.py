@@ -69,7 +69,7 @@ class Rect2(object):
         
         .. caution::
         
-            This does not include the :py:attr:`~pygorithm.geometry.rect2.Rect2.mincorner`
+            This does not include the :py:attr:`.mincorner`
             (which should be passed as offset for polygon operations)
         
         :returns: polygon representation of this rectangle
@@ -215,7 +215,7 @@ class Rect2(object):
         Find the intersection between two rectangles. 
         
         Not intended for direct use. See 
-        :py:method:`~pygorithm.geometry.rect2.Rect2.find_intersection`
+        :py:method:`.find_intersection`
         
         :param rect1: first rectangle
         :type rect1: :class:`pygorithm.geometry.rect2.Rect2`
@@ -315,7 +315,7 @@ class Rect2(object):
         Find the intersection between a rect and polygon.
         
         Not intended for direct use. See 
-        :py:method:`~pygorithm.geometry.rect2.Rect2.find_intersection`
+        :py:method:`.find_intersection`
         
         :param rect: rectangle
         :type rect: :class:`pygorithm.geometry.rect2.Rect2`
@@ -377,7 +377,7 @@ class Rect2(object):
             False, the first argument is assumed to be a Polygon2. If you want to 
             use a compatible rectangle class for which this check would fail, you 
             can call 
-            :py:method:`~pygorithm.geometry.rect2.Rect2._find_intersection_rect_poly`
+            :py:method:`._find_intersection_rect_poly`
             directly or pass the polygon first and invert the resulting mtv (if 
             one is found). If two unnamed arguments are provided, they are assumed 
             to be both rects without further checks. 
