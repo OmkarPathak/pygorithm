@@ -373,7 +373,7 @@ class Rect2(object):
         
         .. note::
        
-            The first argument is checked with isinstance(arg, Rect2). If this is 
+            The first argument is checked with ``isinstance(arg, Rect2)``. If this is 
             False, the first argument is assumed to be a Polygon2. If you want to 
             use a compatible rectangle class for which this check would fail, you 
             can call 

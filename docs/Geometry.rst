@@ -90,6 +90,7 @@ Axis-Aligned Rectangle
 .. autoclass:: pygorithm.geometry.rect2.Rect2
     :members:
     :special-members:
+    :private-members:
 
     
     
