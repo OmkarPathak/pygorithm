@@ -336,7 +336,7 @@ class Rect2(object):
         Find the intersection between a polygon and rect.
         
         Not intended for direct use. See 
-        :py:meth:~`pygorithm.geometry.rect2.Rect2.find_intersection`
+        :py:meth:`.find_intersection`
         
         :param poly: polygon
         :type poly: :class:`pygorithm.geometry.polygon2.Polygon2`
