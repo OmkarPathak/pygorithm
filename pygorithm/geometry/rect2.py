@@ -28,12 +28,12 @@ class Rect2(object):
     many operations incurring expensive recalculations.
     
     .. caution::
-    
-        Collision detection against a rectangle with cause 
+        
+        Collision detection against a polygon with cause 
         initialization of the polygon representation of a 
         rectangle. This has the noticeable performance 
         characteristics that are seen whenever a polygon 
-        is constructed (see :py:class:~`pygorithm.geometry.polygon2.Polygon2`).
+        is constructed (see :py:class:`.Polygon2`).
         This operation recurrs only if width and height 
         were modified.
     
@@ -45,7 +45,7 @@ class Rect2(object):
         """
         Create a new rectangle of width and height.
         
-        If mincorner is None, the origin is assumed.
+        If ``mincorner is None``, the origin is assumed.
         
         :param width: width of this rect
         :type width: :class:`numbers.Number`
@@ -69,8 +69,8 @@ class Rect2(object):
         
         .. caution::
         
-            This does not include the mincorner (which should be passed as
-            offset)
+            This does not include the :py:attr:~`pygorithm.geometry.rect2.Rect2.mincorner`
+            (which should be passed as offset for polygon operations)
         
         :returns: polygon representation of this rectangle
         :rtype: :class:`pygorithm.geometry.polygon2.Polygon2`
@@ -96,7 +96,7 @@ class Rect2(object):
         :returns: width of this rect
         :rtype: :class:`numbers.Number`
         
-        :raises ValueError: if trying to set width <= 1e-07
+        :raises ValueError: if trying to set ``width <= 1e-07``
         """
         return self._width
     
@@ -121,7 +121,7 @@ class Rect2(object):
         :returns: height of this rect
         :rtype: :class:`numbers.Number`
         
-        :raises ValueError: if trying to set height <= 1e-07
+        :raises ValueError: if trying to set ``height <= 1e-07``
         """
         return self._height
     
@@ -185,7 +185,7 @@ class Rect2(object):
         
         .. tip::
         
-            This will never return True, True
+            This will never return ``True, True``
         
         :param rect: the rect
         :type rect: :class:`pygorithm.geometry.rect2.Rect2`
@@ -359,9 +359,9 @@ class Rect2(object):
         
         For Rect-Polygon intersection:
         
-        Must be passed in 3 arguments - a :py:class:~`pygorithm.geometry.rect2.Rect2`,
-        a :py:class:~`pygorithm.geometry.polygon2.Polygon2`, and a 
-        :py:class:~`pygorithm.geometry.vector2.Vector2`. The vector must come immediately
+        Must be passed in 3 arguments - a :py:class:`.Rect2`,
+        a :py:class:`.Polygon2`, and a 
+        :py:class:`.Vector2`. The vector must come immediately
         after the polygon, but the rect can be either the first or last unnamed argument. 
         If it is the first argument, the mtv is against the rectangle. If it is the last 
         argument, the mtv is against the polygon.

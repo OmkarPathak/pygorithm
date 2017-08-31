@@ -19,7 +19,7 @@ class Polygon2(object):
     index to the larger index will walk clockwise around the polygon.
     
     .. note:: 
-
+        
         Polygons should be used as if they were completely immutable to
         ensure correctness. All attributes of Polygon2 can be reconstructed
         from the points array, and thus cannot be changed on their own and
