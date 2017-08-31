@@ -1018,17 +1018,203 @@ class TestRect2(unittest.TestCase):
         
         self.assertEqual(21, _rect.area)
     
-    def test_project_onto_axis(self):
-        pass
+    def test_project_onto_axis_horizontal_unshifted(self):
+        _rect = rect2.Rect2(3, 7)
+        
+        proj = rect2.Rect2.project_onto_axis(_rect, vector2.Vector2(1, 0))
+        
+        self.assertEqual(0, proj.min)
+        self.assertEqual(3, proj.max)
+        self.assertEqual(1, proj.axis.x)
+        self.assertEqual(0, proj.axis.y)
+        
+        proj2 = rect2.Rect2.project_onto_axis(_rect, vector2.Vector2(-1, 0))
+        
+        self.assertEqual(-3, proj2.min)
+        self.assertEqual(0, proj2.max)
+        self.assertEqual(-1, proj2.axis.x)
+        self.assertEqual(0, proj2.axis.y)
+    
+    def test_project_onto_axis_vertical_unshifted(self):
+        _rect = rect2.Rect2(5, 11)
+        
+        proj = rect2.Rect2.project_onto_axis(_rect, vector2.Vector2(0, 1))
+        
+        self.assertEqual(0, proj.min)
+        self.assertEqual(11, proj.max)
+        self.assertEqual(0, proj.axis.x)
+        self.assertEuqal(1, proj.axis.y)
+        
+        proj2 = rect2.Rect2.project_onto_axis(_rect, vector2.Vector2(0, -1))
+        
+        self.assertEqual(-11, proj.min)
+        self.assertEqual(0, proj.max)
+        self.assertEqual(0, proj.axis.x)
+        self.assertEqual(-1, proj.axis.y)
+        
+    def test_project_onto_axis_diagonal_unshifted(self):
+        _rect = rect2.Rect2(1, 3)
+        _axis = vector2.Vector2(1, 1).normalize()
+        
+        proj = rect2.Rect2.project_onto_axis(_rect, _axis)
+        
+        self.assertAlmostEqual(0, proj.min)
+        self.assertAlmostEqual(2.82842712472, proj.max)
+        self.assertAlmostEqual(_axis.x, proj.axis.x)
+        self.assertAlmostEqual(_axis.y, proj.axis.y)
+        
+        _axis2 = vector2.Vector2(-1, -1).normalize()
+        proj2 = rect2.Rect2.project_onto_axis(_rect, _axis2)
+        
+        self.assertAlmostEqual(-2.82842712472, proj2.min)
+        self.assertAlmostEqual(0, proj2.max)
+        self.assertAlmostEqual(_axis2.x, proj.axis.x)
+        self.assertAlmostEqual(_axis2.y, proj.axis.y)
+        
+        
+    def test_project_onto_axis_horizontal_shifted(self):
+        _rect = rect2.Rect2(3, 2, vector2.Vector2(2, 2))
+        
+        proj = rect2.Rect2.project_onto_axis(_rect, vector2.Vector2(1, 0))
+        
+        self.assertEqual(2, proj.min)
+        self.assertEqual(5, proj.max)
+        self.assertEqual(1, proj.axis.x)
+        self.assertEqual(0, proj.axis.y)
+        
+        proj2 = rect2.Rect2.project_onto_axis(_rect, vector2.Vector2(-1, 0))
+        
+        self.assertEqual(-5, proj.min)
+        self.assertEqual(-2, proj.max)
+        self.assertEqual(-1, proj.axis.x)
+        self.assertEqual(0,  proj.axis.y)
+        
+        _rect2 = rect2.Rect2(3, 2, vector2.Vector2(-1, 2))
+        
+        proj3 = rect2.Rect2.project_onto_axis(_rect2, vector2.Vector2(-1, 0))
+        
+        self.assertEqual(-2, proj3.min)
+        self.assertEqual(1,  proj3.max)
+        self.assertEqual(-1, proj3.axis.x)
+        self.assertEqual(0,  proj3.axis.y)
+    
+    def test_project_onto_axis_vertical_shifted(self):
+        _rect = rect2.Rect2(4, 7, vector2.Vector2(1, 3))
+        
+        proj = rect2.Rect2.project_onto_axis(_rect, vector2.Vector2(0, 1))
+        
+        self.assertEqual(3,  proj.min)
+        self.assertEqual(10, proj.max)
+        self.assertEqual(0,  proj.axis.x)
+        self.assertEqual(1,  proj.axis.y)
+        
+        proj2 = rect2.Rect2.project_onto_axis(_rect, vector2.Vector2(0, -1))
+        
+        self.assertEqual(-10, proj.min)
+        self.assertEqual(-3,  proj.max)
+        self.assertEqual(0,   proj.axis.x)
+        self.assertEqual(-1,  proj.axis.y)
+        
+        _rect2 = rect2.Rect2(4, 7, vector2.Vector2(1, -2))
+        
+        proj3 = rect2.Rect2.project_onto_axis(_rect, vector2.Vector2(0, -1))
+        
+        self.assertEqual(-5, proj3.min)
+        self.assertEqual(2,  proj3.max)
+        self.assertEqual(0,  proj3.axis.x)
+        self.assertEqual(-1, proj3.axis.y)
+        
+    def test_project_onto_axis_diagonal_shifted(self):
+        _rect = rect2.Rect2(3, 5, vector2.Vector2(2, 2))
+        _axis = vector2.Vector2(1, 1).normalize()
+        
+        proj = rect2.Rect2.project_onto_axis(_rect, _axis)
+        
+        self.assertAlmostEqual(2.82842712, proj.min)
+        self.assertAlmostEqual(8.48528137, proj.max)
+        self.assertAlmostEqual(_axis.x,    proj.axis.x)
+        self.assertAlmostEqual(_axis.y,    proj.axis.y)
+        
+        _axis2 = vector2.Vector2(-1, -1).normalize()
+        proj2 = rect2.Rect2.project_onto_axis(_rect, _axis2)
+        
+        self.assertAlmostEqual(-8.48528137, proj2.min)
+        self.assertAlmostEqual(-2.82842712, proj2.max)
+        self.assertAlmostEqual(_axis2.x,    proj2.axis.x)
+        self.assertAlmostEqual(_axis2.y,    proj2.axis.y)
+        
+        _rect2 = rect2.Rect2(3, 5, vector2.Vector2(-1, -2))
+        proj3 = rect2.Rect2.project_onto_axis(_rect2, _axis2)
+        
+        self.assertAlmostEqual(-3.53553391, proj3.min)
+        self.assertAlmostEqual(2.12132034,  proj3.max)
+        self.assertAlmostEqual(_axis2.x,    proj3.axis.x)
+        self.assertAlmostEqual(_axis3.y,    proj3.axis.y)
         
     def test_contains_point_false(self):
-        pass
+        _rect = rect2.Rect2(1, 2, vector2.Vector2(2, 2))
+        
+        edge, inner = rect2.Rect2.contains_point(_rect, vector2.Vector2(0, 0))
+        self.assertFalse(edge)
+        self.assertFalse(inner)
+        
+        edge, inner = rect2.Rect2.contains_point(_rect, vector2.Vector2(4, 2))
+        self.assertFalse(edge)
+        self.assertFalse(inner)
+        
+        edge, inner = rect2.Rect2.contains_point(_rect, vector2.Vector2(2, 5))
+        self.assertFalse(edge)
+        self.assertFalse(inner)
     
     def test_contains_point_edge(self):
-        pass
+        _rect = rect2.Rect2(3, 2, vector2.Vector2(-2, -2))
+        
+        edge, inner = rect2.Rect2.contains_point(_rect, vector2.Vector2(-2, -2))
+        self.assertTrue(edge, msg="mincorner")
+        self.assertFalse(inner)
+        
+        edge, inner = rect2.Rect2.contains_point(_rect, vector2.Vector2(1, -2))
+        self.assertTrue(edge, msg="corner")
+        self.assertFalse(inner)
+        
+        edge, inner = rect2.Rect2.contains_point(_rect, vector2.Vector2(1, 0))
+        self.assertTrue(edge, msg="maxcorner")
+        self.assertFalse(inner)
+        
+        edge, inner = rect.Rect2.contains_point(_rect, vector2.Vector2(-2, 0))
+        self.assertTrue(edge, msg="corner")
+        self.assertFalse(inner)
+        
+        edge, inner = rect2.Rect2.contains_point(_rect, vector2.Vector2(-1, -2))
+        self.assertTrue(edge, msg="y-min side")
+        self.assertFalse(inner)
+        
+        edge, inner = rect2.Rect2.contains_point(_rect, vector2.Vector2(0, 0))
+        self.assertTrue(edge, msg="y-max side")
+        self.assertFalse(inner)
+        
+        edge, inner = rect2.Rect2.contains_point(_rect, vector2.Vector2(-2, -1))
+        self.assertTrue(edge, msg="x-min side")
+        self.assertFalse(inner)
+        
+        edge, inner = rect2.Rect2.contains_point(_rect, vector2.Vector2(1, -0.5))
+        self.assertTrue(edge, msg="x-max side, floating")
+        self.assertFalse(inner)
     
     def test_contains_point_contained(self):
-        pass
+        _rect = rect2.Rect2(4, 5, vector2.Vector2(3, 3))
+        
+        edge, inner = rect2.Rect2.contains_point(_rect, vector2.Vector2(5, 6))
+        self.assertFalse(edge)
+        self.assertTrue(inner)
+        
+        edge, inner = rect2.Rect2.contains_point(_rect, vector2.Vector2(5.5, 6.5))
+        self.assertFalse(edge)
+        self.assertTrue(inner)
+        
+        edge, inner = rect2.Rect2.contains_point(_rect, vector2.Vector2(4.5, 7.5))
+        self.assertFalse(edge)
+        self.assertTrue(inner)
     
     def test_find_intersection_rect_poly_false(self):
         pass
