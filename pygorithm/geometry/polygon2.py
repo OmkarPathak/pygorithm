@@ -407,8 +407,8 @@ class Polygon2(object):
         :type offset: :class:`pygorithm.geometry.vector2.Vector2` or None
         :param point: the point to check
         :type point: :class:`pygorithm.geometry.vector2.Vector2`
-        :returns: (on edge, contained)
-        :rtype: (bool, bool)
+        :returns: on edge, contained
+        :rtype: bool, bool
         """
         
         _previous = polygon.points[0]

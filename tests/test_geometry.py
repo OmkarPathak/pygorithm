@@ -7,7 +7,8 @@ from pygorithm.geometry import (
     vector2,
     axisall,
     line2,
-    polygon2
+    polygon2,
+    rect2
     )
 
 class TestCollisionDetection(unittest.TestCase):
@@ -861,5 +862,63 @@ class TestPolygon(unittest.TestCase):
         self._find_intersection_fuzzer(poly1, poly2, False, True, (0.5, vector2.Vector2(0, -1)))
         self._find_intersection_fuzzer(poly1, poly3, False, True, (0.70710678118, vector2.Vector2(0.70710678118, -0.70710678118)))
 
+def TestRect2(unittest.TestCase):
+    def test_constructor(self):
+        pass
+        
+    def test_polygon(self):
+        pass
+    
+    def test_area(self):
+        pass
+    
+    def test_project_onto_axis(self):
+        pass
+        
+    def test_contains_point_false(self):
+        pass
+    
+    def test_contains_point_edge(self):
+        pass
+    
+    def test_contains_point_contained(self):
+        pass
+    
+    def test_find_intersection_rect_poly_false(self):
+        pass
+    
+    def test_find_intersection_rect_poly_edge(self):
+        pass
+    
+    def test_find_intersection_rect_poly_mtv(self):
+        pass
+    
+    def test_find_intersection_rect_poly_coll_findmtv_false(self):
+        pass
+    
+    def test_find_intersection_poly_rect_false(self):
+        pass
+    
+    def test_find_intersection_poly_rect_edge(self):
+        pass
+    
+    def test_find_intersection_poly_rect_mtv(self):
+        pass
+    
+    def test_find_intersection_poly_rect_coll_findmtv_false(self):
+        pass
+    
+    def test_find_intersection_rect_rect_false(self):
+        pass
+    
+    def test_find_intersection_rect_rect_edge(self):
+        pass
+    
+    def test_find_intersection_rect_rect_mtv(self):
+        pass
+    
+    def test_find_intersection_rect_rect_coll_findmtv_false(self):
+        pass
+    
 if __name__ == '__main__':
     unittest.main()
