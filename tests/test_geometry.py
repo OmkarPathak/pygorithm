@@ -862,15 +862,161 @@ class TestPolygon(unittest.TestCase):
         self._find_intersection_fuzzer(poly1, poly2, False, True, (0.5, vector2.Vector2(0, -1)))
         self._find_intersection_fuzzer(poly1, poly3, False, True, (0.70710678118, vector2.Vector2(0.70710678118, -0.70710678118)))
 
-def TestRect2(unittest.TestCase):
-    def test_constructor(self):
-        pass
+class TestRect2(unittest.TestCase):
+    def test_constructor_defaults(self):
+        _rect = rect2.Rect2(1, 1)
         
-    def test_polygon(self):
-        pass
+        self.assertIsNotNone(_rect)
+        self.assertIsEqual(1, _rect.width)
+        self.assertIsEqual(1, _rect.height)
+        self.assertIsNotNone(_rect.mincorner)
+        self.assertIsEqual(0, _rect.mincorner.x)
+        self.assertIsEqual(0, _rect.mincorner.y)
     
+    def test_constructor_specified(self):
+        _rect = rect2.Rect2(1, 3, vector2.Vector2(-1, -1))
+        
+        self.assertEqual(1, _rect.width)
+        self.assertEqual(3, _rect.height)
+        self.assertIsNotNone(_rect.mincorner)
+        self.assertEqual(-1, _rect.mincorner.x)
+        self.assertEqual(-1, _rect.mincorner.y)
+        
+    def test_constructor_errors(self):
+        with self.assertRaises(ValueError):
+            _rect = rect2.Rect2(-1, 1)
+            
+        with self.assertRaises(ValueError):
+            _rect = rect2.Rect2(1, -1)
+        
+        with self.assertRaises(ValueError):
+            _rect = rect2.Rect2(0, 1)
+        
+        with self.assertRaises(ValueError):
+            _rect = rect2.Rect2(5, 0)
+        
+        with self.assertRaises(ValueError):
+            _rect = rect2.Rect2(0, 0)
+                
+        with self.assertRaises(ValueError):
+            _rect = rect2.Rect2(-3, -3)
+    
+    def test_width(self):
+        _rect = rect2.Rect2(1, 1)
+        
+        self.assertEqual(1, _rect.width)
+        
+        _rect.width = 3
+        
+        self.assertEqual(3, _rect.width)
+        
+        with self.assertRaises(ValueError):
+            _rect.width = 0
+        
+        _rect = rect2.Rect2(1, 1)
+        with self.assertRaises(ValueError):
+            _rect.width = -3
+    
+    def test_height(self):
+        _rect = rect2.Rect2(7, 11)
+        
+        self.assertEqual(11, _rect.height)
+        
+        _rect.height = 5
+        
+        self.assertEqual(5, _rect.height)
+        
+        with self.assertRaises(ValueError):
+            _rect.height = 0
+            
+        _rect = rect2.Rect2(1, 1)
+        with self.assertRaises(ValueError):
+            _rect.height = -15
+        
+        _rect = rect2.Rect2(1, 1)
+        with self.assertRaises(ValueError):
+            _rect.height = 1e-09
+        
+    def test_polygon_unshifted(self):
+        _rect = rect2.Rect2(1, 1)
+        
+        self.assertIsNotNone(_rect.polygon)
+        self.assertEqual(0, _rect.polygon.points[0].x)
+        self.assertEqual(0, _rect.polygon.points[0].y)
+        self.assertEqual(0, _rect.polygon.points[1].x)
+        self.assertEqual(1, _rect.polygon.points[1].y)
+        self.assertEqual(1, _rect.polygon.points[2].x)
+        self.assertEqual(1, _rect.polygon.points[2].y)
+        self.assertEqual(1, _rect.polygon.points[3].x)
+        self.assertEqual(0, _rect.polygon.points[3].y)
+        self.assertEqual(4, len(_rect.polygon.points))
+    
+    def test_polygon_shifted(self):
+        _rect = rect2.Rect2(1, 1, vector2.Vector2(1, 1))
+        
+        self.assertIsNotNone(_rect.polygon)
+        self.assertEqual(0, _rect.polygon.points[0].x)
+        self.assertEqual(0, _rect.polygon.points[0].y)
+        self.assertEqual(0, _rect.polygon.points[1].x)
+        self.assertEqual(1, _rect.polygon.points[1].y)
+        self.assertEqual(1, _rect.polygon.points[2].x)
+        self.assertEqual(1, _rect.polygon.points[2].y)
+        self.assertEqual(1, _rect.polygon.points[3].x)
+        self.assertEqual(0, _rect.polygon.points[3].y)
+        self.assertEqual(4, len(_rect.polygon.points))
+    
+    def test_polygon_resized(self):
+        _rect = rect2.Rect2(1, 1)
+        
+        self.assertIsNotNone(_rect.polygon)
+        self.assertEqual(0, _rect.polygon.points[0].x)
+        self.assertEqual(0, _rect.polygon.points[0].y)
+        self.assertEqual(0, _rect.polygon.points[1].x)
+        self.assertEqual(1, _rect.polygon.points[1].y)
+        self.assertEqual(1, _rect.polygon.points[2].x)
+        self.assertEqual(1, _rect.polygon.points[2].y)
+        self.assertEqual(1, _rect.polygon.points[3].x)
+        self.assertEqual(0, _rect.polygon.points[3].y)
+        self.assertEqual(4, len(_rect.polygon.points))
+        
+        _rect.width = 3
+        
+        self.assertIsNotNone(_rect.polygon)
+        self.assertEqual(0, _rect.polygon.points[0].x)
+        self.assertEqual(0, _rect.polygon.points[0].y)
+        self.assertEqual(0, _rect.polygon.points[1].x)
+        self.assertEqual(1, _rect.polygon.points[1].y)
+        self.assertEqual(3, _rect.polygon.points[2].x)
+        self.assertEqual(1, _rect.polygon.points[2].y)
+        self.assertEqual(3, _rect.polygon.points[3].x)
+        self.assertEqual(0, _rect.polygon.points[3].y)
+        self.assertEqual(4, len(_rect.polygon.points))
+        
+        _rect.height = 0.5
+        
+        self.assertIsNotNone(_rect.polygon)
+        self.assertEqual(0, _rect.polygon.points[0].x)
+        self.assertEqual(0, _rect.polygon.points[0].y)
+        self.assertEqual(0, _rect.polygon.points[1].x)
+        self.assertEqual(0.5, _rect.polygon.points[1].y)
+        self.assertEqual(3, _rect.polygon.points[2].x)
+        self.assertEqual(0.5, _rect.polygon.points[2].y)
+        self.assertEqual(3, _rect.polygon.points[3].x)
+        self.assertEqual(0, _rect.polygon.points[3].y)
+        self.assertEqual(4, len(_rect.polygon.points))
+        
     def test_area(self):
-        pass
+        _rect = rect2.Rect2(1, 1)
+        
+        self.assertEqual(1, _rect.area)
+        
+        _rect.width = 3
+        
+        self.assertEqual(3, _rect.area)
+        
+        _rect.height = 7
+        
+        self.assertEqual(21, _rect.area)
     
     def test_project_onto_axis(self):
         pass

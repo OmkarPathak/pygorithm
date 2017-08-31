@@ -14,7 +14,7 @@ import math
 
 from pygorithm.geometry import (vector2, line2, axisall, polygon2)
 
-def Rect2(object):
+class Rect2(object):
     """
     A rectangle. Uses SAT collision against polygons and 
     broad-phase collision against other rectangles.
@@ -41,7 +41,7 @@ def Rect2(object):
     :vartype mincorner: :class:`pygorithm.geometry.vector2.Vector2`
     """
     
-    def __init__(self, width, height, mincorner=None):
+    def __init__(self, width, height, mincorner = None):
         """
         Create a new rectangle of width and height.
         
@@ -53,6 +53,8 @@ def Rect2(object):
         :type height: :class:`numbers.Number`
         :param mincorner: the position of this rect
         :type mincorner: :class:`pygorithm.geometry.vector2.Vector2` or None
+        
+        :raises ValueError: if width or height are not strictly positive
         """
         pass
         
@@ -85,10 +87,12 @@ def Rect2(object):
         
         :returns: width of this rect
         :rtype: :class:`numbers.Number`
+        
+        :raises ValueError: if trying to set width <= 0
         """
         pass
     
-    @property.setter
+    @width.setter
     def width(self, value):
         pass
         
@@ -104,10 +108,12 @@ def Rect2(object):
             
         :returns: height of this rect
         :rtype: :class:`numbers.Number`
+        
+        :raises ValueError: if trying to set height <= 0
         """
         pass
     
-    @property.setter
+    @height.setter
     def height(self, value):
         pass
         
