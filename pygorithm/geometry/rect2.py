@@ -56,13 +56,15 @@ class Rect2(object):
         
         :raises ValueError: if width or height are not strictly positive
         """
-        pass
+        self.width = width
+        self.height = height
+        self.mincorner = mincorner if mincorner is not None else vector2.Vector2(0, 0)
         
     @property
     def polygon(self):
         """
         Get the polygon representation of this rectangle, without
-        the corners. Lazily initialized and up-to-date with width 
+        the offset. Lazily initialized and up-to-date with width 
         and height.
         
         .. caution::
@@ -73,7 +75,13 @@ class Rect2(object):
         :returns: polygon representation of this rectangle
         :rtype: :class:`pygorithm.geometry.polygon2.Polygon2`
         """
-        pass
+        if self._polygon is None:
+            self._polygon = polygon2.Polygon2([ vector2.Vector2(0, 0), 
+                                                vector2.Vector2(0, self._height), 
+                                                vector2.Vector2(self._width, self._height),
+                                                vector2.Vector2(self._width, 0) ])
+        
+        return self._polygon
         
     @property
     def width(self):
@@ -88,13 +96,17 @@ class Rect2(object):
         :returns: width of this rect
         :rtype: :class:`numbers.Number`
         
-        :raises ValueError: if trying to set width <= 0
+        :raises ValueError: if trying to set width <= 1e-07
         """
-        pass
+        return self._width
     
     @width.setter
     def width(self, value):
-        pass
+        if value <= 1e-07:
+            raise ValueError('width cannot be <= 1e-07 but is {}'.format(value))
+        
+        self._width = value
+        self._polygon = None
         
     @property
     def height(self):
@@ -109,13 +121,17 @@ class Rect2(object):
         :returns: height of this rect
         :rtype: :class:`numbers.Number`
         
-        :raises ValueError: if trying to set height <= 0
+        :raises ValueError: if trying to set height <= 1e-07
         """
-        pass
+        return self._height
     
     @height.setter
     def height(self, value):
-        pass
+        if value <= 1e-07:
+            raise ValueError("height cannot be <= 1e07 but is {}".format(value))
+        
+        self._height = value
+        self._polygon = None
         
     @property
     def area(self):
@@ -125,7 +141,7 @@ class Rect2(object):
         :returns: area of this rect
         :rtype: :class:`numbers.Number`
         """
-        pass
+        return self._width * self._height
     
     @staticmethod
     def project_onto_axis(rect, axis):
@@ -139,12 +155,25 @@ class Rect2(object):
         
         :param rect: the rect to project
         :type rect: :class:`pygorithm.geometry.rect2.Rect2`
-        :param axis: the axis to project onto
+        :param axis: the axis to project onto (normalized)
         :type axis: :class:`pygorithm.geometry.vector2.Vector2`
         :returns: the projection of the rect along axis
         :rtype: :class:`pygorithm.geometry.axisall.AxisAlignedLine`
         """
-        pass
+        
+        if axis.x == 0:
+            return axisall.AxisAlignedLine(axis, rect.mincorner.y * axis.y, (rect.mincorner.y + rect.height) * axis.y)
+        elif axis.y == 0:
+            return axisall.AxisAlignedLine(axis, rect.mincorner.x * axis.x, (rect.mincorner.x + rect.width) * axis.x)
+        
+        p1 = rect.mincorner.dot(axis)
+        p2 = vector2.Vector2(rect.mincorner.x + rect.width, rect.mincorner.y).dot(axis)
+        p3 = vector2.Vector2(rect.mincorner.x + rect.width, rect.mincorner.y + rect.height).dot(axis)
+        p4 = vector2.Vector2(rect.mincorner.x, rect.mincorner.y + rect.height).dot(axis)
+        
+        _min = min(p1, p2, p3, p4)
+        _max = max(p1, p2, p3, p4)
+        return axisall.AxisAlignedLine(axis, _min, _max)
         
     @staticmethod
     def contains_point(rect, point):
@@ -165,10 +194,165 @@ class Rect2(object):
         :returns: point on edge, point inside
         :rtype: bool, bool
         """
-        pass
+        
+        edge_x = math.isclose(rect.mincorner.x, point.x, abs_tol=1e-07) or math.isclose(rect.mincorner.x + rect.width, point.x, abs_tol=1e-07)
+        edge_y = math.isclose(rect.mincorner.y, point.y, abs_tol=1e-07) or math.isclose(rect.mincorner.y + rect.height, point.y, abs_tol=1e-07)
+        if edge_x and edge_y:
+            return True, False
+        
+        contains = (edge_x or (point.x > rect.mincorner.x and point.x < rect.mincorner.x + rect.width)) and \
+                   (edge_y or (point.y > rect.mincorner.y and point.y < rect.mincorner.y + rect.height))
+        if not contains:
+            return False, False
+        elif edge_x or edge_y:
+            return True, False
+        else:
+            return False, True
     
-    @staticmethod
-    def find_intersection(find_mtv=True, *args):
+    @classmethod
+    def _find_intersection_rects(cls, rect1, rect2, find_mtv = True):
+        """
+        Find the intersection between two rectangles. 
+        
+        Not intended for direct use. See 
+        :py:method:~`pygorithm.geometry.rect2.Rect2.find_intersection`
+        
+        :param rect1: first rectangle
+        :type rect1: :class:`pygorithm.geometry.rect2.Rect2`
+        :param rect2: second rectangle
+        :type rect2: :class:`pygorithm.geometry.rect2.Rect2`
+        :param find_mtv: False to never find mtv (may allow small performance improvement)
+        :type find_mtv: bool
+        :returns: (touching, overlapping, (mtv distance, mtv axis))
+        :rtype: (bool, bool, (:class:`numbers.Number`, :class:`pygorithm.geometry.vector2.Vector2`) or None)
+        """
+        
+        # caution to make sure isclose checks are before greater than/less than checks!
+        
+        # you could save which edge here if you needed that information
+        x_touching = math.isclose(rect1.mincorner.x + rect1.width, rect2.mincorner.x, abs_tol=1e-07)
+        x_touching = x_touching or math.isclose(rect1.mincorner.x, rect2.mincorner.x + rect2.width, abs_tol=1e-07)
+        y_touching = math.isclose(rect1.mincorner.y, rect2.mincorner.y + rect2.height, abs_tol=1e-07)
+        y_touching = y_touching or math.isclose(rect1.mincorner.y + rect1.height, rect2.mincorner.y, abs_tol=1e-07)
+        
+        if x_touching and y_touching:
+            return True, False, None # sharing 1 corner
+        
+        
+        # we don't need to calculate if the touching is True
+        x_overlap = False if x_touching else (rect1.mincorner.x < rect2.mincorner.x and rect1.mincorner.x + rect1.width > rect2.mincorner.x) or \
+                                             (rect2.mincorner.x < rect1.mincorner.x and rect2.mincorner.x + rect2.width > rect1.mincorner.x)
+        y_overlap = False if y_touching else (rect1.mincorner.y < rect2.mincorner.y and rect1.mincorner.y + rect1.height > rect2.mincorner.y) or \
+                                             (rect2.mincorner.y < rect1.mincorner.y and rect2.mincorner.y + rect2.height > rect1.mincorner.y)
+        if x_touching:
+            if y_overlap:
+                return True, False, None # sharing an x edge
+            else:
+                return False, False, None
+        elif y_touching:
+            if x_overlap:
+                return True, False, None # sharing a y edge
+            else:
+                return False, False, None
+        elif not x_overlap or not y_overlap:
+            return False, False, None
+        
+        # They overlap
+        if not find_mtv:
+            return False, True, None
+        
+        # four options:
+        #   move rect1 min x to rect2 max x
+        #   move rect1 max x to rect2 min x 
+        #   move rect1 min y to rect2 max y 
+        #   move rect1 max y to rect2 min y 
+        # 
+        # we will look at all 4 of these and choose
+        # the one that requires the least movement
+        opt1 = rect2.mincorner.x + rect2.width - rect1.mincorner.x
+        opt2 = rect2.mincorner.x - rect1.mincorner.x - rect1.width
+        opt3 = rect2.mincorner.y + rect2.height - rect1.mincorner.y
+        opt4 = rect2.mincorner.y - rect1.mincorner.y - rect1.height
+        
+        abs1 = abs(opt1)
+        abs2 = abs(opt2)
+        abs3 = abs(opt3)
+        abs4 = abs(opt4)
+        # the following could be simplified by making an array, at a
+        # minor performance hit
+        if abs1 < abs2:
+            if abs1 < abs3:
+                if abs1 < abs4:
+                    return False, True, (opt1, vector2.Vector2(1, 0))
+                else:
+                    return False, True, (opt4, vector2.Vector2(0, 1))
+            else:
+                if abs3 < abs4:
+                    return False, True, (opt3, vector2.Vector2(0, 1))
+                else:
+                    return False, True, (opt4, vector2.Vector2(0, 1))
+        else:
+            if abs2 < abs3:
+                if abs2 < abs4:
+                    return False, True, (opt2, vector2.Vector2(1, 0))
+                else:
+                    return False, True, (opt4, vector2.Vector2(0, 1))
+            else:
+                if abs3 < abs4:
+                    return False, True, (opt3, vector2.Vector2(0, 1))
+                else:
+                    return False, True, (opt4, vector2.Vector2(0, 1))
+                
+            
+        
+        
+        
+        
+    
+    @classmethod
+    def _find_intersection_rect_poly(cls, rect, poly, offset, find_mtv = True):
+        """
+        Find the intersection between a rect and polygon.
+        
+        Not intended for direct use. See 
+        :py:method:~`pygorithm.geometry.rect2.Rect2.find_intersection`
+        
+        :param rect: rectangle
+        :type rect: :class:`pygorithm.geometry.rect2.Rect2`
+        :param poly: polygon
+        :type poly: :class:`pygorithm.geometry.polygon2.Polygon2`
+        :param offset: offset for the polygon
+        :type offset: :class:`pygorithm.geometry.vector2.Vector2`
+        :param find_mtv: False to never find mtv (may allow small performance improvement)
+        :type find_mtv: bool
+        :returns: (touching, overlapping, (mtv distance, mtv axis))
+        :rtype: (bool, bool, (:class:`numbers.Number`, :class:`pygorithm.geometry.vector2.Vector2`) or None)
+        """
+        return polygon2.Polygon2.find_intersection(rect.polygon, poly, rect.mincorner, offset, find_mtv)
+        
+    @classmethod
+    def _find_intersection_poly_rect(cls, poly, offset, rect, find_mtv = True):
+        """
+        Find the intersection between a polygon and rect.
+        
+        Not intended for direct use. See 
+        :py:method:~`pygorithm.geometry.rect2.Rect2.find_intersection`
+        
+        :param poly: polygon
+        :type poly: :class:`pygorithm.geometry.polygon2.Polygon2`
+        :param offset: offset for the polygon
+        :type offset: :class:`pygorithm.geometry.vector2.Vector2`
+        :param rect: rectangle
+        :type rect: :class:`pygorithm.geometry.rect2.Rect2`
+        :param find_mtv: False to never find mtv (may allow small performance improvement)
+        :type find_mtv: bool
+        :returns: (touching, overlapping, (mtv distance, mtv axis))
+        :rtype: (bool, bool, (:class:`numbers.Number`, :class:`pygorithm.geometry.vector2.Vector2`) or None)
+        """
+        return polygon2.Polygon2.find_intersection(poly, rect.polygon, offset, rect.mincorner, find_mtv)
+        
+    @classmethod
+    def find_intersection(cls, *args, **kwargs):
         """
         Determine the state of intersection between a rect and a 
         polygon.
@@ -182,10 +366,22 @@ class Rect2(object):
         If it is the first argument, the mtv is against the rectangle. If it is the last 
         argument, the mtv is against the polygon.
         
-        
         For Rect-Rect intersection:
         
-        Must be passed in 2 ar
+        Must be passed in 2 arguments (both rects).
+        
+        
+        .. note::
+       
+            The first argument is checked with isinstance(arg, Rect2). If this is 
+            False, the first argument is assumed to be a Polygon2. If you want to 
+            use a compatible rectangle class for which this check would fail, you 
+            can call 
+            :py:method:~`pygorithm.geometry.rect2.Rect2._find_intersection_rect_poly`
+            directly or pass the polygon first and invert the resulting mtv (if 
+            one is found). If two unnamed arguments are provided, they are assumed 
+            to be both rects without further checks. 
+
         Examples:
         
         .. code-block:: python
@@ -222,7 +418,19 @@ class Rect2(object):
         :returns: (touching, overlapping, (mtv distance, mtv axis))
         :rtype: (bool, bool, (:class:`numbers.Number`, :class:`pygorithm.geometry.vector2.Vector2`) or None)
         """
-        pass
+        find_mtv = kwargs.get("find_mtv", True)
+        
+        if len(args) == 2:
+            return cls._find_intersection_rects(args[0], args[1], find_mtv)
+        else:
+            assert len(args) == 3, "Incorrect number of unnamed arguments to Rect2.find_intersection (got {} expected 2 or 3)".format(len(args))
+            
+            if isinstance(args[0], Rect2):
+                return cls._find_intersection_rect_poly(args[0], args[1], args[2], find_mtv)
+            else:
+                return cls._find_intersection_poly_rect(args[0], args[1], args[2], find_mtv)
+            
+            
         
     def __repr__(self):
         """
@@ -242,7 +450,7 @@ class Rect2(object):
         :returns: unambiguous representation of this rectangle
         :rtype: string
         """
-        pass
+        return "rect2(width={}, height={}, mincorner={})".format(self._width, self._height, repr(self.mincorner))
         
     def __str__(self):
         """
@@ -255,11 +463,24 @@ class Rect2(object):
             from pygorithm.geometry import (vector2, rect2)
             
             unit_square = rect2.Rect2(1, 1, vector2.Vector2(3, 4))
-            ugly_Rect = rect2.Rect2(0.7071234, 0.7079876, vector2.Vector2(0.56789123, 0.876543))
+            ugly_rect = rect2.Rect2(0.7071234, 0.7079876, vector2.Vector2(0.56789123, 0.876543))
             
             # prints rect(1x1 at <3, 4>)
             print(str(unit_square))
             
             # prints rect(0.707x0.708 at <0.568, 0.877>)
+            print(str(ugly_rect))
+        
+        :returns: human-readable representation of this rectangle
+        :rtype: string
         """
-        pass
+        
+        
+        pretty_width = round(self._width * 1000) / 1000
+        if pretty_width == math.floor(pretty_width):
+            pretty_width = math.floor(pretty_width)
+            
+        pretty_height = round(self._height * 1000) / 1000
+        if pretty_height == math.floor(pretty_height):
+            pretty_height = math.floor(pretty_height)
+        return "rect({}x{} at {})".format(pretty_width, pretty_height, str(self.mincorner))

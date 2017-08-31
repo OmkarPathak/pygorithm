@@ -1,6 +1,7 @@
 import unittest
 import math
 import random
+import sys
 
 from pygorithm.geometry import (
     rect_broad_phase,
@@ -668,6 +669,25 @@ class TestPolygon(unittest.TestCase):
         for i in range(4):
             self.assertAlmostEqual(square.points[i].x, square2.points[i].x)
             self.assertAlmostEqual(square.points[i].y, square2.points[i].y)
+            
+    def test_from_regular_center(self):
+        for i in range(3, 13):
+            _poly = polygon2.Polygon2.from_regular(i, 1)
+            
+            foundx0 = False
+            foundy0 = False
+            for p in _poly.points:
+                if math.isclose(p.x, 0, abs_tol=1e-07):
+                    foundx0 = True
+                    if foundy0:
+                        break
+                if math.isclose(p.y, 0, abs_tol=1e-07):
+                    foundy0 = True
+                    if foundx0:
+                        break
+            helpmsg = "\ni={}\nfoundx0={}, foundy0={}, center={}\nrepr={}\n\nstr={}".format(i, foundx0, foundy0, _poly.center, repr(_poly), str(_poly))
+            self.assertTrue(foundx0, msg=helpmsg)
+            self.assertTrue(foundy0, msg=helpmsg)
         
         
     def test_from_rotated(self):
@@ -867,11 +887,11 @@ class TestRect2(unittest.TestCase):
         _rect = rect2.Rect2(1, 1)
         
         self.assertIsNotNone(_rect)
-        self.assertIsEqual(1, _rect.width)
-        self.assertIsEqual(1, _rect.height)
+        self.assertEqual(1, _rect.width)
+        self.assertEqual(1, _rect.height)
         self.assertIsNotNone(_rect.mincorner)
-        self.assertIsEqual(0, _rect.mincorner.x)
-        self.assertIsEqual(0, _rect.mincorner.y)
+        self.assertEqual(0, _rect.mincorner.x)
+        self.assertEqual(0, _rect.mincorner.y)
     
     def test_constructor_specified(self):
         _rect = rect2.Rect2(1, 3, vector2.Vector2(-1, -1))
@@ -1043,14 +1063,14 @@ class TestRect2(unittest.TestCase):
         self.assertEqual(0, proj.min)
         self.assertEqual(11, proj.max)
         self.assertEqual(0, proj.axis.x)
-        self.assertEuqal(1, proj.axis.y)
+        self.assertEqual(1, proj.axis.y)
         
         proj2 = rect2.Rect2.project_onto_axis(_rect, vector2.Vector2(0, -1))
         
-        self.assertEqual(-11, proj.min)
-        self.assertEqual(0, proj.max)
-        self.assertEqual(0, proj.axis.x)
-        self.assertEqual(-1, proj.axis.y)
+        self.assertEqual(-11, proj2.min)
+        self.assertEqual(0, proj2.max)
+        self.assertEqual(0, proj2.axis.x)
+        self.assertEqual(-1, proj2.axis.y)
         
     def test_project_onto_axis_diagonal_unshifted(self):
         _rect = rect2.Rect2(1, 3)
@@ -1068,8 +1088,8 @@ class TestRect2(unittest.TestCase):
         
         self.assertAlmostEqual(-2.82842712472, proj2.min)
         self.assertAlmostEqual(0, proj2.max)
-        self.assertAlmostEqual(_axis2.x, proj.axis.x)
-        self.assertAlmostEqual(_axis2.y, proj.axis.y)
+        self.assertAlmostEqual(_axis2.x, proj2.axis.x)
+        self.assertAlmostEqual(_axis2.y, proj2.axis.y)
         
         
     def test_project_onto_axis_horizontal_shifted(self):
@@ -1084,10 +1104,10 @@ class TestRect2(unittest.TestCase):
         
         proj2 = rect2.Rect2.project_onto_axis(_rect, vector2.Vector2(-1, 0))
         
-        self.assertEqual(-5, proj.min)
-        self.assertEqual(-2, proj.max)
-        self.assertEqual(-1, proj.axis.x)
-        self.assertEqual(0,  proj.axis.y)
+        self.assertEqual(-5, proj2.min)
+        self.assertEqual(-2, proj2.max)
+        self.assertEqual(-1, proj2.axis.x)
+        self.assertEqual(0,  proj2.axis.y)
         
         _rect2 = rect2.Rect2(3, 2, vector2.Vector2(-1, 2))
         
@@ -1110,14 +1130,14 @@ class TestRect2(unittest.TestCase):
         
         proj2 = rect2.Rect2.project_onto_axis(_rect, vector2.Vector2(0, -1))
         
-        self.assertEqual(-10, proj.min)
-        self.assertEqual(-3,  proj.max)
-        self.assertEqual(0,   proj.axis.x)
-        self.assertEqual(-1,  proj.axis.y)
+        self.assertEqual(-10, proj2.min)
+        self.assertEqual(-3,  proj2.max)
+        self.assertEqual(0,   proj2.axis.x)
+        self.assertEqual(-1,  proj2.axis.y)
         
         _rect2 = rect2.Rect2(4, 7, vector2.Vector2(1, -2))
         
-        proj3 = rect2.Rect2.project_onto_axis(_rect, vector2.Vector2(0, -1))
+        proj3 = rect2.Rect2.project_onto_axis(_rect2, vector2.Vector2(0, -1))
         
         self.assertEqual(-5, proj3.min)
         self.assertEqual(2,  proj3.max)
@@ -1149,7 +1169,7 @@ class TestRect2(unittest.TestCase):
         self.assertAlmostEqual(-3.53553391, proj3.min)
         self.assertAlmostEqual(2.12132034,  proj3.max)
         self.assertAlmostEqual(_axis2.x,    proj3.axis.x)
-        self.assertAlmostEqual(_axis3.y,    proj3.axis.y)
+        self.assertAlmostEqual(_axis2.y,    proj3.axis.y)
         
     def test_contains_point_false(self):
         _rect = rect2.Rect2(1, 2, vector2.Vector2(2, 2))
@@ -1181,7 +1201,7 @@ class TestRect2(unittest.TestCase):
         self.assertTrue(edge, msg="maxcorner")
         self.assertFalse(inner)
         
-        edge, inner = rect.Rect2.contains_point(_rect, vector2.Vector2(-2, 0))
+        edge, inner = rect2.Rect2.contains_point(_rect, vector2.Vector2(-2, 0))
         self.assertTrue(edge, msg="corner")
         self.assertFalse(inner)
         
@@ -1216,41 +1236,193 @@ class TestRect2(unittest.TestCase):
         self.assertFalse(edge)
         self.assertTrue(inner)
     
+    def _create_help_msg(*args):
+        # this function produced links for rects or polygons using _create_link
+        self = args[0]
+        allpts = []
+        result = ""
+        i = 1
+        while i < len(args):
+            a = args[i]
+            result += "\n\n"
+            is_rect = type(a) == rect2.Rect2
+            
+            if is_rect:
+                result += "rect: {}\n".format(str(a))
+                pts = list(p + a.mincorner for p in a.polygon.points)
+                allpts += pts
+                result += polygon2.Polygon2._create_link(pts)
+                i += 1
+            else:
+                offset = args[i + 1]
+                result += "polygon: {} at {}\n".format(str(a), str(offset))
+                pts = list(p + offset for p in a.points)
+                allpts += pts
+                result += polygon2.Polygon2._create_link(pts)
+                i += 2
+        result += "\n\ntogether: {}".format(polygon2.Polygon2._create_link(allpts))
+        return result
+    
     def test_find_intersection_rect_poly_false(self):
-        pass
+        _rect = rect2.Rect2(3, 2, vector2.Vector2(2, 1))
+        _poly = polygon2.Polygon2.from_regular(5, 1)
+        _offset = vector2.Vector2(0, 0.5)
+        visualize = self._create_help_msg(_rect, _poly, _offset)
+        touching, overlapping, mtv = rect2.Rect2.find_intersection(_rect, _poly, _offset)
+        
+        self.assertFalse(touching, msg=visualize)
+        self.assertFalse(overlapping, msg=visualize)
+        self.assertIsNone(mtv, msg=visualize)
     
     def test_find_intersection_rect_poly_edge(self):
-        pass
+        _rect = rect2.Rect2(2, 1, vector2.Vector2(0, 2.118033988749895))
+        _poly = polygon2.Polygon2.from_regular(5, 1)
+        _offset = vector2.Vector2(0, 0.5)
+        visualize = self._create_help_msg(_rect, _poly, _offset)
+        touching, overlapping, mtv = rect2.Rect2.find_intersection(_rect, _poly, _offset)
+        
+        self.assertTrue(touching, msg=visualize)
+        self.assertFalse(overlapping, msg=visualize)
+        self.assertIsNone(mtv, msg=visualize)
     
     def test_find_intersection_rect_poly_mtv(self):
-        pass
+        _rect = rect2.Rect2(1, 3, vector2.Vector2(0.5, -0.5))
+        _poly = polygon2.Polygon2.from_regular(5, 1)
+        _offset = vector2.Vector2(1, 0)
+        visualize = self._create_help_msg(_rect, _poly, _offset)
+        touching, overlapping, mtv = rect2.Rect2.find_intersection(_rect, _poly, _offset)
+        
+        self.assertFalse(touching, msg=visualize)
+        self.assertTrue(overlapping, msg=visualize)
+        self.assertIsNotNone(mtv, msg=visualize)
+        self.assertAlmostEqual(-0.5, mtv[0] * mtv[1].x)
+        self.assertAlmostEqual(0, mtv[0] * mtv[1].y)
     
     def test_find_intersection_rect_poly_coll_findmtv_false(self):
-        pass
+        _rect = rect2.Rect2(1, 3, vector2.Vector2(0.5, -0.5))
+        _poly = polygon2.Polygon2.from_regular(5, 1)
+        _offset = vector2.Vector2(1, 0)
+        visualize = self._create_help_msg(_rect, _poly, _offset)
+        touching, overlapping, mtv = rect2.Rect2.find_intersection(_rect, _poly, _offset, find_mtv=False)
+        
+        self.assertFalse(touching, msg=visualize)
+        self.assertTrue(overlapping, msg=visualize)
+        self.assertIsNone(mtv, msg=visualize)
     
     def test_find_intersection_poly_rect_false(self):
-        pass
+        _rect = rect2.Rect2(3, 2, vector2.Vector2(2, 1))
+        _poly = polygon2.Polygon2.from_regular(5, 1)
+        _offset = vector2.Vector2(0, 0.5)
+        visualize = self._create_help_msg(_poly, _offset, _rect)
+        touching, overlapping, mtv = rect2.Rect2.find_intersection(_poly, _offset, _rect)
+        
+        self.assertFalse(touching, msg=visualize)
+        self.assertFalse(overlapping, msg=visualize)
+        self.assertIsNone(mtv, msg=visualize)
     
     def test_find_intersection_poly_rect_edge(self):
-        pass
+        _rect = rect2.Rect2(2, 1, vector2.Vector2(0, 2.118033988749895))
+        _poly = polygon2.Polygon2.from_regular(5, 1)
+        _offset = vector2.Vector2(0, 0.5)
+        visualize = self._create_help_msg(_poly, _offset, _rect)
+        touching, overlapping, mtv = rect2.Rect2.find_intersection(_poly, _offset, _rect)
+        
+        self.assertTrue(touching, msg=visualize)
+        self.assertFalse(overlapping, msg=visualize)
+        self.assertIsNone(mtv, msg=visualize)
     
     def test_find_intersection_poly_rect_mtv(self):
-        pass
+        _rect = rect2.Rect2(1, 3, vector2.Vector2(0.5, -0.5))
+        _poly = polygon2.Polygon2.from_regular(5, 1)
+        _offset = vector2.Vector2(1, 0)
+        visualize = self._create_help_msg(_poly, _offset, _rect)
+        touching, overlapping, mtv = rect2.Rect2.find_intersection(_poly, _offset, _rect)
+        
+        self.assertFalse(touching, msg=visualize)
+        self.assertTrue(overlapping, msg=visualize)
+        self.assertIsNotNone(mtv, msg=visualize)
+        self.assertAlmostEqual(0.5, mtv[0] * mtv[1].x)
+        self.assertAlmostEqual(0, mtv[0] * mtv[1].y)
     
     def test_find_intersection_poly_rect_coll_findmtv_false(self):
-        pass
+        _rect = rect2.Rect2(1, 3, vector2.Vector2(0.5, -0.5))
+        _poly = polygon2.Polygon2.from_regular(5, 1)
+        _offset = vector2.Vector2(1, 0)
+        visualize = self._create_help_msg(_poly, _offset, _rect)
+        touching, overlapping, mtv = rect2.Rect2.find_intersection(_poly, _offset, _rect, find_mtv=False)
+        
+        self.assertFalse(touching, msg=visualize)
+        self.assertTrue(overlapping, msg=visualize)
+        self.assertIsNone(mtv, msg=visualize)
     
     def test_find_intersection_rect_rect_false(self):
-        pass
+        _rect1 = rect2.Rect2(2, 3, vector2.Vector2(0.5, 0.5))
+        _rect2 = rect2.Rect2(1, 1, vector2.Vector2(-1, 0))
+        visualize = self._create_help_msg(_rect1, _rect2)
+        touching, overlapping, mtv = rect2.Rect2.find_intersection(_rect1, _rect2)
+        
+        self.assertFalse(touching, msg=visualize)
+        self.assertFalse(overlapping, msg=visualize)
+        self.assertIsNone(mtv, msg=visualize)
     
     def test_find_intersection_rect_rect_edge(self):
-        pass
+        _rect1 = rect2.Rect2(3, 4, vector2.Vector2(1, 0.70723))
+        _rect2 = rect2.Rect2(1, 1, vector2.Vector2(2, 4.70723))
+        visualize = self._create_help_msg(_rect1, _rect2)
+        touching, overlapping, mtv = rect2.Rect2.find_intersection(_rect1, _rect2)
+        
+        self.assertTrue(touching, msg=visualize)
+        self.assertFalse(overlapping, msg=visualize)
+        self.assertIsNone(mtv, msg=visualize)
     
     def test_find_intersection_rect_rect_mtv(self):
-        pass
+        _rect1 = rect2.Rect2(3, 5, vector2.Vector2(-2, -6))
+        _rect2 = rect2.Rect2(2, 1, vector2.Vector2(0, -3))
+        visualize = self._create_help_msg(_rect1, _rect2)
+        touching, overlapping, mtv = rect2.Rect2.find_intersection(_rect1, _rect2)
+        
+        self.assertFalse(touching, msg=visualize)
+        self.assertTrue(overlapping, msg=visualize)
+        self.assertIsNotNone(mtv, msg=visualize)
+        self.assertEqual(-1, mtv[0] * mtv[1].x, msg="touching={}, overlapping={}, mtv={}\n\n{}".format(touching, overlapping, mtv, visualize))
+        self.assertEqual(0, mtv[0] * mtv[1].y, msg=visualize)
+        
+        touching, overlapping, mtv = rect2.Rect2.find_intersection(_rect2, _rect1)
+        
+        self.assertFalse(touching, msg=visualize)
+        self.assertTrue(overlapping, msg=visualize)
+        self.assertIsNotNone(mtv, msg=visualize)
+        self.assertEqual(1, mtv[0] * mtv[1].x)
+        self.assertEqual(0, mtv[0] * mtv[1].y)
+        
     
     def test_find_intersection_rect_rect_coll_findmtv_false(self):
-        pass
+        _rect1 = rect2.Rect2(3, 5, vector2.Vector2(-2, -6))
+        _rect2 = rect2.Rect2(2, 1, vector2.Vector2(0, -3))
+        visualize = self._create_help_msg(_rect1, _rect2)
+        touching, overlapping, mtv = rect2.Rect2.find_intersection(_rect1, _rect2, find_mtv=False)
+        
+        self.assertFalse(touching, msg=visualize)
+        self.assertTrue(overlapping, msg=visualize)
+        self.assertIsNone(mtv, msg=visualize)
+        
+        touching, overlapping, mtv = rect2.Rect2.find_intersection(_rect2, _rect1, find_mtv=False)
+        
+        self.assertFalse(touching, msg=visualize)
+        self.assertTrue(overlapping, msg=visualize)
+        self.assertIsNone(mtv, msg=visualize)
     
+    def test_repr(self):
+        unit_square = rect2.Rect2(1, 1, vector2.Vector2(3, 4))
+        
+        self.assertEqual("rect2(width=1, height=1, mincorner=vector2(x=3, y=4))", repr(unit_square))
+         
+    def test_str(self):
+        unit_square = rect2.Rect2(1, 1, vector2.Vector2(3, 4))
+        ugly_rect = rect2.Rect2(0.7071234, 0.7079876, vector2.Vector2(0.56789123, 0.876543))
+        
+        self.assertEqual("rect(1x1 at <3, 4>)", str(unit_square))
+        self.assertEqual("rect(0.707x0.708 at <0.568, 0.877>)", str(ugly_rect))
+        
 if __name__ == '__main__':
     unittest.main()
