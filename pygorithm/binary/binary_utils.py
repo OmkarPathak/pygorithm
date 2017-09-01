@@ -4,7 +4,7 @@ Author: Ian Doarn
 """
 
 
-def pad(value, return_type):
+def pad(value, return_type=str):
     '''
         Pad binary value with zeros
         :param value: string
