@@ -81,7 +81,7 @@ class QuadTree(object):
         
         Just because a quad tree has split does not mean entities will be empty. Any
         entities which overlay any of the lines of the split will be included in the 
-        parent class of the quadtree.
+        parent of the quadtree.
     
     .. tip::
         
@@ -178,7 +178,7 @@ class QuadTree(object):
          -  2: Bottom-right
          -  3: Bottom-left
          
-         .. caution::
+        .. caution::
             
             This function does not verify the entity is contained in this quadtree.
         
@@ -195,10 +195,10 @@ class QuadTree(object):
         """
         Insert the entity into this or the appropriate child.
         
-        This also acts as thinking (recursively). Using insert_and_think
-        iteratively is slightly less efficient but more predictable performance,
-        whereas initializing with a large number of entities then thinking is slightly
-        faster but may hang. Both may exceed recursion depth if max_depth
+        This also acts as thinking (recursively). Using :py:meth:`.insert_and_think`
+        iteratively is slightly less efficient but has more predictable performance
+        than initializing with a large number of entities then thinking is slightly
+        faster but may hang. Both may exceed recursion depth if :py:attr:`.max_depth`
         is too large.
         
         :param entity: the entity to insert
@@ -245,8 +245,9 @@ class QuadTree(object):
         """
         Sum the number of entities in this quad tree and all lower quad trees.
         
-        If entities_per_depth is not None, that array is used to calculate the sum 
-        of entities rather than traversing the tree.
+        If `entities_per_depth` is not None, that array is used to calculate the sum 
+        of entities rather than traversing the tree. Either way, this is implemented
+        iteratively. See :py:meth:`.__str__` for usage example.
         
         :param entities_per_depth: the result of :py:meth:`.find_entities_per_depth`
         :type entities_per_depth: `dict int: (int, int)` or None
@@ -283,6 +284,8 @@ class QuadTree(object):
         cost of the misplaced nodes in comparison with the placed nodes. A value greater 
         than 1 implies a different tree type (such as r-tree or kd-tree) should probably be
         used.
+        
+        This is implemented iteratively. See :py:meth:`.__str__` for usage example.
         
         :param sum_entities: the number of entities on this node
         :type sum_entities: int or None
@@ -325,7 +328,8 @@ class QuadTree(object):
         .. caution::
             
             Because of the complexity of quadtrees it takes a fair amount of calculation to
-            produce something somewhat legible. All returned statistics have paired functions
+            produce something somewhat legible. All returned statistics have paired functions.
+            This uses only iterative algorithms to calculate statistics.
         
         Example:
         
