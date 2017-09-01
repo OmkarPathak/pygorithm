@@ -13,14 +13,18 @@
 - [x] Detect cycle in Graph
 - [x] Topological Sort
 - [ ] Prim's Algorithm
-- [ ] Kruskal's Algorithm
+- [x] Kruskal's Algorithm
 
 ### Dynamic Programming
 
-- [ ] Fibonacci
-- [ ] Longest Increasing Subsequence
+- [x] Fibonacci
+- [x] Longest Increasing Subsequence
 
 ### Heap
 
 - [x] Heap  implementation
 - [x] Heap Sort
+
+## Backtracking
+
+- [ ] N-Queens
