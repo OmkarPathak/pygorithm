@@ -8,7 +8,8 @@ from pygorithm.data_structures import (
     tree,
     graph,
     heap,
-    trie)
+    trie,
+    quadtree)
 
 
 class TestStack(unittest.TestCase):

@@ -226,11 +226,11 @@ QuadTree
     --------------
     .. autoclass:: QuadTreeEntity
         :members:
-        :special_members:
+        :special-members:
         
     QuadTree
     --------
     .. autoclass:: QuadTree
         :members:
-        :special_members:
+        :special-members:
     
