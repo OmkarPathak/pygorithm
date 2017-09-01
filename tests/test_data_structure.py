@@ -365,6 +365,43 @@ class TestTrie(unittest.TestCase):
         self.assertEqual(myTrie.search('flying'), True)
         self.assertEqual(myTrie.search('walking'), False)
 
+class TestQuadTreeNode(unittest.TestCase):
+    def test_constructor(self):
+        pass
+    def test_repr(self):
+        pass
+    def test_str(self):
+        pass
 
+class TestQuadTree(unittest.TestCase):
+    def test_constructor(self):
+        pass
+    def test_get_quadrant(self):
+        pass
+    def test_split(self):
+        pass
+    def test_think(self):
+        pass
+    def test_insert(self):
+        pass
+    def test_retrieve(self):
+        pass
+    def test_ents_per_depth(self):
+        pass
+    def test_sum_ents_noparam(self):
+        pass
+    def test_sum_ents_param(self):
+        pass
+    def test_avg_ents_per_leaf(self):
+        pass
+    def test_misplaced_ents_noparam(self):
+        pass
+    def test_misplaced_ents_param(self):
+        pass
+    def test_repr(self):
+        pass
+    def test_str(self):
+        pass
+        
 if __name__ == '__main__':
     unittest.main()
