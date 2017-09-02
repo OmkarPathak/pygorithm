@@ -262,7 +262,8 @@ class QuadTree(object):
         quad trees. 
         
         In the ideal case, the average entities per leaf is equal to the bucket size,
-        implying maximum efficiency.
+        implying maximum efficiency. Note that, as always with averages, this might 
+        be misleading if this tree has reached its max depth.
         
         This is implemented iteratively. See :py:meth:`.__str__` for usage example.
         
