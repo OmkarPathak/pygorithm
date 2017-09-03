@@ -547,7 +547,7 @@ class QuadTree(object):
         _max_depth = max(_ents_per_depth.keys())
         _avg_ent_leaf = self.calculate_avg_ents_per_leaf()
         _mispl_weight = self.calculate_weight_misplaced_ents(sum_entities=_sum)
-        return "quadtree(at {} with {} entities here ({} in total); (nodes, entities) per depth: {} (allowed max depth: {}, actual: {}), avg ent/leaf: {} (target {}), misplaced weight {} (0 best, >1 bad)".format(self.location, len(self.entities), _sum, _nodes_ents_per_depth_str, _max_depth, self.max_depth, _avg_ent_leaf, self.bucket_size, _mispl_weight)
+        return "quadtree(at {} with {} entities here ({} in total); (nodes, entities) per depth: {} (allowed max depth: {}, actual: {}), avg ent/leaf: {} (target {}), misplaced weight {} (0 best, >1 bad)".format(self.location, len(self.entities), _sum, _nodes_ents_per_depth_str, self.max_depth, _max_depth, _avg_ent_leaf, self.bucket_size, _mispl_weight)
         
     @staticmethod
     def get_code():

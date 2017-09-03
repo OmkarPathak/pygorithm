@@ -784,7 +784,7 @@ class TestQuadTree(unittest.TestCase):
             
         self.addCleanup(cleanup)
         self.maxDiff = None
-        self.assertEqual("quadtree(at rect(100x100 at <0, 0>) with 0 entities here (2 in total); (nodes, entities) per depth: [ 0: (1, 0), 1: (4, 2) ] (allowed max depth: 1, actual: 5), avg ent/leaf: 0.5 (target 1), misplaced weight 0.0 (0 best, >1 bad)", str(_tree))
+        self.assertEqual("quadtree(at rect(100x100 at <0, 0>) with 0 entities here (2 in total); (nodes, entities) per depth: [ 0: (1, 0), 1: (4, 2) ] (allowed max depth: 5, actual: 1), avg ent/leaf: 0.5 (target 1), misplaced weight 0.0 (0 best, >1 bad)", str(_tree))
         
 if __name__ == '__main__':
     unittest.main()
