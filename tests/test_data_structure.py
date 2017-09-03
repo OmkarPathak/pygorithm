@@ -12,6 +12,7 @@ from pygorithm.data_structures import (
     trie,
     quadtree)
 
+from pygorithm.geometry import (vector2, rect2)
 
 class TestStack(unittest.TestCase):
     def test_stack(self):
@@ -372,7 +373,7 @@ class TestQuadTreeNode(unittest.TestCase):
         self.rect1 = rect2.Rect2(1, 1, vector2.Vector2(2, 2))
         
     def test_constructor(self):
-        ent = quadtree.QuadTreeEntity(rect1)
+        ent = quadtree.QuadTreeEntity(self.rect1)
         
         self.assertIsNotNone(ent.aabb)
         self.assertEqual(1, ent.aabb.width)
@@ -381,13 +382,13 @@ class TestQuadTreeNode(unittest.TestCase):
         self.assertEqual(2, ent.aabb.mincorner.y)
         
     def test_repr(self):
-        ent = quadtree.QuadTreeEntity(rect1)
+        ent = quadtree.QuadTreeEntity(self.rect1)
         
         exp = "quadtreeentity(aabb=rect2(width=1, height=1, mincorner=vector2(x=2, y=2)))"
         self.assertEqual(exp, repr(ent))
     
     def test_str(self):
-        ent = quadtree.QuadTreeEntity(rect1)
+        ent = quadtree.QuadTreeEntity(self.rect1)
         
         exp = "entity(at rect(1x1 at <2, 2>))"
         self.assertEqual(exp, str(ent))
@@ -419,71 +420,71 @@ class TestQuadTree(unittest.TestCase):
     def test_get_quadrant(self):
         _tree = quadtree.QuadTree(64, 5, self.big_rect)
         
-        ent1  = quadtree.QuadTreeEntity(5, 5, vector2.Vector2(320, 175))
+        ent1  = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(320, 175)))
         quad1 = _tree.get_quadrant(ent1)
         self.assertEqual(0, quad1)
         
-        ent2  = quadtree.QuadTreeEntity(5, 5, vector2.Vector2(600, 450))
+        ent2  = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(600, 450)))
         quad2 = _tree.get_quadrant(ent2)
         self.assertEqual(1, quad2)
         
-        ent3  = quadtree.QuadTreeEntity(5, 5, vector2.Vector2(700, 950))
+        ent3  = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(700, 950)))
         quad3 = _tree.get_quadrant(ent3)
         self.assertEqual(2, quad3)
         
-        ent4  = quadtree.QuadTreeEntity(5, 5, vector2.Vector2(0, 495))
+        ent4  = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(0, 505)))
         quad4 = _tree.get_quadrant(ent4)
         self.assertEqual(3, quad4)
         
     def test_get_quadrant_none(self):
         _tree = quadtree.QuadTree(64, 5, self.big_rect)
         
-        ent1 = quadtree.QuadTreeEntity(5, 5, vector2.Vector2(497, 150))
+        ent1 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(497, 150)))
         self.assertEqual(-1, _tree.get_quadrant(ent1))
         
-        ent2 = quadtree.QuadTreeEntity(5, 5, vector2.Vector2(800, 499))
+        ent2 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(800, 499)))
         self.assertEqual(-1, _tree.get_quadrant(ent2))
         
-        ent3 = quadtree.QuadTreeEntity(15, 15, vector2.Vector2(481, 505))
+        ent3 = quadtree.QuadTreeEntity(rect2.Rect2(15, 15, vector2.Vector2(486, 505)))
         self.assertEqual(-1, _tree.get_quadrant(ent3))
         
-        ent4 = quadtree.QuadTreeEntity(5, 20, vector2.Vector2(15, 490))
+        ent4 = quadtree.QuadTreeEntity(rect2.Rect2(5, 20, vector2.Vector2(15, 490)))
         self.assertEqual(-1, _tree.get_quadrant(ent4))
         
-        ent5 = quadtree.QuadTreeEntity(17, 34, vector2.Vector2(485, 470))
+        ent5 = quadtree.QuadTreeEntity(rect2.Rect2(17, 34, vector2.Vector2(485, 470)))
         self.assertEqual(-1, _tree.get_quadrant(ent5))
         
     def test_get_quadrant_shifted(self):
         _tree = quadtree.QuadTree(64, 5, self.big_rect_sub_3)
         
-        ent1 = quadtree.QuadTreeEntity(5, 5, vector2.Vector2(515, 600))
+        ent1 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(515, 600)))
         self.assertEqual(0, _tree.get_quadrant(ent1))
         
-        ent2 = quadtree.QuadTreeEntity(5, 5, vector2.Vector2(800, 550))
+        ent2 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(800, 550)))
         self.assertEqual(1, _tree.get_quadrant(ent2))
         
-        ent3 = quadtree.QuadTreeEntity(5, 5, vector2.Vector2(950, 650))
+        ent3 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(950, 850)))
         self.assertEqual(2, _tree.get_quadrant(ent3))
         
-        ent4 = quadtree.QuadTreeEntity(5, 5, vector2.Vector2(15, 551))
+        ent4 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(515, 751)))
         self.assertEqual(3, _tree.get_quadrant(ent4))
         
     def test_get_quadrant_0_shifted(self):
         _tree = quadtree.QuadTree(64, 5, rect2.Rect2(500, 800, vector2.Vector2(200, 200)))
         
-        ent1 = quadtree.QuadTreeEntity(5, 10, vector2.Vector2(445, 224))
+        ent1 = quadtree.QuadTreeEntity(rect2.Rect2(5, 10, vector2.Vector2(445, 224)))
         self.assertEqual(-1, _tree.get_quadrant(ent1))
         
-        ent2 = quadtree.QuadTreeEntity(11, 17, vector2.Vector2(515, 585))
+        ent2 = quadtree.QuadTreeEntity(rect2.Rect2(11, 17, vector2.Vector2(515, 585)))
         self.assertEqual(-1, _tree.get_quadrant(ent2))
         
-        ent3 = quadtree.QuadTreeEntity(20, 20, vector2.Vector2(440, 700))
+        ent3 = quadtree.QuadTreeEntity(rect2.Rect2(20, 20, vector2.Vector2(440, 700)))
         self.assertEqual(-1, _tree.get_quadrant(ent3))
         
-        ent4 = quadtree.QuadTreeEntity(15, 15, vector2.Vector2(215, 590))
+        ent4 = quadtree.QuadTreeEntity(rect2.Rect2(15, 15, vector2.Vector2(215, 590)))
         self.assertEqual(-1, _tree.get_quadrant(ent4))
         
-        ent5 = quadtree.QuadTreeEntity(7, 12, vector2.Vector2(449, 589))
+        ent5 = quadtree.QuadTreeEntity(rect2.Rect2(7, 12, vector2.Vector2(449, 589)))
         self.assertEqual(-1, _tree.get_quadrant(ent5))
         
     def test_split_empty(self):
@@ -493,53 +494,53 @@ class TestQuadTree(unittest.TestCase):
         self.assertIsNotNone(_tree1.children)
         self.assertEqual(4, len(_tree1.children))
         
-        self.assertEqual(500, _tree1.children[0].width)
-        self.assertEqual(500, _tree1.children[0].height)
-        self.assertEqual(0, _tree1.children[0].mincorner.x)
-        self.assertEqual(0, _tree1.children[0].mincorner.y)
+        self.assertEqual(500, _tree1.children[0].location.width)
+        self.assertEqual(500, _tree1.children[0].location.height)
+        self.assertEqual(0, _tree1.children[0].location.mincorner.x)
+        self.assertEqual(0, _tree1.children[0].location.mincorner.y)
         self.assertEqual(1, _tree1.children[0].depth)
         self.assertEqual(64, _tree1.children[0].bucket_size)
         self.assertEqual(5, _tree1.children[0].max_depth)
         
-        self.assertEqual(500, _tree1.children[1].width)
-        self.assertEqual(500, _tree1.children[1].height)
-        self.assertEqual(500, _tree1.children[1].mincorner.x)
-        self.assertEqual(0, _tree1.children[1].mincorner.y)
+        self.assertEqual(500, _tree1.children[1].location.width)
+        self.assertEqual(500, _tree1.children[1].location.height)
+        self.assertEqual(500, _tree1.children[1].location.mincorner.x)
+        self.assertEqual(0, _tree1.children[1].location.mincorner.y)
         
-        self.assertEqual(500, _tree1.children[2].width)
-        self.assertEqual(500, _tree1.children[2].height)
-        self.assertEqual(500, _tree1.children[2].mincorner.x)
-        self.assertEqual(500, _tree1.children[2].mincorner.y)
+        self.assertEqual(500, _tree1.children[2].location.width)
+        self.assertEqual(500, _tree1.children[2].location.height)
+        self.assertEqual(500, _tree1.children[2].location.mincorner.x)
+        self.assertEqual(500, _tree1.children[2].location.mincorner.y)
         
-        self.assertEqual(500, _tree1.children[3].width)
-        self.assertEqual(500, _tree1.children[3].height)
-        self.assertEqual(0, _tree1.children[3].mincorner.x)
-        self.assertEqual(500, _tree1.children[3].mincorner.y)
+        self.assertEqual(500, _tree1.children[3].location.width)
+        self.assertEqual(500, _tree1.children[3].location.height)
+        self.assertEqual(0, _tree1.children[3].location.mincorner.x)
+        self.assertEqual(500, _tree1.children[3].location.mincorner.y)
         
-        
-        _tree2 = _tree1.children[3]
+        # bottom-right
+        _tree2 = _tree1.children[2]
         _tree2.split()
         
-        self.assertEqual(250, _tree2.children[0].width)
-        self.assertEqual(250, _tree2.children[0].height)
-        self.assertEqual(500, _tree2.children[0].mincorner.x)
-        self.assertEqual(500, _tree2.children[0].mincorner.y)
+        self.assertEqual(250, _tree2.children[0].location.width)
+        self.assertEqual(250, _tree2.children[0].location.height)
+        self.assertEqual(500, _tree2.children[0].location.mincorner.x)
+        self.assertEqual(500, _tree2.children[0].location.mincorner.y)
         self.assertEqual(2, _tree2.children[0].depth)
         
-        self.assertEqual(250, _tree2.children[1].width)
-        self.assertEqual(250, _tree2.children[1].height)
-        self.assertEqual(750, _tree2.children[1].mincorner.x)
-        self.assertEqual(500, _tree2.children[1].mincorner.y)
+        self.assertEqual(250, _tree2.children[1].location.width)
+        self.assertEqual(250, _tree2.children[1].location.height)
+        self.assertEqual(750, _tree2.children[1].location.mincorner.x)
+        self.assertEqual(500, _tree2.children[1].location.mincorner.y)
         
-        self.assertEqual(250, _tree2.children[2].width)
-        self.assertEqual(250, _tree2.children[2].height)
-        self.assertEqual(750, _tree2.children[2].mincorner.x)
-        self.assertEqual(750, _tree2.children[2].mincorner.y)
+        self.assertEqual(250, _tree2.children[2].location.width)
+        self.assertEqual(250, _tree2.children[2].location.height)
+        self.assertEqual(750, _tree2.children[2].location.mincorner.x)
+        self.assertEqual(750, _tree2.children[2].location.mincorner.y)
         
-        self.assertEqual(250, _tree2.children[3].width)
-        self.assertEqual(250, _tree2.children[3].height)
-        self.assertEqual(500, _tree2.children[3].mincorner.x)
-        self.assertEqual(750, _tree2.children[3].mincorner.y)
+        self.assertEqual(250, _tree2.children[3].location.width)
+        self.assertEqual(250, _tree2.children[3].location.height)
+        self.assertEqual(500, _tree2.children[3].location.mincorner.x)
+        self.assertEqual(750, _tree2.children[3].location.mincorner.y)
     
     def test_split_entities(self):
         
@@ -553,24 +554,24 @@ class TestQuadTree(unittest.TestCase):
         _tree.split()
         
         self.assertEqual(1, len(_tree.children[0].entities))
-        self.assertEqual(50, _tree.children[0].entities[0].mincorner.x)
-        self.assertEqual(50, _tree.children[0].entities[0].mincorner.y)
+        self.assertEqual(50, _tree.children[0].entities[0].aabb.mincorner.x)
+        self.assertEqual(50, _tree.children[0].entities[0].aabb.mincorner.y)
         
         self.assertEqual(1, len(_tree.children[1].entities))
-        self.assertEqual(550, _tree.children[1].entities[0].mincorner.x)
-        self.assertEqual(75, _tree.children[1].entities[0].mincorner.y)
+        self.assertEqual(550, _tree.children[1].entities[0].aabb.mincorner.x)
+        self.assertEqual(75, _tree.children[1].entities[0].aabb.mincorner.y)
         
         self.assertEqual(1, len(_tree.children[2].entities))
-        self.assertEqual(565, _tree.children[2].entities[0].mincorner.x)
-        self.assertEqual(585, _tree.children[2].entities[0].mincorner.y)
+        self.assertEqual(565, _tree.children[2].entities[0].aabb.mincorner.x)
+        self.assertEqual(585, _tree.children[2].entities[0].aabb.mincorner.y)
         
         self.assertEqual(1, len(_tree.children[3].entities))
-        self.assertEqual(95, _tree.children[3].entities[0].mincorner.x)
-        self.assertEqual(900, _tree.children[3].entities[0].mincorner.y)
+        self.assertEqual(95, _tree.children[3].entities[0].aabb.mincorner.x)
+        self.assertEqual(900, _tree.children[3].entities[0].aabb.mincorner.y)
         
         self.assertEqual(1, len(_tree.entities))
-        self.assertEqual(495, _tree.entities[0].mincorner.x)
-        self.assertEqual(167, _tree.entities[0].mincorner.y)
+        self.assertEqual(495, _tree.entities[0].aabb.mincorner.x)
+        self.assertEqual(167, _tree.entities[0].aabb.mincorner.y)
         
         _tree2 = _tree.children[3]
         _tree2.split()
@@ -579,8 +580,8 @@ class TestQuadTree(unittest.TestCase):
             self.assertEqual(0, len(_tree2.children[i].entities), msg="i={}".format(i))
         
         self.assertEqual(1, len(_tree2.children[3].entities))
-        self.assertEqual(95, _tree2.children[3].entities[0].mincorner.x)
-        self.assertEqual(900, _tree2.children[3].entities[0].mincorner.y)
+        self.assertEqual(95, _tree2.children[3].entities[0].aabb.mincorner.x)
+        self.assertEqual(900, _tree2.children[3].entities[0].aabb.mincorner.y)
     
     # note for test_think and test_insert we're testing the worst-case scenario
     # for a quad tree (everythings all bunched up in a corner) hence the instant
@@ -593,31 +594,35 @@ class TestQuadTree(unittest.TestCase):
     # (even at 1000x1000 world!) past depth 5 or so.
     
     def test_think(self):
-        ent1 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, rect2.Rect2(15, 15)))
-        ent2 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, rect2.Rect2(20, 20)))
-        ent3 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, rect2.Rect2(0, 0)))
-        ent4 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, rect2.Rect2(5, 0)))
-        ent5 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, rect2.Rect2(0, 5)))
+        ent1 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(15, 15)))
+        ent2 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(20, 20)))
+        ent3 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(0, 0)))
+        ent4 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(5, 0)))
+        ent5 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(0, 5)))
         _tree = quadtree.QuadTree(2, 2, self.big_rect, entities = [ ent1, ent2, ent3, ent4, ent5 ])
+        
         _tree.think(True)
         
-        self.assertIsNotNone(_tree.children) # depth 0
-        self.assertIsNotNone(_tree.children[0].children) # depth 1
-        self.assertIsNotNone(_tree.children[0].children[0].children) # depth 2 
-        self.assertIsNone(_tree.children[0].children[0].children[0].children) # depth 3 shouldn't happen because
-        self.assertEqual(5, len(_tree.children[0].children[0].children[0].entities)) # max_depth reached
+        self.assertIsNotNone(_tree.children) # depth 1
+        self.assertIsNotNone(_tree.children[0].children) # depth 2
+        self.assertIsNone(_tree.children[0].children[0].children) # depth 3 shouldn't happen because
+        self.assertEqual(5, len(_tree.children[0].children[0].entities)) # max_depth reached
+        
+        
+        _tree2 = quadtree.QuadTree(2, 2, self.big_rect, entities = [ ent1, ent2 ])
+        _tree2.think(True)
+        self.assertIsNone(_tree2.children)
         
     def test_insert(self):
         _tree = quadtree.QuadTree(2, 2, self.big_rect)
-        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, rect2.Rect2(15, 15))))
+        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(15, 15))))
         self.assertIsNone(_tree.children)
-        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, rect2.Rect2(20, 20))))
+        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(20, 20))))
         self.assertIsNone(_tree.children)
-        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, rect2.Rect2(0, 0))))
-        self.assertIsNotNone(_tree.children) # depth 0
-        self.assertIsNotNone(_tree.children[0].children) # depth 1
-        self.assertIsNotNone(_tree.children[0].children[0].children) # depth 2 
-        self.assertIsNone(_tree.children[0].children[0].children[0].children) # depth 3 shouldn't happen because
+        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(0, 0))))
+        self.assertIsNotNone(_tree.children) # depth 1
+        self.assertIsNotNone(_tree.children[0].children) # depth 2
+        self.assertIsNone(_tree.children[0].children[0].children) # depth 3 shouldn't happen because
         self.assertEqual(3, len(_tree.children[0].children[0].entities)) # max_depth reached
         
     def test_retrieve(self):
@@ -629,8 +634,8 @@ class TestQuadTree(unittest.TestCase):
         retr = _tree.retrieve_collidables(ent1)
         self.assertIsNotNone(retr)
         self.assertEqual(1, len(retr))
-        self.assertEqual(25, retr.mincorner.x)
-        self.assertEqual(25, retr.mincorner.y)
+        self.assertEqual(25, retr[0].aabb.mincorner.x)
+        self.assertEqual(25, retr[0].aabb.mincorner.y)
         
         # note this is not nicely in a quadrant
         ent2 = quadtree.QuadTreeEntity(rect2.Rect2(20, 10, vector2.Vector2(490, 300)))
@@ -644,25 +649,34 @@ class TestQuadTree(unittest.TestCase):
         ent3 = quadtree.QuadTreeEntity(rect2.Rect2(15, 10, vector2.Vector2(700, 450)))
         _tree.insert_and_think(ent3)
         
-        # ent1 should collide with ent1 or ent2,
-        # ent2 with ent1, ent2, or ent3
+        ent4 = quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(900, 900)))
+        _tree.insert_and_think(ent4)
+        
+        # ent1 should collide with ent1 or ent2
+        # ent2 with ent1 or ent2, or ent3
         # ent3 with ent2 or ent3
+        # ent4 with ent2 or ent4
         retr = _tree.retrieve_collidables(ent1)
         self.assertIsNotNone(retr)
         self.assertEqual(2, len(retr)) 
-        self.assertIsNotNone(next((e for e in retr if e.mincorner.x == 25), None), str(retr))
-        self.assertIsNotNone(next((e for e in retr if e.mincorner.x == 490), None), str(retr))
+        self.assertIsNotNone(next((e for e in retr if e.aabb.mincorner.x == 25), None), str(retr))
+        self.assertIsNotNone(next((e for e in retr if e.aabb.mincorner.x == 490), None), str(retr))
         
         retr = _tree.retrieve_collidables(ent2)
         self.assertEqual(3, len(retr))
-        self.assertIsNotNone(next((e for e in retr if e.mincorner.x == 25), None), str(retr))
-        self.assertIsNotNone(next((e for e in retr if e.mincorner.x == 490), None), str(retr))
-        self.assertIsNotNone(next((e for e in retr if e.mincorner.x == 700), None), str(retr))
+        self.assertIsNotNone(next((e for e in retr if e.aabb.mincorner.x == 25), None), str(retr))
+        self.assertIsNotNone(next((e for e in retr if e.aabb.mincorner.x == 490), None), str(retr))
+        self.assertIsNotNone(next((e for e in retr if e.aabb.mincorner.x == 700), None), str(retr))
         
         retr = _tree.retrieve_collidables(ent3)
         self.assertEqual(2, len(retr))
-        self.assertIsNotNone(next((e for e in retr if e.mincorner.x == 490), None), str(retr))
-        self.assertIsNotNone(next((e for e in retr if e.mincorner.x == 700), None), str(retr))
+        self.assertIsNotNone(next((e for e in retr if e.aabb.mincorner.x == 490), None), str(retr))
+        self.assertIsNotNone(next((e for e in retr if e.aabb.mincorner.x == 700), None), str(retr))
+        
+        retr = _tree.retrieve_collidables(ent4)
+        self.assertEqual(2, len(retr))
+        self.assertIsNotNone(next((e for e in retr if e.aabb.mincorner.x == 900), None), str(retr))
+        self.assertIsNotNone(next((e for e in retr if e.aabb.mincorner.x == 490), None), str(retr))
         
     def test_ents_per_depth(self):
         _tree = quadtree.QuadTree(3, 5, self.big_rect)
@@ -671,11 +685,24 @@ class TestQuadTree(unittest.TestCase):
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(300, 499))))
         self.assertDictEqual({ 0: 2 }, _tree.find_entities_per_depth())
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(800, 600))))
-        self.assertDictEqual({ 0: 1, 1: 2 }, _tree.find_entities_per_depth())
+        self.assertDictEqual({ 0: 3 }, _tree.find_entities_per_depth())
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(450, 300))))
         self.assertDictEqual({ 0: 1, 1: 3 }, _tree.find_entities_per_depth())
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(150, 100))))
-        self.assertDictEqual({ 0: 1, 1: 1, 2: 3 }, _tree.find_entities_per_depth())
+        self.assertDictEqual({ 0: 1, 1: 4 }, _tree.find_entities_per_depth())
+        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(80, 40))))
+        self.assertDictEqual({ 0: 1, 1: 1, 2: 4 }, _tree.find_entities_per_depth())
+    
+    def test_nodes_per_depth(self):
+        _tree = quadtree.QuadTree(1, 5, self.big_rect)
+        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(50, 50))))
+        self.assertDictEqual({ 0: 1 }, _tree.find_nodes_per_depth())
+        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(450, 450))))
+        self.assertDictEqual({ 0: 1, 1: 4, 2: 4 }, _tree.find_nodes_per_depth())
+        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(550, 550))))
+        self.assertDictEqual({ 0: 1, 1: 4, 2: 4 }, _tree.find_nodes_per_depth())
+        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(850, 550))))
+        self.assertDictEqual({ 0: 1, 1: 4, 2: 8 }, _tree.find_nodes_per_depth())
         
     def test_sum_ents(self):
         # it shouldn't matter where we put entities in, adding entities
@@ -687,7 +714,7 @@ class TestQuadTree(unittest.TestCase):
             h = random.randrange(1, 10)
             x = random.uniform(0, 1000 - w)
             y = random.uniform(0, 1000 - h)
-            ent = quadtree.QuadTreeEntity(w, h, vector2.Vector2(x, y))
+            ent = quadtree.QuadTreeEntity(rect2.Rect2(w, h, vector2.Vector2(x, y)))
             _tree.insert_and_think(ent)
             
             # avoid calculating sum every loop which would take way too long.
@@ -706,48 +733,58 @@ class TestQuadTree(unittest.TestCase):
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(75, 35)))) 
         self.assertEqual(1, _tree.calculate_avg_ents_per_leaf()) # 1 ent on 1 leaf
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(300, 499))))
-        self.asserttEqual(2, _tree.calculate_avg_ents_per_leaf()) # 2 ents 1 leaf
+        self.assertEqual(2, _tree.calculate_avg_ents_per_leaf()) # 2 ents 1 leaf
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(800, 600))))
-        self.asserttEqual(0.5, _tree.calculate_avg_ents_per_leaf()) # 2 ents 4 leafs (1 misplaced)
+        self.assertEqual(3, _tree.calculate_avg_ents_per_leaf()) # 3 ents 1 leaf
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(450, 300))))
-        self.asserttEqual(0.75, _tree.calculate_avg_ents_per_leaf()) # 3 ents 4 leafs (1 misplaced)
+        self.assertEqual(0.75, _tree.calculate_avg_ents_per_leaf()) # 3 ents 4 leafs (1 misplaced)
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(150, 100))))
-        self.asserttEqual(0.5, _tree.calculate_avg_ents_per_leaf()) # 4 ents 8 leafs (1 misplaced)
+        self.assertEqual(1, _tree.calculate_avg_ents_per_leaf()) # 4 ents 4 leafs (1 misplaced)
+        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(450, 450))))
+        self.assertAlmostEqual(5/7, _tree.calculate_avg_ents_per_leaf()) # 5 ents 7 leafs (1 misplaced)
         
     def test_misplaced_ents(self):
         _tree = quadtree.QuadTree(3, 5, self.big_rect)
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(75, 35)))) 
         self.assertEqual(0, _tree.calculate_weight_misplaced_ents()) # 0 misplaced, 1 total
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(300, 499))))
-        self.asserttEqual(0, _tree.calculate_weight_misplaced_ents()) # 0 misplaced, 2 total
+        self.assertEqual(0, _tree.calculate_weight_misplaced_ents()) # 0 misplaced, 2 total
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(800, 600))))
-        self.assertAlmostEqual(4/3, _tree.calculate_weight_misplaced_ents()) # 1 misplaced (1 deep), 3 total
-        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(450, 300))))
+        self.assertEqual(0, _tree.calculate_weight_misplaced_ents()) # 0 misplaced 3 total
+        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(550, 700))))
         self.assertAlmostEqual(1, _tree.calculate_weight_misplaced_ents()) # 1 misplaced (1 deep), 4 total
-        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(150, 100))))
-        self.assertAlmostEqual(8/5, _tree.calculate_weight_misplaced_ents()) # 1 misplaced (2 deep), 5 total
+        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(900, 900))))
+        self.assertAlmostEqual(4/5, _tree.calculate_weight_misplaced_ents()) # 1 misplaced (1 deep), 5 total
+        _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(5, 5, vector2.Vector2(950, 950))))
+        self.assertAlmostEqual(8/6, _tree.calculate_weight_misplaced_ents()) # 1 misplaced (2 deep), 6 total
         
     def test_repr(self):
-        _tree = quadtree.QuadTree(2, 5, rect2.Rect2(100, 100))
+        _tree = quadtree.QuadTree(1, 5, rect2.Rect2(100, 100))
         
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(2, 2, vector2.Vector2(5, 5))))
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(2, 2, vector2.Vector2(95, 5))))
         
         _olddiff = self.maxDiff
-        def cleanup(self2):
+        def cleanup(self2=self):
             self2.maxDiff = _olddiff
             
         self.addCleanup(cleanup)
         self.maxDiff = None
-        self.assertEqual("quadtree(bucket_size=2, max_depth=5, location=rect2(width=100, height=100, mincorner=vector2(x=0, y=0)), depth=0, entities=[], children=[ quadtree(bucket_size=2, max_depth=5, location=rect2(width=50, height=50, mincorner=vector2(x=0, y=0)), depth=1, entities=[ quadtreeentity(aabb=rect2(width=2, height=2, mincorner=vector2(x=5, y=5))) ], children=[]), quadtree(bucket_size=2, max_depth=5, location=rect2(width=50, height=50, mincorner=vector2(x=50, y=0)), depth=1, entities=[ quadtreeentity(aabb=rect2(width=2, height=2, mincorner=vector2(x=95, y=5))) ], children=[]), quadtree(bucket_size=2, max_depth=5, location=rect2(width=50, height=50, mincorner=vector2(x=50, y=50)), depth=1, entities=[], children=[]), quadtree(bucket_size=2, max_depth=5, location=rect2(width=50, height=50, mincorner=vector2(x=0, y=50)), depth=1, entities=[], children=[]) ])", repr(_tree))
+        self.assertEqual("quadtree(bucket_size=1, max_depth=5, location=rect2(width=100, height=100, mincorner=vector2(x=0, y=0)), depth=0, entities=[], children=[quadtree(bucket_size=1, max_depth=5, location=rect2(width=50.0, height=50.0, mincorner=vector2(x=0, y=0)), depth=1, entities=[quadtreeentity(aabb=rect2(width=2, height=2, mincorner=vector2(x=5, y=5)))], children=None), quadtree(bucket_size=1, max_depth=5, location=rect2(width=50.0, height=50.0, mincorner=vector2(x=50.0, y=0)), depth=1, entities=[quadtreeentity(aabb=rect2(width=2, height=2, mincorner=vector2(x=95, y=5)))], children=None), quadtree(bucket_size=1, max_depth=5, location=rect2(width=50.0, height=50.0, mincorner=vector2(x=50.0, y=50.0)), depth=1, entities=[], children=None), quadtree(bucket_size=1, max_depth=5, location=rect2(width=50.0, height=50.0, mincorner=vector2(x=0, y=50.0)), depth=1, entities=[], children=None)])", repr(_tree))
         
     def test_str(self):
-        _tree = quadtree.QuadTree(2, 5, rect2.Rect2(100, 100))
+        _tree = quadtree.QuadTree(1, 5, rect2.Rect2(100, 100))
         
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(2, 2, vector2.Vector2(5, 5))))
         _tree.insert_and_think(quadtree.QuadTreeEntity(rect2.Rect2(2, 2, vector2.Vector2(95, 5))))
         
-        self.assertEqual("quadtree(at rect(100x100 at <0, 0>) with 0 entities here (2 in total); (nodes, entities) per depth: [ 0: (1, 0), 1: (4, 2) ] (max depth: 5), avg ent/leaf: 0.5 (target 2), misplaced weight = 0 (0 best, >1 bad))", str(_tree))
+        _olddiff = self.maxDiff
+        def cleanup(self2=self):
+            self2.maxDiff = _olddiff
+            
+        self.addCleanup(cleanup)
+        self.maxDiff = None
+        self.assertEqual("quadtree(at rect(100x100 at <0, 0>) with 0 entities here (2 in total); (nodes, entities) per depth: [ 0: (1, 0), 1: (4, 2) ] (allowed max depth: 1, actual: 5), avg ent/leaf: 0.5 (target 1), misplaced weight 0.0 (0 best, >1 bad)", str(_tree))
         
 if __name__ == '__main__':
     unittest.main()
