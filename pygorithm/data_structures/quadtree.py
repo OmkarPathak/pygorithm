@@ -482,7 +482,9 @@ class QuadTree(object):
     
     def __repr__(self):
         """
-        Create an unambiguous, recursive representation of this quad tree.
+        Create an unambiguous representation of this quad tree.
+        
+        This is implemented iteratively.
         
         Example:
         
