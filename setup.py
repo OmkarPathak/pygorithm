@@ -1,21 +1,21 @@
 from setuptools import setup, find_packages
 # To use a consistent encoding
-from codecs import open
+# from codecs import open
 from os import path
 
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-    long_description = f.read()
+# with open('README.rst') as f:
+#     long_description = f.read()
 
 setup(
     name='pygorithm',
-    version='1.0',
+    version='1.0.4',
     description='A Python algorithms module for learning',
-    long_description=long_description,
+    long_description=open('README.rst').read(),
     # The project's main homepage.
-    url='https://github.com/OmkarPathak/pygorithms',
+    url='https://github.com/OmkarPathak/pygorithm',
     # Author details
     author='Omkar Pathak',
     author_email='omkarpathak27@gmail.com',
@@ -37,6 +37,7 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
     packages=find_packages()
 )
