@@ -1423,6 +1423,90 @@ class TestRect2(unittest.TestCase):
         
         self.assertEqual("rect(1x1 at <3, 4>)", str(unit_square))
         self.assertEqual("rect(0.707x0.708 at <0.568, 0.877>)", str(ugly_rect))
+
+class TestExtrapolatedIntersection(unittest.TestCase):
+    def test_one_moving_one_stationary_no_intr(self):
+        pass
+    def test_one_moving_one_stationary_touching(self):
+        pass
+    def test_one_moving_one_stationary_intr_at_start(self):
+        pass
+    def test_one_moving_one_stationary_intr_later(self):
+        pass
+    
+    def test_one_moving_one_stationary_distlimit_no_intr(self):
+        pass
+    def test_one_moving_one_stationary_distlimit_touching(self):
+        pass
+    def test_one_moving_one_stationary_distlimit_intr_at_start(self):
+        pass
+    def test_one_moving_one_stationary_distlimit_intr_later(self):
+        pass
+    def test_one_moving_one_stationary_distlimit_touch_at_limit(self):
+        pass
+    def test_one_moving_one_stationary_distlimit_intr_after_limit(self):
+    
+    def test_one_moving_one_stationary_along_path_no_intr(self):
+        pass
+    def test_one_moving_one_stationary_along_path_touching(self):
+        pass
+    def test_one_moving_one_stationary_along_path_intr_at_start(self):
+        pass
+    def test_one_moving_one_stationary_along_path_intr_later(self):
+        pass
+    def test_one_moving_one_stationary_distlimit_touch_at_end(self):
+        pass
+    def test_one_moving_one_stationary_distlimit_intr_after_end(self):
+    
+    def test_one_moving_many_stationary_no_intr(self):
+        pass
+    def test_one_moving_many_stationary_touching(self):
+        pass
+    def test_one_moving_many_stationary_intr_at_start(self):
+        pass
+    def test_one_moving_many_stationary_intr_later(self):
+        pass
+    
+    def test_one_moving_many_stationary_distlimit_no_intr(self):
+        pass
+    def test_one_moving_many_stationary_distlimit_touching(self):
+        pass
+    def test_one_moving_many_stationary_distlimit_intr_at_start(self):
+        pass
+    def test_one_moving_many_stationary_distlimit_intr_later(self):
+        pass
+    def test_one_moving_many_stationary_distlimit_touch_at_limit(self):
+        pass
+    def test_one_moving_many_stationary_distlimit_intr_after_limit(self):
+        pass
+    
+    def test_one_moving_many_stationary_along_path_no_intr(self):
+        pass
+    def test_one_moving_many_stationary_along_path_touching(self):
+        pass
+    def test_one_moving_many_stationary_along_path_intr_at_start(self):
+        pass
+    def test_one_moving_many_stationary_along_path_intr_later(self):
+        pass
+    def test_one_moving_many_stationary_along_path_touch_at_limit(self):
+        pass
+    def test_one_moving_many_stationary_along_path_intr_after_limit(self):
+        pass
         
+    def test_two_moving_no_intr(self):
+        pass
+    def test_two_moving_touching_miss(self):
+        pass
+    def test_two_moving_touching_miss_diff_vel(self):
+        pass
+    def test_two_moving_intr_ones_start_but_later(self):
+        pass
+    def test_two_moving_intr_at_start(self):
+        pass
+    def test_two_moving_intr_later(self):
+        pass
+    def test_two_moving_intr_later_diff_vel(self):
+        pass
+
 if __name__ == '__main__':
     unittest.main()

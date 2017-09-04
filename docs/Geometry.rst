@@ -55,6 +55,7 @@ Features
 * Algorithms available:
     - Separating Axis Theorem (polygon2)
     - Broad-phase (rect2)
+    - Extrapolated intersection (extrapolated_intersection)
 
 Vector2
 -------
@@ -92,6 +93,10 @@ Axis-Aligned Rectangle
     :special-members:
     :private-members:
 
-    
+Extrapolated Intersection
+-------------------------
+
+.. automodule:: pygorithm.geometry.extrapolated_intersection
+    :members:
     
     
