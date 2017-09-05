@@ -17,6 +17,48 @@ if intersections will occur.
     
 """
 
+def calculate_one_moving_point_and_one_stationary_line(point, velocity, line, offset):
+    """
+    Determine if the point moving at velocity will intersect the line.
+    
+    The line is positioned at offset. Given a moving point and line segment,
+    determine if the point will ever intersect the line segment.
+    
+    :param point: the starting location of the point
+    :type point: :class:`pygorithm.geometry.vector2.Vector2`
+    :param velocity: the velocity of the point 
+    :type velocity: :class:`pygorithm.geometry.vector2.Vector2`
+    :param line: the geometry of the stationary line
+    :type line: :class:`pygorithm.geometry.line2.Line2`
+    :param offset: the offset of the line
+    :type offset: :class:`pygorithm.geometry.vector2.Vector2`
+    :returns: if the point will intersect the line, distance until intersection
+    :rtype: bool, :class:`numbers.Number` or None
+    """
+    return False, -1
+    
+def calculate_one_moving_line_and_one_stationary_line(line1, offset1, velocity1, _line2, offset2):
+    """
+    Determine if the moving line will intersect the stationary line.
+    
+    Given two line segments, one moving and one not, determine if they will ever 
+    intersect.
+    
+    :param line1: the geometry of the moving line 
+    :type line1: :class:`pygorithm.geometry.line2.Line2`
+    :param offset1: the starting location of the moving line
+    :type offset1: :class:`pygorithm.geometry.vector2.Vector2`
+    :param velocity1: the velocity of the moving line
+    :type velocity1: :class:`pygorithm.geometry.vector2.Vector2`
+    :param _line2: the geometry of the second line
+    :type _line2: :class:`pygorithm.geometry.line2.Line2`
+    :param offset2: the location of the second line
+    :type offset2: :class:`pygorithm.geometry.vector2.Vector2`
+    :returns: if the lines will ever intersect, distance until intersection
+    :rtype: bool, :class:`numbers.Number` or None
+    """
+    return False, -1
+    
 def calculate_one_moving_and_one_stationary(poly1, poly1_offset, poly1_velocity, poly2, poly2_offset):
     """
     Determine if the moving polygon will intersect the stationary polygon.

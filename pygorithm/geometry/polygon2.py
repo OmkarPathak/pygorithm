@@ -416,7 +416,7 @@ class Polygon2(object):
             cross = vec1.cross(vec2)
             _previous = curr
             
-            if math.isclose(cross, 0):
+            if math.isclose(cross, 0, abs_tol=1e-07):
                 return True, False
             
             if cross > 0:
