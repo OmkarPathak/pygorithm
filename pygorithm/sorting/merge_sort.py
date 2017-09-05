@@ -66,4 +66,4 @@ def get_code():
 
     :return: source code
     """
-    return inspect.getsource(sort)
+    return inspect.getsource(sort) + "\n" + inspect.getsource(merge)
