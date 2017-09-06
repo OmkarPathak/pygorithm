@@ -80,7 +80,7 @@ def calculate_one_moving_and_one_stationary(poly1, poly1_offset, poly1_velocity,
     :returns: if they will intersect
     :rtype: bool
     """
-    pass
+    return -1
 
 def calculate_one_moving_one_stationary_distancelimit(poly1, poly1_offset, poly1_velocity, poly2, poly2_offset, max_distance):
     """
