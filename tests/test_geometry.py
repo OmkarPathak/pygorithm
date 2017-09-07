@@ -1456,14 +1456,20 @@ class TestExtrapolatedIntersection(unittest.TestCase):
     It is suggested that you follow along these tests with the images 
     at imgs/test_geometry/test_extrapolated_intersection. All image 
     references will be relative to that folder and will be referencing
-    the .grf (Graph) file, whereas the actual images are in the out/
-    folder with the same name (and a different file type).
+    the .py  file, whereas the actual images are in the out/
+    folder with the the full prefix and image file type.
     
     The file names are prefixed with a unique 2 character alphabetical 
-    code per test function, followed by a unique 2 character numeric code
-    for each image, followed by an underscore and the name of the test
-    function they are referenced in. In the code they are just referenced 
-    with the first 4 characters of the file name. 
+    code per test function, which is the prefix for the matplotlib file,
+    followed by a unique 2 character numeric code to identify each image,
+    followed by an underscore and the name of the test function they are
+    referenced in. In the code they are just referenced with the first 4 
+    characters of the image file name. 
+    
+    Note that you can open up the interactive matplotlib plot by calling 
+    the corresponding python file with py, and to export the 4 image files
+    to their appropriate location you just pass the "--export" flag to the
+    python file.
     """
     
     def setUp(self):
