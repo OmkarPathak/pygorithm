@@ -1626,8 +1626,8 @@ class TestExtrapolatedIntersection(unittest.TestCase):
         
         # af01
         intr, dist, msg = fn(((1, 3), (2, 3)), self.pt(1, -1).normalize(), ((3, 3), (5, 0)))
-        self.assertTrue(intr, msg=msg)
-        self.assertAlmostEqual(self.pt(3, -3).magnitude(), dist, msg=msg)
+        self.assertFalse(intr, msg=msg)
+        self.assertIsNone(dist, msg=msg)
         
         # af02
         intr, dist, msg = fn(((1, 1), (2, 1)), self.pt(1, 1).normalize(), ((3, 3), (3, 2)))
@@ -1636,21 +1636,21 @@ class TestExtrapolatedIntersection(unittest.TestCase):
         
         # af03
         intr, dist, msg = fn(((1, 1), (2, 1)), self.pt(1, 1).normalize(), ((2, 3), (3, 3)))
-        self.assertTrue(intr, msg=msg)
-        self.assertAlmostEqual(self.pt(2, 2).magnitude(), dist, msg=msg)
+        self.assertFalse(intr, msg=msg)
+        self.assertIsNone(dist, msg=msg)
         
         # af04
         intr, dist, msg = fn(((1, 1), (2, 1)), (0, 1), ((2, 3), (3, 3)))
-        self.assertTrue(intr, msg=msg)
-        self.assertAlmostEqual(2, dist)
+        self.assertFalse(intr, msg=msg)
+        self.assertIsNone(dist, msg=msg)
         
     def test_line_line_touching_at_start(self):
         fn = self._calc_one_moving_line_one_stat_line_fuzzer
         
         # ag01
         intr, dist, msg = fn(((1, 1), (2, 1)), (0, 1), ((2, 1), (3, 0)))
-        self.assertTrue(intr, msg=msg)
-        self.assertEqual(0, dist, msg=msg)
+        self.assertFalse(intr, msg=msg)
+        self.assertIsNone(dist, msg=msg)
         
         # ag02
         intr, dist, msg = fn(((1, 1), (1, 3)), (1, 0), ((1, 2), (2, 2)))
@@ -1659,13 +1659,13 @@ class TestExtrapolatedIntersection(unittest.TestCase):
         
         # ag03
         intr, dist, msg = fn(((1, 1), (2, 0)), (1, 0), ((0, 1), (1.5, 0.5)))
-        self.assertTrue(intr, msg=msg)
-        self.assertEqual(0, dist, msg=msg)
+        self.assertFalse(intr, msg=msg)
+        self.assertIsNone(dist, msg=msg)
         
         # ag04
         intr, dist, msg = fn(((5, 4), (6, 3)), (-1, -1), ((5.5, 3.5), (6, 4)))
-        self.assertTrue(intr, msg=msg)
-        self.assertEqual(0, dist, msg=msg)
+        self.assertFalse(intr, msg=msg)
+        self.assertIsNone(dist, msg=msg)
         
     def test_line_line_intr_later(self):
         fn = self._calc_one_moving_line_one_stat_line_fuzzer
@@ -1732,19 +1732,19 @@ class TestExtrapolatedIntersection(unittest.TestCase):
         
         # aj01
         intr, msg = fn(((4, 4), (5, 3.5), (5.5, 2.5), (4, 2), (3, 3)), (-1, 0), ((1, 2), (2, 1), (1, 0), (0, 1)))
-        self.assertTrue(intr, msg=msg)
+        self.assertFalse(intr, msg=msg)
         
         # aj02
         intr, msg = fn(((4, 4), (5, 3.5), (5.5, 2.5), (4, 2), (3, 3)), self.pt(-1, -2).normalize(), ((1, 2), (2, 1), (1, 0), (0, 1)))
-        self.assertTrue(intr, msg=msg)
+        self.assertFalse(intr, msg=msg)
         
         # aj03
         intr, msg = fn(((0, 1), (1, 1), (1, 0), (0, 0)), self.pt(1, 2).normalize(), ((2, 2), (3, 3), (4, 2)))
-        self.assertTrue(intr, msg=msg)
+        self.assertFalse(intr, msg=msg)
         
         # aj04
         intr, msg = fn(((0, 1), (1, 1), (1, 0), (0, 0)), self.pt(4, 1).normalize(), ((2, 2), (3, 3), (4, 2)))
-        self.assertTrue(intr, msg=msg)
+        self.assertFalse(intr, msg=msg)
         
         
     def test_one_moving_one_stationary_intr_at_start(self):
@@ -1786,18 +1786,138 @@ class TestExtrapolatedIntersection(unittest.TestCase):
         self.assertTrue(intr, msg=msg)
     
     # calculate_one_moving_one_stationary_distancelimit
+    def _calc_one_moving_one_stat_distlimit_fuzzer(self, poly1tup, vel1tuporvec, poly2tup, distlimit):
+        fn = self.extr_intr.calculate_one_moving_one_stationary_distancelimit
+        poly1 = polygon2.Polygon2(list(vector2.Vector2(p) for p in poly1tup))
+        vel1 = vector2.Vector2(vel1tuporvec)
+        
+        poly2 = polygon2.Polygon2(list(vector2.Vector2(p) for p in poly2tup))
+        offset1 = vector2.Vector2(random.uniform(-1000, 1000), random.uniform(-1000, 1000))
+        offset2 = vector2.Vector2(random.uniform(-1000, 1000), random.uniform(-1000, 1000))
+        vel1scalar = random.uniform(0.1, 10)
+        
+        newpoly1 = polygon2.Polygon2(list(p - offset1 for p in poly1.points))
+        newpoly2 = polygon2.Polygon2(list(p - offset2 for p in poly2.points))
+        newvel1 = vel1 * vel1scalar
+        
+        msg = "\n\npoly1={}\n\npoly2={}\n\nvel1={}, distlimit={}\n\nvel1scalar={}\n\noffset1={}\n\noffset2={}".format(repr(poly1), repr(poly2), repr(vel1), repr(distlimit), repr(vel1scalar), repr(offset1), repr(offset2))
+        
+        intr = fn(newpoly1, offset1, newvel1, newpoly2, offset2, distlimit)
+        return intr, msg
+        
     def test_one_moving_one_stationary_distlimit_no_intr(self):
-        pass
+        fn = _calc_one_moving_one_stat_distlimit_fuzzer
+        
+        # am01
+        intr, msg = fn(((0, 3), (1, 3), (1, 2), (0, 2)), (1, 0), ((2, 0), (3, 1), (4, 0)), 4)
+        self.assertFalse(intr, msg=msg)
+        
+        # am02
+        intr, msg = fn(((1, 4), (2, 4), (2, 3), (1, 3)), (5, -3), ((0, 1), (2, 2), (3, 1), (2, 0)), self.pt(5, -3).magnitude())
+        self.assertFalse(intr, msg=msg)
+        
+        # am03
+        intr, msg = fn(((1, 3), (2, 4), (3, 4), (3, 3)), (3, -2), ((0, 1), (2, 2), (3, 0), (2, 0)), self.pt(3, -2).magnitude())
+        self.assertFalse(intr, msg=msg)
+        
+        # am04
+        intr, msg = fn(((4, 1.75), (5, 2.5), (6, 2.5), (4, 1.25)), (-2, 1), ((4.175), (5, 2.5), (6, 2.5), (4, 1.25)), self.pt(-2, 1).magnitude())
+        self.assertFalse(intr, msg=msg)
+        
     def test_one_moving_one_stationary_distlimit_touching(self):
-        pass
+        fn = _calc_one_moving_one_stat_distlimit_fuzzer
+        
+        # an01
+        intr, msg = fn(((0, 3), (1, 3), (1, 2), (0, 2)), (5, -1.25), ((3, 1), (4, 1), (3, 0), (4, 0)), self.pt(5, -1.25).magnitude())
+        self.assertFalse(intr, msg=msg)
+        
+        # an02
+        intr, msg = fn(((1, 3), (2, 3), (1, 2), (2, 2)), (4, 0), ((1, 0), (2, 1), (4, 2), (5, 0)), 4)
+        self.assertFalse(intr, msg=msg)
+        
+        # an03
+        intr, msg = fn(((1, 3), (2, 4), (3, 4), (3, 2)), (3, -2), ((0, 1), (2.5, 2), (3, 0), (2, 0)), self.pt(3, -2).magnitude())
+        self.assertFalse(intr, msg=msg)
+        
+        # an04
+        intr, msg = fn(((0, 0), (1, 2), (2, 1)), (3, 3), ((3, 2), (5, 3), (5, 1)), self.pt(3, 3).magnitude())
+        self.assertFalse(intr, msg=msg)
+        
     def test_one_moving_one_stationary_distlimit_intr_at_start(self):
-        pass
+        fn = _calc_one_moving_one_stat_distlimit_fuzzer
+        
+        # ao01
+        intr, msg = fn(((3, 3), (4, 3), (4, 1), (3, 1)), (2, 0), ((3, 1), (4, 1), (4, 0), (3, 0)), 2)
+        self.assertFalse(intr, msg=msg)
+        
+        # ao02
+        intr, msg = fn(((3, 3), (4, 3), (4, 1), (3, 1)), (2, -0.25), ((3, 1), (4, 1), (4, 0), (3, 0)), self.pt(2, -0.25).magnitude())
+        self.assertTrue(intr, msg=msg)
+        
+        # ao03
+        intr, msg = fn(((1, 1), (2, 4), (3, 4), (3, 2)), (-1, 2), ((0, 1), (2.5, 2), (3, 0), (2, 0)), self.pt(-1, 2).magnitude())
+        self.assertTrue(intr, msg=msg)
+        
+        # ao04
+        intr, msg = fn(((4, 0), (3, 2), (5, 2)), (0, 1), ((3, 0), (5, 1), (5, -1)), 3)
+        self.assertTrue(intr, msg=msg)
+        
     def test_one_moving_one_stationary_distlimit_intr_later(self):
-        pass
+        fn = _calc_one_moving_one_stat_distlimit_fuzzer
+        
+        # ap01
+        intr, msg = fn(((2, 3), (3, 3), (3, 2), (2, 2)), (5, 4), ((3, 5), (4, 5), (4, 4), (3, 4)), self.pt(5, 4).magnitude())
+        self.assertTrue(intr, msg=msg)
+        
+        # ap02
+        intr, msg = fn(((8, 5), (7, 3), (6, 3)), (-4, -3), ((4, 3), (4.5, 3.5), (7, 1), (6, 0)), self.pt(-4, -3).magnitude())
+        self.assertTrue(intr, msg=msg)
+        
+        # ap03
+        intr, msg = fn(((4, 3), (6, 3), (6, 2), (5, 1)), (-1, 0), ((4, 1.25), (5, 0), (3, 0)), 3)
+        self.assertTrue(intr, msg=msg)
+        
+        # ap04
+        intr, msg = fn(((2, 1), (6, 1), (5, 0)), (0, 1), ((3, 3), (4, 3), (4, 2), (3, 2)), 4)
+        self.assertTrue(intr, msg=msg)
+        
     def test_one_moving_one_stationary_distlimit_touch_at_limit(self):
-        pass
+        fn = _calc_one_moving_one_stat_distlimit_fuzzer
+        
+        # aq01
+        intr, msg = fn(((0, 1), (1, 1), (1, 0), (0, 0)), (4, 3), ((3, 5), (4, 5), (4, 4), (3, 4)), self.pt(4, 3).magnitude())
+        self.assertFalse(intr, msg=msg)
+        
+        # aq02
+        intr, msg = fn(((5, 6), (4, 3), (4, 4)), (2, -1.5), ((1, 3), (2, 3.5), (7, 1), (6, 0)), self.pt(2, -1.5).magnitude())
+        self.assertFalse(intr, msg=msg)
+        
+        # aq03
+        intr, msg = fn(((4, 3), (6, 3), (6, 2), (5, 1)), (-1, 0), ((0, 3), (1, 3), (2, 1), (0, 1)), 3)
+        self.assertFalse(intr, msg=msg)
+        
+        # aq04
+        intr, msg = fn(((2, 1), (6, 1), (5, 0)), (0, 1), ((3, 4), (4, 4), (4, 3), (3, 3)), 2)
+        self.assertFalse(intr, msg=msg)
+        
     def test_one_moving_one_stationary_distlimit_intr_after_limit(self):
-        pass
+        fn = _calc_one_moving_one_stat_distlimit_fuzzer
+        
+        # ar01
+        intr, msg = fn(((0, 1), (1, 1), (1, 0), (0, 0)), (4, 3), ((5.5, 5.5), (6.5, 5.5), (6.5, 4.5), (5.5, 4.5)), self.pt(4, 3).magnitude())
+        self.assertFalse(intr, msg=msg)
+        
+        # ar02
+        intr, msg = fn(((5, 6), (4, 3), (4, 4)), (2, -1.5), ((1, 3), (2, 3.5), (7, 1), (6, 0)), 1.5)
+        self.assertFalse(intr, msg=msg)
+        
+        # ar03
+        intr, msg = fn(((4, 3), (6, 3), (6, 2), (5, 1)), (-1, 0), ((0, 3), (1, 3), (2, 1), (0, 1)), 2.5)
+        self.assertFalse(intr, msg=msg)
+        
+        # ar04
+        intr, msg = fn(((2, 1), (6, 1), (5, 0)), (0, 1), ((3, 4), (4, 4), (4, 3), (3, 3)), 1.75)
+        self.assertFalse(intr, msg=msg)
         
     # calculate_one_moving_one_stationary_along_path
     def test_one_moving_one_stationary_along_path_no_intr(self):
