@@ -12,8 +12,8 @@ if intersections will occur.
 
 .. note::
     
-    Touching is not considered intersecting in this module. Touching 
-    is determined using `math.isclose`
+    Touching is not considered intersecting in this module, unless otherwise
+    stated. Touching is determined using `math.isclose`
     
 """
 
@@ -23,6 +23,12 @@ def calculate_one_moving_point_and_one_stationary_line(point, velocity, line, of
     
     The line is positioned at offset. Given a moving point and line segment,
     determine if the point will ever intersect the line segment.
+    
+    .. caution::
+        
+        Points touching at the start are considered to be intersection. This 
+        is because there is no way to get the "direction" of a stationary
+        point like you can a line or polygon.
     
     :param point: the starting location of the point
     :type point: :class:`pygorithm.geometry.vector2.Vector2`
