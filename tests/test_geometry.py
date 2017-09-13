@@ -2072,8 +2072,66 @@ class TestExtrapolatedIntersection(unittest.TestCase):
         self.assertFalse(intr, msg=msg)
         
     # calculate_one_moving_many_stationary
+    def _calc_one_moving_many_stat_fuzzer(self, poly1tup, poly1vec, other_poly_tups_arr):
+        fn = self.extr_intr.calculate_one_moving_many_stationary
+        
+        poly1 = polygon2.Polygon2(list(vector2.Vector2(p) for p in poly1tup))
+        vec1 = vector2.Vector2(poly1vec)
+        other_polys_arr = list(polygon2.Polygon2(list(vector2.Vector2(p) for p in poly)) for poly in other_poly_tups_arr)
+        
+        offset1 = vector2.Vector2(random.uniform(-1000, 1000), random.uniform(-1000, 1000))
+        other_offsets = list(random.uniform(-1000, 1000) for poly in other_polys_arr)
+        
+        newpoly1 = polygon2.Polygon2(list(p + offset1 for p in poly1.points))
+        other_polys_offsets_comb = list((polygon2.Polygon2(list(p + other_offsets[i] for p in other_polys_arr[i].points)), other_offsets[i]) for i in range(len(other_offsets)))
+        
+        msg = "poly1={}\nvec1={}\noffset1={}\n\nOTHER POLYGONS:\n\n"
+        
+        for ind, tup in enumerate(other_polys_offsets_comb):
+          poly = tup[0]
+          offset = tup[1]
+          
+          msg = msg + "poly{}={}\noffset{}={}".format(ind, poly, ind, offset)
+        
+        result = fn(poly1, offset1, vec1, other_polys_offsets_comb)
+        return result, msg
+      
     def test_one_moving_many_stationary_no_intr(self):
-        pass
+        fn = self._calc_one_moving_many_stat_fuzzer
+        
+        # ay01
+        intr, msg = fn(((3, 3), (4, 3), (4, 4), (3, 4)), (1, 1), [
+          ((6, 3), (7, 3), (7, 4), (6, 4)),
+          ((3, 6), (3, 7), (4, 7), (4, 6)),
+          ((4, 10), (6, 11), (6, 8), (2, 7))
+        ])
+        self.assertFalse(intr, msg=msg)
+        
+        # ay02
+        intr, msg = fn(((-1, -9.5), (-1, -5.5), (3, -5.5), (4, -7.5)), (1, 2), [
+          ((6, -6), (8, -7), (7, -9)),
+          ((0, 2), (2, 3), (1, 1)),
+          ((-2, -2), (-2, -1), (-1, -1), (-1, -2)),
+          ((8, -4), (8, -3), (7, -3), (7, -4))
+        ])
+        self.assertFalse(intr, msg=msg)
+        
+        # ay03
+        intr, msg = fn(((18.5, 3), (17.5, 3), (17.5, 5), (19.5, 5)), (-1, 3), [
+          ((18, 13), (20, 14), (18.5, 11)),
+          ((5, 5), (6, 2), (3, 3), (2, 4))
+        ])
+        self.assertFalse(intr, msg=msg)
+        
+        # ay04
+        intr, msg = fn(((-6, 2), (-6, 1), (-8, 0), (-8, 2)), (10, 0), [
+          ((-7, 3), (-7, 4), (-6, 4), (-6, 3)),
+          ((-6, 3), (-6, 4), (-5, 4), (-5, 3)),
+          ((-5, 3), (-5, 4), (-4, 4), (-4, 3)),
+          ((-4, 3), (-4, 4), (-3, 4), (-3, 3))
+        ])
+        self.assertFalse(intr, msg=msg)
+    
     def test_one_moving_many_stationary_touching(self):
         pass
     def test_one_moving_many_stationary_intr_at_start(self):
