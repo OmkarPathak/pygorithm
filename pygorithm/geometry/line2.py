@@ -398,6 +398,51 @@ class Line2(object):
         return math.isclose(line1.slope, line2.slope)
     
     @staticmethod
+    def contains_point(line, point, offset = None):
+      """
+      Determine if the line contains the specified point.
+      
+      Optionally, specify an offset for the line. Being
+      on the line is determined using `math.isclose`.
+      
+      :param line: the line
+      :type line: :class:`pygorithm.geometry.line2.Line2`
+      :param point: the point
+      :type point: :class:`pygorithm.geometry.vector2.Vector2`
+      :param offset: the offset of the line or None for the origin
+      :type offset: :class:`pygorithm.geometry.vector2.Vector2` or None
+      :returns: if the point is on the line
+      :rtype: bool
+      """
+      
+      if line.vertical:
+        x = line.start.x + offset.x if offset is not None else line.start.x
+        if not math.isclose(point.x, x, abs_tol=1e-07):
+          return False
+        ymin = line.min_y + offset.y if offset is not None else line.min_y
+        ymax = line.max_y + offset.y if offset is not None else line.max_y
+        if math.isclose(point.y, ymin, abs_tol=1e-07) or math.isclose(point.y, ymax, abs_tol=1e-07):
+          return True
+        return point.y > ymin and point.y < ymax
+      
+      xmin = line.min_x + offset.x if offset is not None else line.min_x
+      xmax = line.max_x + offset.x if offset is not None else line.max_x
+      
+      if not (math.isclose(point.x, xmin, abs_tol=1e-07) or point.x > xmin):
+        return False
+      
+      if not (math.isclose(point.x, xmax, abs_tol=1e-07) or point.x < xmax):
+        return False
+        
+      ystart = line.start.y + offset.y if offset is not None else line.start.y
+      if line.horizontal:
+        return math.isclose(ystart, point.y, abs_tol=1e-07)
+      
+      yint = line.calculate_y_intercept(offset)
+      yatx = line.slope * point.x + yint
+      return math.isclose(point.y, yatx, abs_tol=1e-07)
+      
+    @staticmethod
     def find_intersection(line1, line2, offset1 = None, offset2 = None):
         """
         Find the intersection between the two lines.

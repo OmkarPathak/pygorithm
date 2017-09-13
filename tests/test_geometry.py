@@ -340,6 +340,13 @@ class TestLine2(unittest.TestCase):
         
         _line = line2.Line2(vector2.Vector2(5, 4), vector2.Vector2(3, 1))
         self.assertTrue(line2.Line2.are_parallel(self.line_1_1_3_4, _line))
+    
+    def test_contains_point(self):
+        self.assertFalse(line2.Line2.contains_point(self.line_origin_1_1, self.vec_1_1, self.vec_1_2))
+        self.assertTrue(line2.Line2.contains_point(self.line_origin_1_1, self.vec_1_1))
+        self.assertTrue(line2.Line2.contains_point(self.line_1_1_3_4, vector2.Vector2(2, 2.5)))
+        self.assertFalse(line2.Line2.contains_point(self.line_1_1_3_4, vector2.Vector2(2, 2.5), vector2.Vector2(1, 0)))
+        self.assertTrue(line2.Line2.contains_point(line2.Line2(vector2.Vector2(-3, -3), vector2.Vector2(6, 3)), vector2.Vector2(3, 1)))
         
     def _find_intr_fuzzer(self, v1, v2, v3, v4, exp_touching, exp_overlap, exp_intr, number_fuzzes = 3):
         for i in range(number_fuzzes):
@@ -1806,7 +1813,7 @@ class TestExtrapolatedIntersection(unittest.TestCase):
         return intr, msg
         
     def test_one_moving_one_stationary_distlimit_no_intr(self):
-        fn = _calc_one_moving_one_stat_distlimit_fuzzer
+        fn = self._calc_one_moving_one_stat_distlimit_fuzzer
         
         # am01
         intr, msg = fn(((0, 3), (1, 3), (1, 2), (0, 2)), (1, 0), ((2, 0), (3, 1), (4, 0)), 4)
@@ -1821,18 +1828,18 @@ class TestExtrapolatedIntersection(unittest.TestCase):
         self.assertFalse(intr, msg=msg)
         
         # am04
-        intr, msg = fn(((4, 1.75), (5, 2.5), (6, 2.5), (4, 1.25)), (-2, 1), ((4.175), (5, 2.5), (6, 2.5), (4, 1.25)), self.pt(-2, 1).magnitude())
+        intr, msg = fn(((4, 1.75), (5, 2.5), (6, 2.5), (4, 1.25)), (-2, 1), ((4, 1.75), (5, 2.5), (6, 2.5), (4, 1.25)), self.pt(-2, 1).magnitude())
         self.assertFalse(intr, msg=msg)
         
     def test_one_moving_one_stationary_distlimit_touching(self):
-        fn = _calc_one_moving_one_stat_distlimit_fuzzer
+        fn = self._calc_one_moving_one_stat_distlimit_fuzzer
         
         # an01
-        intr, msg = fn(((0, 3), (1, 3), (1, 2), (0, 2)), (5, -1.25), ((3, 1), (4, 1), (3, 0), (4, 0)), self.pt(5, -1.25).magnitude())
+        intr, msg = fn(((0, 3), (1, 3), (1, 2), (0, 2)), (5, -1.25), ((3, 1), (4, 1), (4, 0), (3, 0)), self.pt(5, -1.25).magnitude())
         self.assertFalse(intr, msg=msg)
         
         # an02
-        intr, msg = fn(((1, 3), (2, 3), (1, 2), (2, 2)), (4, 0), ((1, 0), (2, 1), (4, 2), (5, 0)), 4)
+        intr, msg = fn(((1, 3), (2, 3), (2, 2), (1, 2)), (4, 0), ((1, 0), (2, 1), (4, 2), (5, 0)), 4)
         self.assertFalse(intr, msg=msg)
         
         # an03
@@ -1844,7 +1851,7 @@ class TestExtrapolatedIntersection(unittest.TestCase):
         self.assertFalse(intr, msg=msg)
         
     def test_one_moving_one_stationary_distlimit_intr_at_start(self):
-        fn = _calc_one_moving_one_stat_distlimit_fuzzer
+        fn = self._calc_one_moving_one_stat_distlimit_fuzzer
         
         # ao01
         intr, msg = fn(((3, 3), (4, 3), (4, 1), (3, 1)), (2, 0), ((3, 1), (4, 1), (4, 0), (3, 0)), 2)
@@ -1863,7 +1870,7 @@ class TestExtrapolatedIntersection(unittest.TestCase):
         self.assertTrue(intr, msg=msg)
         
     def test_one_moving_one_stationary_distlimit_intr_later(self):
-        fn = _calc_one_moving_one_stat_distlimit_fuzzer
+        fn = self._calc_one_moving_one_stat_distlimit_fuzzer
         
         # ap01
         intr, msg = fn(((2, 3), (3, 3), (3, 2), (2, 2)), (5, 4), ((3, 5), (4, 5), (4, 4), (3, 4)), self.pt(5, 4).magnitude())
@@ -1882,7 +1889,7 @@ class TestExtrapolatedIntersection(unittest.TestCase):
         self.assertTrue(intr, msg=msg)
         
     def test_one_moving_one_stationary_distlimit_touch_at_limit(self):
-        fn = _calc_one_moving_one_stat_distlimit_fuzzer
+        fn = self._calc_one_moving_one_stat_distlimit_fuzzer
         
         # aq01
         intr, msg = fn(((0, 1), (1, 1), (1, 0), (0, 0)), (4, 3), ((3, 5), (4, 5), (4, 4), (3, 4)), self.pt(4, 3).magnitude())
@@ -1901,7 +1908,7 @@ class TestExtrapolatedIntersection(unittest.TestCase):
         self.assertFalse(intr, msg=msg)
         
     def test_one_moving_one_stationary_distlimit_intr_after_limit(self):
-        fn = _calc_one_moving_one_stat_distlimit_fuzzer
+        fn = self._calc_one_moving_one_stat_distlimit_fuzzer
         
         # ar01
         intr, msg = fn(((0, 1), (1, 1), (1, 0), (0, 0)), (4, 3), ((5.5, 5.5), (6.5, 5.5), (6.5, 4.5), (5.5, 4.5)), self.pt(4, 3).magnitude())
@@ -1923,7 +1930,9 @@ class TestExtrapolatedIntersection(unittest.TestCase):
     def _calc_one_moving_one_stat_along_path_fuzzer(self, poly1tup, pos1tuporvec, pos2tuporvec, poly2tup, reverse=False):
         # i generated a few polygons in the wrong order when making these tests
         if reverse:
+            poly1tup = list(p for p in poly1tup)
             poly1tup.reverse()
+            poly2tup = list(p for p in poly2tup)
             poly2tup.reverse()
             
         fn = self.extr_intr.calculate_one_moving_one_stationary_along_path
@@ -1956,34 +1965,34 @@ class TestExtrapolatedIntersection(unittest.TestCase):
         self.assertFalse(intr, msg=msg)
         
         # as02
-        intr, msg = fn(((11, 5), (8, 8), (7, 7), (6, 3), (9, 3), (11, 5)), (0, 0), (-1, -3), ((3.5, 8.5), (1.5, 8.5), (1.5, 8.5), (-0.5, 7.5), (0.5, 3.5), (1.5, 2.5), (4.5, 2.5), (5.5, 6.5)), reverse=True)
+        intr, msg = fn(((11, 5), (8, 8), (7, 7), (6, 3), (9, 3)), (0, 0), (-1, -3), ((3.5, 8.5), (1.5, 8.5), (-0.5, 7.5), (0.5, 3.5), (1.5, 2.5), (4.5, 2.5), (5.5, 6.5)), reverse=True)
         self.assertFalse(intr, msg=msg)
         
         # as03
-        intr, msg = fn(((0.5, 9.0), (-1.5, 8.0), (-1.5, 6.0), (1.5, 5.0), (2.5, 5.0), (2.5, 9.0)), (0, 0), (0, 5), ((7.0, 6.0), (4.0, 5.0), (4.0, 3.0), (6.0, 2.0), (8.0, 3.0), (7.0, 6.0)), reverse=True)
+        intr, msg = fn(((0.5, 9.0), (-1.5, 8.0), (-1.5, 6.0), (1.5, 5.0), (2.5, 5.0), (2.5, 9.0)), (0, 0), (0, 5), ((7.0, 6.0), (4.0, 5.0), (4.0, 3.0), (6.0, 2.0), (8.0, 3.0)), reverse=True)
         self.assertFalse(intr, msg=msg)
         
         # as04
-        intr, msg = fn(((5.5, 4.5), (3.5, -1.5), (9.5, -1.5), (10.5, 0.5)), (0, 0), (-4, 0), ((7.5, 8.5), (7.5, 8.5), (6.5, 5.5), (7.5, 4.5), (9.5, 4.5), (10.5, 7.5)), reverse=True)
+        intr, msg = fn(((5.5, 4.5), (3.5, -1.5), (9.5, -1.5), (10.5, 0.5)), (0, 0), (-4, 0), ((7.5, 8.5), (6.5, 5.5), (7.5, 4.5), (9.5, 4.5), (10.5, 7.5)), reverse=True)
         self.assertFalse(intr, msg=msg)
         
     def test_one_moving_one_stationary_along_path_touching(self):
         fn = self._calc_one_moving_one_stat_along_path_fuzzer
         
         # at01
-        intr, msg = fn(((3, 10), (2, 10), (1, 8), (2, 6), (2, 6), (5, 6), (7, 8)), (0, 0), (8, 0), ((10, 5), (8, 6), (6, 5), (6, 4), (7, 2), (10, 4)), reverse=True)
+        intr, msg = fn(((3, 10), (2, 10), (1, 8), (2, 6), (5, 6), (7, 8)), (0, 0), (8, 0), ((10, 5), (8, 6), (6, 5), (6, 4), (7, 2), (10, 4)), reverse=True)
         self.assertFalse(intr, msg=msg)
         
         # at02
-        intr, msg = fn(((5, 5), (4, 5), (2, 0), (4, -1), (6, 0), (5, 5)), (0, 0), (-5, 0), ((2, 11), (-2, 8), (2, 5), (3, 6), (3, 11)), reverse=True)
+        intr, msg = fn(((5, 5), (4, 5), (2, 0), (4, -1), (6, 0)), (0, 0), (-5, 0), ((2, 11), (-2, 8), (2, 5), (3, 6), (3, 11)), reverse=True)
         self.assertFalse(intr, msg=msg)
         
         # at03
-        intr, msg = fn((9.5, 8.5), (8.5, 7.5), (9.5, 5), (10.5, 7)), (0, 0), (-9, -9), ((2, 5), (-1, 5), (-2, 3), (2, 1), (3, 2)), reverse=True)
+        intr, msg = fn(((9.5, 8.5), (8.5, 7.5), (9.5, 5), (10.5, 7)), (0, 0), (-9, -9), ((2, 5), (-1, 5), (-2, 3), (2, 1), (3, 2)), reverse=True)
         self.assertFalse(intr, msg=msg)
         
         # at04
-        intr, msg = fn(((4.5, 4), (0.5, 2), (0.5, 1), (0.5, 0), (2.5, -2), (3.5, -2), (5.5, -1), (4.5, 4)), (0, 0), (6.7492919018596025, 4.29500393754702), ((8, 8.5), (5, 9.5), (4, 8.5), (6, 5.5), (6, 5.5)), reverse=True)
+        intr, msg = fn(((4.5, 4), (0.5, 2), (0.5, 1), (0.5, 0), (2.5, -2), (3.5, -2), (5.5, -1)), (0, 0), (6.7492919018596025, 4.29500393754702), ((8, 8.5), (5, 9.5), (4, 8.5), (6, 5.5)), reverse=True)
         self.assertFalse(intr, msg=msg)
         
     def test_one_moving_one_stationary_along_path_intr_at_start(self):
