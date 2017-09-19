@@ -1584,9 +1584,9 @@ class TestExtrapolatedIntersection(unittest.TestCase):
         self.assertAlmostEqual(3, dist, msg=repr(offset))
         
         # ad04
-        intr, dist, offset = fn(self.pt(6, 4), self.pt(-3, -1).normalize(), self.ln(self.pt(1, 1), self.pt(5, 3)))
+        intr, dist, offset = fn(self.pt(6, 4), self.pt(-3, -2).normalize(), self.ln(self.pt(1, 1), self.pt(5, 3)))
         self.assertTrue(intr, msg=repr(offset))
-        self.assertAlmostEqual(self.pt(-3, -1).magnitude(), dist, msg=repr(offset))
+        self.assertAlmostEqual(self.pt(-3, -2).magnitude(), dist, msg=repr(offset))
         
     
     # calculate_one_moving_line_and_one_stationary_line
@@ -2133,7 +2133,41 @@ class TestExtrapolatedIntersection(unittest.TestCase):
         self.assertFalse(intr, msg=msg)
     
     def test_one_moving_many_stationary_touching(self):
-        pass
+        fn = self._calc_one_moving_many_stat_fuzzer
+        
+        # az01
+        intr, msg = fn(((3, 3), (4, 3), (4, 4), (3, 4)), (3, 4), [
+          ((6, 3), (7, 3), (7, 4), (6, 4)),
+          ((3, 6), (3, 7), (4, 7), (4, 6)),
+          ((4, 10), (6, 11), (6, 8), (2, 7))
+        ])
+        self.assertFalse(intr, msg=msg)
+        
+        # az02
+        intr, msg = fn(((-1, -9.5), (-1, -5.5), (3, -5.5), (4, -7.5)), (4, 6), [
+          ((6, -6), (8, -7), (7, -9)),
+          ((0, 2), (2, 3), (1, 1)),
+          ((-2, -2), (-2, -1), (-1, -1), (-1, -2)),
+          ((8, -4), (8, -3), (7, -3), (7, -4))
+        ])
+        self.assertFalse(intr, msg=msg)
+        
+        # az03
+        intr, msg = fn(((18.5, 3), (17.5, 3), (17.5, 5), (19.5, 5)), (-12.5, 2), [
+          ((18, 13), (20, 14), (18.5, 11)),
+          ((5, 5), (6, 2), (3, 3), (2, 4))
+        ])
+        self.assertFalse(intr, msg=msg)
+        
+        # az04
+        intr, msg = fn(((-6, 2), (-6, 1), (-8, 0), (-8, 2)), (-4, 6), [
+          ((-7, 3), (-7, 4), (-6, 4), (-6, 3)),
+          ((-6, 3), (-6, 4), (-5, 4), (-5, 3)),
+          ((-5, 3), (-5, 4), (-4, 4), (-4, 3)),
+          ((-4, 3), (-4, 4), (-3, 4), (-3, 3))
+        ])
+        self.assertFalse(intr, msg=msg)
+        
     def test_one_moving_many_stationary_intr_at_start(self):
         pass
     def test_one_moving_many_stationary_intr_later(self):

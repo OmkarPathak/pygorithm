@@ -17,6 +17,85 @@ if intersections will occur.
     
 """
 
+from pygorithm.geometry import (vector2, line2, polygon2, axisall)
+import math
+
+def __calc_one_moving_one_stat_vertical_velocity(point, velocity, line, offset):
+  line_as_axisall = axisall.AxisAlignedLine(None, line.min_x + offset.x, line.max_x + offset.x)
+  outer, inner = axisall.AxisAlignedLine.contains_point(line_as_axisall, point.x)
+  if not outer and not inner:
+    return False, None
+  
+  if line.vertical:
+    if velocity.y > 0:
+      if point.y < line.min_y + offset.y:
+        dist = line.min_y + offset.y - point.y
+        return True, dist
+      else:
+        return False, None
+    else:
+      if point.y > line.max_y + offset.y:
+        dist = point.y - line.max_y - offset.y
+        return True, dist
+      else:
+        return False, None
+  
+  line_yintr = line.calculate_y_intercept(offset)
+  liney_at_pointx = line.slope * point.x + line_yintr
+  
+  point_to_line = liney_at_pointx - point.y
+  if not math.isclose(math.copysign(1, point_to_line), math.copysign(1, velocity.y)):
+    return False, None
+  
+  return True, abs(point.y - liney_at_pointx)
+  
+def __calc_one_moving_one_stat_vertical_line(point, velocity, line, offset):
+  # nonvertical velocity, point not on line
+  
+  if math.isclose(point.x, line.start.x, abs_tol = 1e-07):
+    # it's impossible that the point intersects a vertical line that it 
+    # is at the start of except at the point, but that's checked previously
+    return False, None
+  
+  if velocity.x > 0 and (line.start.x + offset.x) < point.x:
+    return False, None
+  if velocity.x < 0 and (line.start.x + offset.x) > point.x:
+    return False, None
+    
+  point_slope = velocity.y / velocity.x
+  point_yintr = point.y - point_slope * point.x
+  
+  point_y_at_line_x = point_slope * (line.start.x + offset.x) + point_yintr
+  
+  line_as_axisall = axisall.AxisAlignedLine(None, line.min_y + offset.y, line.max_y + offset.y)
+  outer, inner = axisall.AxisAlignedLine.contains_point(line_as_axisall, point_y_at_line_x)
+  if not outer and not inner:
+    return False, None
+  
+  dist = (vector2.Vector2(line.start.x + offset.x, point_y_at_line_x) - point).magnitude()
+  return True, dist
+  
+def __calc_one_moving_one_stat_parallel(point, velocity, line, offset, point_slope):
+  # vel not vertical, line not vertical, point not on line, line is parallel to velocity
+  
+  if not math.isclose(line.slope, point_slope, abs_tol=1e-07):
+    return False, None
+  
+  line_as_axisall = axisall.AxisAlignedLine(line.axis, (line.start + offset).dot(line.axis), (line.end + offset).dot(line.axis))
+  point_on_axis = point.dot(line.axis)
+  vel_on_axis_sign = math.copysign(1, velocity.dot(line.axis))
+  
+  if point_on_axis < line_as_axisall.min:
+    if vel_on_axis_sign < 0:
+      return False, None
+    else:
+      return True, line_as_axisall.min - point_on_axis
+  else:
+    if vel_on_axis_sign > 0:
+      return False, None
+    else:
+      return True, point_on_axis - line_as_axisall.max 
+  
 def calculate_one_moving_point_and_one_stationary_line(point, velocity, line, offset):
     """
     Determine if the point moving at velocity will intersect the line.
@@ -41,7 +120,40 @@ def calculate_one_moving_point_and_one_stationary_line(point, velocity, line, of
     :returns: if the point will intersect the line, distance until intersection
     :rtype: bool, :class:`numbers.Number` or None
     """
-    return False, -1
+    if offset is None:
+      offset = vector2.Vector2(0, 0)
+    
+    if line2.Line2.contains_point(line, point, offset):
+      return True, 0
+    
+    if math.isclose(velocity.x, 0, abs_tol=1e-07):
+      return __calc_one_moving_one_stat_vertical_velocity(point, velocity, line, offset)
+    if line.vertical:
+      return __calc_one_moving_one_stat_vertical_line(point, velocity, line, offset)
+    
+    point_slope = velocity.y / velocity.x
+    if math.isclose(line.slope, point_slope, abs_tol=1e-07):
+      return __calc_one_moving_one_stat_parallel(point, velocity, line, offset, point_slope)
+    
+    point_yintr = point.y - point_slope * point.x
+    line_yintr = line.calculate_y_intercept(offset)
+    
+    # m1x + b1 = m2x + b2
+    # x = b2 - b1 / m1 - m2
+    intr_x = (line_yintr - point_yintr) / (point_slope - line.slope)
+    intr_y = point_slope * intr_x + point_yintr 
+    intr_vec = vector2.Vector2(intr_x, intr_y)
+    if not line2.Line2.contains_point(line, intr_vec, offset):
+      return False, None
+    
+    point_to_intr = intr_vec - point
+    vel_normal = velocity.normalize()
+    ptintr_dot_veln = point_to_intr.dot(vel_normal)
+    
+    if ptintr_dot_veln < 0:
+      return False, None 
+    
+    return True, ptintr_dot_veln
     
 def calculate_one_moving_line_and_one_stationary_line(line1, offset1, velocity1, _line2, offset2):
     """
