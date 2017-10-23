@@ -1,7 +1,6 @@
-'''
-Node class to create a node
-for trie
-'''
+"""
+Author: MrDupin
+"""
 
 class Node:
     def __init__(self, v, p=None, w=False):
