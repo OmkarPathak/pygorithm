@@ -10,7 +10,8 @@ from pygorithm.sorting import (
     counting_sort,
     bucket_sort,
     shell_sort,
-    heap_sort)
+    heap_sort,
+    radix_sort)
 
 
 class TestSortingAlgorithm(unittest.TestCase):
@@ -104,6 +105,17 @@ class TestHeapSort(TestSortingAlgorithm):
 
         self.alphaResult = heap_sort.sort(self.alphaArray)
         self.assertEqual(self.alphaResult, self.sorted_alpha_array)
+
+
+class TestRadixSort(TestSortingAlgorithm):
+    def test_radix_sort(self):
+        self.result = radix_sort.sort(self.array)
+        self.assertEqual(self.result, self.sorted_array)
+
+        # TODO: Fix radix sort to sort alphabetically
+        # self.alphaResult = radix_sort.sort(self.alphaArray)
+        # self.assertEqual(self.alphaResult, self.sorted_alpha_array)
+
 
 if __name__ == '__main__':
     unittest.main()
