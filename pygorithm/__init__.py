@@ -30,6 +30,7 @@ Timothy 'Tjsretchalot' Moore
 Sharad 'sharadbhat' Bhat
 Alexey 'aesee' Sarapulov
 Anthony 'MrDupin' Marakis
+Ashey 'asheywalke' Walke
 
 """
 
@@ -57,7 +58,8 @@ __contributors__ = [
     "Emil 'Skeen' Madsen",
     "Ian 'IanDoarn' Doarn",
     "Timothy 'Tjstretchalot' Moore",
-    "Sharad 'sharadbhat' Bhat"
+    "Sharad 'sharadbhat' Bhat",
+    "Ashey 'asheywalke' Walke"
 ]
 
 __all__ = [
