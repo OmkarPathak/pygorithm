@@ -72,6 +72,16 @@ class BinaryTree(object):
         self._pre_order = []
         self._post_order = []
 
+    def insert(self, data):
+        """
+        insert data to root or create a root node
+        """
+        if self.root:
+           self.root.set_data(data)
+        else:
+           self.root = Node()
+           self.root.set_data(data)
+        
     def inorder(self, root):
         """
         in this we traverse first to the leftmost node,
@@ -117,6 +127,24 @@ class BinaryTree(object):
             self._post_order.append(root.get_data())
         return self._post_order
 
+    def number_of_nodes(self, root):
+        """
+        counting number of nodes
+        """
+        # need testing
+        left_number = 0;
+        right_number = 0;
+
+        #number of nodes left side
+        if root.get_left():
+            left_number = self.number_of_nodes(root.get_left())
+
+        #numbeof nodes right side
+        if root.get_right():
+            right_number = self.number_of_nodes(root.get_right())
+
+        return left_number + right_number + 1
+    
     @staticmethod
     def get_code():
         """
@@ -358,6 +386,24 @@ class BinarySearchTree(object):
         """
         if self.root is not None:
             return self.root.postorder(self.root)
+    
+    def number_of_nodes(self, root):
+        """
+        counting number of nodes
+        """
+        # need testing
+        left_number = 0;
+        right_number = 0;
+
+        #number of nodes left side
+        if root.get_left():
+            left_number = self.number_of_nodes(root.get_left())
+
+        #numbeof nodes right side
+        if root.get_right():
+            right_number = self.number_of_nodes(root.get_right())
+
+        return left_number + right_number + 1
     
     @staticmethod
     def get_code():
