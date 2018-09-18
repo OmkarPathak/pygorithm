@@ -2,6 +2,10 @@
 Pygorithm
 =========
 
+.. image:: http://pepy.tech/badge/pygorithm
+   :target: http://pepy.tech/project/pygorithm
+   :alt: Downloads
+
 .. image:: https://readthedocs.org/projects/pygorithm/badge/?version=latest
    :target: http://pygorithm.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
