@@ -13,11 +13,15 @@ import inspect
 def sort(_list):
     """
     heap sort algorithm
+    Create the heap using heapify().
+    This is an implementation of max-heap, so after bullding the heap, the max element is at the top (_list[0]).
+    We move it to the end of the list (_list[end]), which will later become the sorted list.
+    After moving this element to the end, we take the element in the end to the top and shift it down to its right location in the heap.
+    We proceed to do the same for all elements in the heap, such that in the end we're left with the sorted list.
 
     :param _list: list of values to sort
     :return: sorted values
     """
-    # TODO: Add description of how this works!
     
     # create the heap
     heapify(_list)              
