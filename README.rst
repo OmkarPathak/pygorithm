@@ -22,6 +22,10 @@ Pygorithm
 .. image:: https://img.shields.io/badge/Say%20Thanks-%F0%9F%A6%89-1EAEDB.svg 
    :target: https://saythanks.io/to/OmkarPathak
    :alt: Say Thanks!
+   
+.. image:: https://img.shields.io/github/contributors/omkarpathak/pygorithm.svg
+   :target: https://github.com/OmkarPathak/pygorithm/graphs/contributors
+   :alt: Contributors
 
 | A Python module to learn all the major algorithms on the go!
 | Purely for educational purposes
