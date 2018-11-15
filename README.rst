@@ -2,6 +2,11 @@
 Pygorithm
 =========
 
+
+.. image:: https://img.shields.io/packagist/l/doctrine/orm.svg
+   :target: https://github.com/OmkarPathak/pygorithm/blob/master/LICENSE
+   :alt: Packagist
+
 .. image:: http://pepy.tech/badge/pygorithm
    :target: http://pepy.tech/project/pygorithm
    :alt: Downloads
@@ -13,6 +18,10 @@ Pygorithm
 .. image:: https://img.shields.io/badge/Python-3.6-brightgreen.svg
    :target: https://github.com/OmkarPathak/pygorithm
    :alt: Python 3.6
+   
+.. image:: https://img.shields.io/badge/Say%20Thanks-%F0%9F%A6%89-1EAEDB.svg 
+   :target: https://saythanks.io/to/OmkarPathak
+   :alt: Say Thanks!
 
 | A Python module to learn all the major algorithms on the go!
 | Purely for educational purposes
