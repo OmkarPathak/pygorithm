@@ -5,7 +5,7 @@
 - [x] Binary Tree
 - [x] Binary Search Tree
 - [ ] Inorder to Preorder
-- [ ] Count Leaf Nodes
+- [x] Count Leaf Nodes
 
 ### Graph
 
@@ -27,4 +27,4 @@
 
 ## Backtracking
 
-- [ ] N-Queens
+- [x] N-Queens
