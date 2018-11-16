@@ -405,6 +405,17 @@ class BinarySearchTree(object):
 
         return left_number + right_number + 1
     
+    def getLeafCount(node): 
+	    """
+        counting number of leaf nodes
+        """
+        if node is None: 
+		    return 0
+	    if(node.left is None and node.right is None): 
+		    return 1
+	    else: 
+		    return getLeafCount(node.left) + getLeafCount(node.right) 
+    
     @staticmethod
     def get_code():
         """
