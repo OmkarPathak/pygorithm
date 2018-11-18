@@ -8,7 +8,7 @@ def print_solution(board):
 	for i in range(N): 
 		for j in range(N): 
 			print (board[i][j]), 
-		print
+		
 
 
 # A utility function to check if a queen can 
