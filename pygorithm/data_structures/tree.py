@@ -405,7 +405,7 @@ class BinarySearchTree(object):
 
         return left_number + right_number + 1
     
-    def getLeafCount(node): 
+    def get_leaf_count(node): 
 	    """
         counting number of leaf nodes
         """
