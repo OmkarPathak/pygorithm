@@ -4,7 +4,7 @@
 global N 
 N = 4
 
-def printSolution(board): 
+def print_solution(board): 
 	for i in range(N): 
 		for j in range(N): 
 			print (board[i][j]), 
@@ -17,7 +17,7 @@ def printSolution(board):
 # already placed in columns from 0 to col -1. 
 # So we need to check only left side for 
 # attacking queens 
-def isSafe(board, row, col): 
+def is_safe(board, row, col): 
 
 	# Check this row on left side 
 	for i in range(col): 
@@ -36,7 +36,7 @@ def isSafe(board, row, col):
 
 	return True
 
-def solveNQUtil(board, col): 
+def solve_nq_util(board, col): 
 	# base case: If all queens are placed 
 	# then return true 
 	if col >= N: 
@@ -46,12 +46,12 @@ def solveNQUtil(board, col):
 	# this queen in all rows one by one 
 	for i in range(N): 
 
-		if isSafe(board, i, col): 
+		if is_safe(board, i, col): 
 			# Place this queen in board[i][col] 
 			board[i][col] = 1
 
 			# recur to place rest of the queens 
-			if solveNQUtil(board, col+1) == True: 
+			if solve_nq_util(board, col+1) == True: 
 				return True
 
 			# If placing queen in board[i][col 
@@ -71,19 +71,19 @@ def solveNQUtil(board, col):
 # note that there may be more than one 
 # solutions, this function prints one of the 
 # feasible solutions. 
-def solveNQ(): 
+def solve_nq(): 
 	board = [ [0, 0, 0, 0], 
 			[0, 0, 0, 0], 
 			[0, 0, 0, 0], 
 			[0, 0, 0, 0] 
 			] 
 
-	if solveNQUtil(board, 0) == False: 
+	if solve_nq_util(board, 0) == False: 
 		print ("Solution does not exist")
 		return False
 
-	printSolution(board) 
+	print_solution(board) 
 	return True
 
 # driver program to test above function 
-solveNQ()
+solve_nq()
