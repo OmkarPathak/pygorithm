@@ -414,7 +414,7 @@ class BinarySearchTree(object):
 	    if(node.left is None and node.right is None): 
 		    return 1
 	    else: 
-		    return getLeafCount(node.left) + getLeafCount(node.right) 
+		    return get_leaf_count(node.left) + get_leaf_count(node.right) 
     
     @staticmethod
     def get_code():
