@@ -26,6 +26,16 @@ Pygorithm
 .. image:: https://img.shields.io/github/contributors/omkarpathak/pygorithm.svg
    :target: https://github.com/OmkarPathak/pygorithm/graphs/contributors
    :alt: Contributors
+   
+.. image:: https://opencollective.com/pygorithm/backers/badge.svg
+    :alt: Backers on Open Collective
+    :target: #backers
+
+.. image:: https://opencollective.com/pygorithm/sponsors/badge.svg
+    :alt: Sponsors on Open Collective
+    :target: #sponsors
+
+
 
 | A Python module to learn all the major algorithms on the go!
 | Purely for educational purposes
@@ -130,3 +140,43 @@ If you have found my softwares to be of any use to you, do consider helping me p
 
 - `PayPal <https://paypal.me/omkarpathak27>`_
 - `₹ (INR) <https://www.instamojo.com/@omkarpathak/>`_
+
+Credits
+
++++++++
+
+Contributors
+
+------------
+
+This project exists thanks to all the people who contribute! 
+
+.. image:: https://opencollective.com/pygorithm/contributors.svg?width=890&button=false
+
+Backers
+
+-------
+
+Thank you to all our backers! `Become a backer`__.
+
+.. image:: https://opencollective.com/pygorithm/backers.svg?width=890
+    :target: https://opencollective.com/pygorithm#backers
+
+__ Backer_
+
+.. _Backer: https://opencollective.com/pygorithm#backer
+
+Sponsors
+
+--------
+
+Support us by becoming a sponsor. Your logo will show up here with a link to your website. `Become a sponsor`__.
+
+.. image:: https://opencollective.com/pygorithm/sponsor/0/avatar.svg
+    :target: https://opencollective.com/pygorithm/sponsor/0/website
+
+__ Sponsor_
+
+.. _Sponsor: https://opencollective.com/pygorithm#sponsor
+
+
