@@ -50,7 +50,7 @@ class SinglyLinkedList(object):
             return False
         if node.data == data:
             return node
-        return self._search(node.get_next(), data)
+        return self._search(node.next, data)
 
     def get_data(self):
         """
