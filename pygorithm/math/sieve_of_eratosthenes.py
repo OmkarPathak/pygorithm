@@ -37,7 +37,7 @@ def sieve_of_eratosthenes(n):
         p += 1
 
     # getting all primes
-    primes = [element for element in range(2, n) if primes[element]]
+    primes = [element for element in range(2, n + 1) if primes[element]]
 
     return primes
 
