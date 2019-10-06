@@ -29,7 +29,7 @@ def sieve_of_eratosthenes(n):
     p = 2
 
     while p * p <= n:
-        # if p is not marked as False, this it is a prime
+        # if p is not marked as False, it is a prime
         if primes[p]:
             # mark all the multiples of number as False
             for i in range(p * 2, n + 1, p):
