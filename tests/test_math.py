@@ -17,7 +17,7 @@ class TestLCM(unittest.TestCase):
 
 class TestSieveOfEratosthenes(unittest.TestCase):
     def test_sieve_of_eratosthenes(self):
-        self.assertEqual(sieve_of_eratosthenes.sieve_of_eratosthenes(10), [2, 3, 5, 7])
+        self.assertEqual(sieve_of_eratosthenes.sieve_of_eratosthenes(11), [2, 3, 5, 7, 11])
 
 class TestFactorial(unittest.TestCase):
     def test_factorial(self):
