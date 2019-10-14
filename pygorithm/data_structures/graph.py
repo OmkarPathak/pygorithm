@@ -3,8 +3,6 @@ Author: OMKAR PATHAK
 Created On: 12th August 2017
 """
 from collections import defaultdict
-from pygorithm.data_structures import heap
-import sys
 import inspect
 import math
 
@@ -73,7 +71,6 @@ class WeightedGraph(object):
         Print the graph
         :return: None
         """
-        # for (u, v), weight in self.edges_weighted:
         for (u, v) in self.graph:
             print("%d -> %d weight: %d" % (u, v, self.graph[(u, v)]))
 
@@ -117,7 +114,7 @@ class WeightedGraph(object):
                 edges_explored.append(((u, v), self.graph[u, v]))
         return edges_explored
 
-   # TODO: Is this necessary?
+    # TODO: Is this necessary?
     @staticmethod
     def kruskal_time_complexity():
         """
