@@ -18,7 +18,7 @@ if there is no pot next to him (he is at the end of the pot line), he is done.
 
 
 # A function to sort the given list using Gnome sort 
-def gnomeSort( arr, n): 
+def gnome_sort( arr, n): 
     index = 0
     while index < n: 
         if index == 0: 
