@@ -33,7 +33,7 @@ def cocktailSort(a):
                 swapped = True
   
         # if nothing moved, then array is sorted. 
-        if swapped == False: 
+        if not swapped: 
             break
   
         # otherwise, reset the swapped flag so that it 
