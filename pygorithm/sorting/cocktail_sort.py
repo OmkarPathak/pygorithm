@@ -13,7 +13,7 @@ Cocktail Sort traverses through a given array in both directions alternatively.
 
 '''
 
-def cocktailSort(a): 
+def cocktail_sort(a): 
     n = len(a) 
     swapped = True
     start = 0
