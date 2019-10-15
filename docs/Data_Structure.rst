@@ -41,6 +41,8 @@ Features
         - Check cycle in Undirected Graph (data_structures.graph.CheckCycleUndirectedGraph)
     - **Heap**
         - Heap (data_structures.heap.Heap)
+    - **QuadTree**
+        - QuadTree (data_structures.quadtree.QuadTree)
 
 * Get the code used for any of the implementation
 
@@ -214,3 +216,21 @@ Trie
     -----
     .. autoclass:: Trie
         :members:
+        
+QuadTree
+--------
+
+.. automodule:: pygorithm.data_structures.quadtree
+
+    QuadTreeEntity
+    --------------
+    .. autoclass:: QuadTreeEntity
+        :members:
+        :special-members:
+        
+    QuadTree
+    --------
+    .. autoclass:: QuadTree
+        :members:
+        :special-members:
+    

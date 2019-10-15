@@ -5,7 +5,8 @@ from pygorithm.math import (
     lcm_using_gcd,
     sieve_of_eratosthenes,
     factorial,
-    conversion)
+    conversion,
+    matrix_operations)
 
 class TestLCM(unittest.TestCase):
     def test_lcm(self):
@@ -16,7 +17,7 @@ class TestLCM(unittest.TestCase):
 
 class TestSieveOfEratosthenes(unittest.TestCase):
     def test_sieve_of_eratosthenes(self):
-        self.assertEqual(sieve_of_eratosthenes.sieve_of_eratosthenes(10), [2, 3, 5, 7])
+        self.assertEqual(sieve_of_eratosthenes.sieve_of_eratosthenes(11), [2, 3, 5, 7, 11])
 
 class TestFactorial(unittest.TestCase):
     def test_factorial(self):
@@ -34,6 +35,84 @@ class TestConversion(unittest.TestCase):
 
     def test_hex_to_dex(self):
         self.assertEqual(conversion.hex_to_decimal('1E'), 30)
+
+class TestMatrixOperations(unittest.TestCase):
+    def test_matrix_addition(self):
+        X = [[12,7,3],
+            [4 ,5,6],
+            [7 ,8,9]]
+
+        Y = [[5,8,1],
+            [6,7,3],
+            [4,5,9]]
+
+        matrix = matrix_operations.Matrix(X, Y)
+        self.assertEqual(matrix.add(), [[17, 15, 4], [10, 12, 9], [11, 13, 18]])
+
+
+    def test_matrix_subtraction(self):
+        X = [[12,7,3],
+            [4,5,6],
+            [7,8,9]]
+
+        Y = [[5,8,1],
+            [6,7,3],
+            [4,5,9]]
+
+        matrix = matrix_operations.Matrix(X, Y)
+        self.assertEqual(matrix.subtract(), [[7, -1, 2], [-2, -2, 3], [3, 3, 0]])
+
+
+    def test_matrix_multiplication(self):
+        X = [[12,7,3],
+            [4,5,6],
+            [7,8,9]]
+
+        Y = [[5,8,1,2],
+            [6,7,3,0],
+            [4,5,9,1]]
+
+        matrix = matrix_operations.Matrix(X, Y)
+        self.assertEqual(matrix.multiply(), [[114, 160, 60, 27], [74, 97, 73, 14], [119, 157, 112, 23]])
+
+
+    def test_matrix_transpose(self):
+        X = [[12,7],
+            [4 ,5],
+            [3 ,8]]
+
+        matrix = matrix_operations.Matrix(X)
+        self.assertEqual(matrix.transpose(), [[12, 4, 3],[7, 5, 8]])
+
+
+    def test_matrix_rotate(self):
+        X =[[1,  2,  3,  4 ],
+            [5,  6,  7,  8 ],
+            [9,  10, 11, 12 ],
+            [13, 14, 15, 16 ]]
+
+        matrix = matrix_operations.Matrix(X)
+        self.assertEqual(matrix.rotate(), [[5, 1, 2, 3], [9, 10, 6, 4], [13, 11, 7, 8], [14, 15, 16, 12]])
+
+
+    def test_matrix_unique_paths(self):
+        matrix = matrix_operations.Matrix()
+        self.assertEqual(matrix.count_unique_paths(3, 3), 6)
+
+    def test_matrix_exceptions(self):
+        X = [[12,7,3],
+            [4,5,6],
+            [7,8,9]]
+
+        Y = [[5,8],
+            [6,7],
+            [4,5]]
+
+        matrix = matrix_operations.Matrix(X, Y)
+
+        # test exception
+        self.assertRaises(Exception, matrix.add)
+        self.assertRaises(Exception, matrix.subtract)
 
 if __name__ == '__main__':
     unittest.main()

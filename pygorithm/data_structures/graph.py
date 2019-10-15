@@ -6,7 +6,6 @@ from collections import defaultdict
 import inspect
 import math
 
-
 class Graph(object):
     """Graph object
     Creates the graph
@@ -37,16 +36,23 @@ class Graph(object):
         """
         return inspect.getsource(Graph)
 
-
 class WeightedGraph(object):
     """WeightedGraph object
     A graph with a numerical value (weight) on edges
     """
 
     def __init__(self):
-        self.edges_weighted = []
         self.vertexes = set()
-        self.forest = None
+        self.graph = {}
+        self._forest = None
+
+    def get_weight(self, u, v):
+        """
+        Returns the weight of an edge between vertexes u and v.
+        If there isnt one: return None.
+        """
+        return self.graph.get((u,v), self.graph.get((v,u), None)) 
+
 
     def add_edge(self, u, v, weight):
         """
@@ -54,39 +60,41 @@ class WeightedGraph(object):
         :param v: to vertex - type : integer
         :param weight: weight of the edge - type : numeric
         """
-        edge = ((u, v), weight)
-        self.edges_weighted.append(edge)
-        self.vertexes.update((u, v))
+        if self.get_weight(u, v) != None:
+            print("Such edge already exists!")
+        else:
+            self.vertexes.update((u, v))
+            self.graph[(u,v)] = weight
 
     def print_graph(self):
         """
         Print the graph
         :return: None
         """
-        for (u, v), weight in self.edges_weighted:
-            print("%d -> %d weight: %d" % (u, v, weight))
+        for (u, v) in self.graph:
+            print("%d -> %d weight: %d" % (u, v, self.graph[(u, v)]))
 
-    def __set_of(self, vertex):
+    def _set_of(self, vertex):
         """
         Helper method
         :param vertex:
         :return:
         """
-        for tree in self.forest:
+        for tree in self._forest:
             if vertex in tree:
                 return tree
         return None
 
-    def __union(self, u_set, v_set):
+    def _union(self, u_set, v_set):
         """
         Helper method
         :param u_set:
         :param v_set:
         :return:
         """
-        self.forest.remove(u_set)
-        self.forest.remove(v_set)
-        self.forest.append(v_set + u_set)
+        self._forest.remove(u_set)
+        self._forest.remove(v_set)
+        self._forest.append(v_set + u_set)
 
     def kruskal_mst(self):
         """
@@ -96,14 +104,14 @@ class WeightedGraph(object):
         Author: Michele De Vita <mik3dev@gmail.com>
         """
         # sort by weight
-        self.edges_weighted.sort(key=lambda pair: pair[1])
+        self.graph = {k: self.graph[k] for k in sorted(self.graph, key=self.graph.get, reverse=False)}
         edges_explored = []
-        self.forest = [[v] for v in self.vertexes]
-        for (u, v), weight in self.edges_weighted:
-            u_set, v_set = self.__set_of(u), self.__set_of(v)
+        self._forest = [[v] for v in self.vertexes]
+        for (u, v) in self.graph:
+            u_set, v_set = self._set_of(u), self._set_of(v)
             if u_set != v_set:
-                self.__union(u_set, v_set)
-                edges_explored.append(((u, v), weight))
+                self._union(u_set, v_set)
+                edges_explored.append(((u, v), self.graph[u, v]))
         return edges_explored
 
     # TODO: Is this necessary?

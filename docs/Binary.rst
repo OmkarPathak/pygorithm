@@ -1,6 +1,6 @@
-=================
-Binary Algorithms
-=================
+==================
+Binary Conversions
+==================
 
 A place for implementation of base conversions
 

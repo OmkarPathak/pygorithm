@@ -50,9 +50,12 @@ Features
 
 * Shapes available:
     - Concave Polygons (polygon2)
+    - Rectangles (rect2)
 
 * Algorithms available:
     - Separating Axis Theorem (polygon2)
+    - Broad-phase (rect2)
+    - Extrapolated intersection (extrapolated_intersection)
 
 Vector2
 -------
@@ -82,10 +85,18 @@ Concave Polygon
     :members:
     :special-members:
 
-    
-    
+Axis-Aligned Rectangle
+----------------------
 
+.. autoclass:: pygorithm.geometry.rect2.Rect2
+    :members:
+    :special-members:
+    :private-members:
 
-    
+Extrapolated Intersection
+-------------------------
+
+.. automodule:: pygorithm.geometry.extrapolated_intersection
+    :members:
     
     

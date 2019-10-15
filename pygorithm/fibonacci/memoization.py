@@ -2,7 +2,6 @@
 Fibonacci implementation through cache.
 """
 import inspect
-# TODO: Fix shadowed parameter names
 
 
 def get_sequence(n):
@@ -11,20 +10,20 @@ def get_sequence(n):
     """
     cache = {0: 0, 1: 1}
 
-    def fib(n):
+    def fib(num):
         """
         Return Fibonacci value by specified number as integer.
         """
-        if n in cache:
-            return cache[n]
-        cache[n] = fib(n - 1) + fib(n - 2)
-        return cache[n]
+        if num in cache:
+            return cache[num]
+        cache[num] = fib(num - 1) + fib(num - 2)
+        return cache[num]
 
-    def sequence(n):
+    def sequence(num):
         """
         Return sequence of Fibonacci values as list.
         """
-        return [fib(value) for value in range(n + 1)]
+        return [fib(value) for value in range(num + 1)]
 
     return sequence(n)
 

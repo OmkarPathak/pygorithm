@@ -19,7 +19,7 @@ class Polygon2(object):
     index to the larger index will walk clockwise around the polygon.
     
     .. note:: 
-
+        
         Polygons should be used as if they were completely immutable to
         ensure correctness. All attributes of Polygon2 can be reconstructed
         from the points array, and thus cannot be changed on their own and
@@ -205,9 +205,9 @@ class Polygon2(object):
         
         Finally, each vertex is found using ``<radius * cos(angle), radius * sin(angle)>``
         
-        If the center is not specified, the bounding box of the polygon is calculated while the vertices
-        are being found, and the center of the bounding box is set to the center of the circle. This
-        is never greater than (circumradius, circumradius).
+        If the center is not specified, the minimum of the bounding box of the 
+        polygon is calculated while the vertices are being found, and the inverse
+        of that value is offset to the rest of the points in the polygon. 
         
         :param sides: the number of sides in the polygon
         :type sides: :class:`numbers.Number`
@@ -251,8 +251,6 @@ class Polygon2(object):
         pts = []
         _minx = 0
         _miny = 0
-        _maxx = 0
-        _maxy = 0
         for i in range(sides):
             x = center.x + math.cos(angle) * radius
             y = center.y + math.sin(angle) * radius
@@ -262,13 +260,11 @@ class Polygon2(object):
             if _recenter:
                 _minx = min(_minx, x)
                 _miny = min(_miny, y)
-                _maxx = max(_maxx, x)
-                _maxy = max(_maxy, y)
         
         if _recenter:
-            _newcenter = vector2.Vector2((_maxx - _minx) / 2, (_maxy - _miny) / 2)
+            _offset = vector2.Vector2(-_minx, -_miny)
             for i in range(sides):
-                pts[i] += _newcenter
+                pts[i] += _offset
         
         return cls(pts, suppress_errors = True)
         
@@ -407,8 +403,8 @@ class Polygon2(object):
         :type offset: :class:`pygorithm.geometry.vector2.Vector2` or None
         :param point: the point to check
         :type point: :class:`pygorithm.geometry.vector2.Vector2`
-        :returns: (on edge, contained)
-        :rtype: (bool, bool)
+        :returns: on edge, contained
+        :rtype: bool, bool
         """
         
         _previous = polygon.points[0]
@@ -420,7 +416,7 @@ class Polygon2(object):
             cross = vec1.cross(vec2)
             _previous = curr
             
-            if math.isclose(cross, 0):
+            if math.isclose(cross, 0, abs_tol=1e-07):
                 return True, False
             
             if cross > 0:
@@ -520,7 +516,7 @@ class Polygon2(object):
         :type pts: list of :class:`pygorithm.geometry.vector2.Vector2`
         """
         
-        param0 = "+".join(('%28{}%2C+{}%29'.format(v.x, v.y)) for v in pts)
+        param0 = "+".join(('%28{}%2C+{}%29'.format(round(v.x, 3), round(v.y, 3))) for v in pts)
         xmin = pts[0].x
         xmax = xmin
         ymin = pts[1].y

@@ -17,3 +17,4 @@
  - Sharad '[sharadbhat](https://github.com/sharadbhat)' Bhat
  - Alexey '[aesee](https://github.com/aesee)' Sarapulov
  - Anthony '[MrDupin](https://github.com/MrDupin)' Marakis
+ - Ashey '[asheywalke](https://github.com/ashaywalke)' Walke
