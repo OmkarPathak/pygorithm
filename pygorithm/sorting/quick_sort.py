@@ -16,7 +16,7 @@ def sort(_list):
     :return: sorted list
     """
     if len(_list) <= 1:
-        return _list
+        return list(_list)
     pivot = _list[len(_list) // 2]
     left = [x for x in _list if x < pivot]
     middle = [x for x in _list if x == pivot]

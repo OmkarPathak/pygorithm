@@ -14,7 +14,7 @@ import inspect
 def sort(_list, bucket_size=5):
     """
     bucket sort algorithm
-    
+
     :param _list: list of values to sort
     :param bucket_size: Size of the bucket
     :return: sorted values
@@ -22,9 +22,8 @@ def sort(_list, bucket_size=5):
     string = False
 
     if len(_list) == 0:
-        # print("You don\'t have any elements in array!")
-        raise ValueError("Array can not be empty.")
-    
+        return []
+
     elif all(isinstance(element, str) for element in _list):
         string = True
         _list = [ord(element) for element in _list]
