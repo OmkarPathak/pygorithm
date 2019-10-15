@@ -10,111 +10,151 @@ from pygorithm.sorting import (
     counting_sort,
     bucket_sort,
     shell_sort,
-    heap_sort,
-    radix_sort)
+    heap_sort)
 
 
-class TestSortingAlgorithm(unittest.TestCase):
-    def setUp(self):
-        # to test numeric numbers
-        self.array = list(range(15))
-        random.shuffle(self.array)
-        self.sorted_array = list(range(15))
+class TestSortingAlgorithm:
+    def test_test_setup(self):
+        self.assertIsNotNone(getattr(self, 'sort', None))
+        self.assertIsNotNone(getattr(self, 'inplace', None))
+        self.assertIsNotNone(getattr(self, 'alph_support', None))
 
-        # to test alphabets
-        string = 'pythonisawesome'
-        self.alphaArray = list(string)
-        random.shuffle(self.alphaArray)
-        self.sorted_alpha_array = sorted(string)
+    def _check_sort_list(self, arr, expected):
+        cp_arr = list(arr)
+        sarr = self.sort(cp_arr)
 
+        self.assertTrue(
+            isinstance(sarr, list), 'weird result type: ' + str(type(sarr)))
+        self.assertEqual(len(sarr), len(arr))
+        self.assertEqual(sarr, expected)
+        if self.inplace:
+            self.assertTrue(cp_arr is sarr, 'was not inplace')
+        else:
+            self.assertTrue(cp_arr is not sarr, 'was inplace')
+            self.assertEqual(cp_arr, arr, 'inplace modified list')
 
-class TestBubbleSort(TestSortingAlgorithm):
-    def test_bubble_sort(self):
-        self.result = bubble_sort.sort(self.array)
-        self.assertEqual(self.result, self.sorted_array)
+    def _check_sort_alph(self, inp, expected):
+        if not self.alph_support:
+            return
 
-        self.alphaResult = bubble_sort.sort(self.alphaArray)
-        self.assertEqual(self.alphaResult, self.sorted_alpha_array)
+        self._check_sort_list(list(inp), list(expected))
 
+    def test_sort_empty(self):
+        self._check_sort_list([], [])
 
-class TestInsertionSort(TestSortingAlgorithm):
-    def test_insertion_sort(self):
-        self.result = insertion_sort.sort(self.array)
-        self.assertEqual(self.result, self.sorted_array)
+    def test_sort_single(self):
+        self._check_sort_list([5], [5])
 
-        self.alphaResult = insertion_sort.sort(self.alphaArray)
-        self.assertEqual(self.alphaResult, self.sorted_alpha_array)
+    def test_sort_single_alph(self):
+        self._check_sort_alph('a', 'a')
 
+    def test_sort_two_inorder(self):
+        self._check_sort_list([1, 2], [1, 2])
 
-class TestSelectionSort(TestSortingAlgorithm):
-    def test_selection_sort(self):
-        self.result = selection_sort.sort(self.array)
-        self.assertEqual(self.result, self.sorted_array)
+    def test_sort_two_outoforder(self):
+        self._check_sort_list([2, 1], [1, 2])
 
-        self.alphaResult = selection_sort.sort(self.alphaArray)
-        self.assertEqual(self.alphaResult, self.sorted_alpha_array)
+    def test_sort_5_random_numeric(self):
+        arr = list(range(5))
+        random.shuffle(arr)
+        self._check_sort_list(arr, list(range(5)))
 
+    def test_sort_15_random_numeric(self):
+        arr = list(range(15))
+        random.shuffle(arr)
+        self._check_sort_list(arr, list(range(15)))
 
-class TestMergeSort(TestSortingAlgorithm):
-    def test_merge_sort(self):
-        self.result = merge_sort.sort(self.array)
-        self.assertEqual(self.result, self.sorted_array)
+    def test_sort_5_random_alph(self):
+        arr = ['a', 'b', 'c', 'd', 'e']
+        random.shuffle(arr)
+        self._check_sort_alph(''.join(arr), 'abcde')
 
-        self.alphaResult = merge_sort.sort(self.alphaArray)
-        self.assertEqual(self.alphaResult, self.sorted_alpha_array)
-
-
-class TestQuickSort(TestSortingAlgorithm):
-    def test_quick_sort(self):
-        self.result = quick_sort.sort(self.array)
-        self.assertEqual(self.result, self.sorted_array)
-
-        self.alphaResult = quick_sort.sort(self.alphaArray)
-        self.assertEqual(self.alphaResult, self.sorted_alpha_array)
-
-
-class TestCountingSort(TestSortingAlgorithm):
-    def test_counting_sort(self):
-        # counting sort is an integer based sort
-        self.result = counting_sort.sort(self.array)
-        self.assertEqual(self.result, self.sorted_array)
+    def test_sort_15_random_alph(self):
+        arr = [chr(ord('a') + i) for i in range(15)]
+        exp = ''.join(arr)
+        random.shuffle(arr)
+        self._check_sort_alph(''.join(arr), exp)
 
 
-class TestBucketSort(TestSortingAlgorithm):
-    def test_bucket_sort(self):
-        self.result = bucket_sort.sort(self.array)
-        self.assertEqual(self.result, self.sorted_array)
+class TestBubbleSort(unittest.TestCase, TestSortingAlgorithm):
+    inplace = True
+    alph_support = True
 
-        self.alphaResult = bucket_sort.sort(self.alphaArray)
-        self.assertEqual(self.alphaResult, self.sorted_alpha_array)
-
-
-class TestShellSort(TestSortingAlgorithm):
-    def test_shell_sort(self):
-        self.result = shell_sort.sort(self.array)
-        self.assertEqual(self.result, self.sorted_array)
-
-        self.alphaResult = shell_sort.sort(self.alphaArray)
-        self.assertEqual(self.alphaResult, self.sorted_alpha_array)
+    @staticmethod
+    def sort(arr):
+        return bubble_sort.sort(arr)
 
 
-class TestHeapSort(TestSortingAlgorithm):
-    def test_heap_sort(self):
-        self.result = heap_sort.sort(self.array)
-        self.assertEqual(self.result, self.sorted_array)
+class TestInsertionSort(unittest.TestCase, TestSortingAlgorithm):
+    inplace = True
+    alph_support = True
 
-        self.alphaResult = heap_sort.sort(self.alphaArray)
-        self.assertEqual(self.alphaResult, self.sorted_alpha_array)
+    @staticmethod
+    def sort(arr):
+        return insertion_sort.sort(arr)
 
 
-class TestRadixSort(TestSortingAlgorithm):
-    def test_radix_sort(self):
-        self.result = radix_sort.sort(self.array)
-        self.assertEqual(self.result, self.sorted_array)
+class TestSelectionSort(unittest.TestCase, TestSortingAlgorithm):
+    inplace = True
+    alph_support = True
 
-        # TODO: Fix radix sort to sort alphabetically
-        # self.alphaResult = radix_sort.sort(self.alphaArray)
-        # self.assertEqual(self.alphaResult, self.sorted_alpha_array)
+    @staticmethod
+    def sort(arr):
+        return selection_sort.sort(arr)
+
+
+class TestMergeSort(unittest.TestCase, TestSortingAlgorithm):
+    inplace = False
+    alph_support = True
+
+    @staticmethod
+    def sort(arr):
+        return merge_sort.sort(arr)
+
+
+class TestQuickSort(unittest.TestCase, TestSortingAlgorithm):
+    inplace = False
+    alph_support = True
+
+    @staticmethod
+    def sort(arr):
+        return quick_sort.sort(arr)
+
+
+class TestCountingSort(unittest.TestCase, TestSortingAlgorithm):
+    inplace = True
+    alph_support = False
+
+    @staticmethod
+    def sort(arr):
+        return counting_sort.sort(arr)
+
+
+class TestBucketSort(unittest.TestCase, TestSortingAlgorithm):
+    inplace = False
+    alph_support = True
+
+    @staticmethod
+    def sort(arr):
+        return bucket_sort.sort(arr)
+
+
+class TestShellSort(unittest.TestCase, TestSortingAlgorithm):
+    inplace = True
+    alph_support = True
+
+    @staticmethod
+    def sort(arr):
+        return shell_sort.sort(arr)
+
+
+class TestHeapSort(unittest.TestCase, TestSortingAlgorithm):
+    inplace = True
+    alph_support = True
+
+    @staticmethod
+    def sort(arr):
+        return heap_sort.sort(arr)
 
 
 if __name__ == '__main__':

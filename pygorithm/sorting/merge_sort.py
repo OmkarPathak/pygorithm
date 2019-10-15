@@ -3,16 +3,16 @@ Author: OMKAR PATHAK
 Created On: 31st July 2017
 
  - Best = Average = Worst = O(n log(n))
- 
+
 """
 import inspect
 
 
 def merge(a, b):
     """
-    Function to merge 
+    Function to merge
     two arrays / separated lists
-    
+
     :param a: Array 1
     :param b: Array 2
     :return: merged arrays
@@ -34,14 +34,14 @@ def merge(a, b):
 
 def sort(_list):
     """
-    Function to sort an array 
-    using merge sort algorithm 
-    
+    Function to sort an array
+    using merge sort algorithm
+
     :param _list: list of values to sort
     :return: sorted
     """
     if len(_list) == 0 or len(_list) == 1:
-        return _list
+        return list(_list)
     else:
         middle = len(_list)//2
         a = sort(_list[:middle])
@@ -61,7 +61,7 @@ def time_complexities():
 
 def get_code():
     """
-    easily retrieve the source code 
+    easily retrieve the source code
     of the sort function
 
     :return: source code
