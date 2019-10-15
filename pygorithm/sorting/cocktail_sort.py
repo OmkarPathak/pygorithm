@@ -18,7 +18,7 @@ def cocktailSort(a):
     swapped = True
     start = 0
     end = n-1
-    while (swapped == True): 
+    while swapped: 
   
         # reset the swapped flag on entering the loop, 
         # because it might be true from a previous 
@@ -28,12 +28,12 @@ def cocktailSort(a):
         # loop from left to right same as the bubble 
         # sort 
         for i in range (start, end): 
-            if (a[i] > a[i + 1]) : 
-                a[i], a[i + 1]= a[i + 1], a[i] 
+            if a[i] > a[i + 1]: 
+                a[i], a[i + 1] = a[i + 1], a[i] 
                 swapped = True
   
         # if nothing moved, then array is sorted. 
-        if (swapped == False): 
+        if swapped == False: 
             break
   
         # otherwise, reset the swapped flag so that it 
@@ -47,7 +47,7 @@ def cocktailSort(a):
         # from right to left, doing the same 
         # comparison as in the previous stage 
         for i in range(end-1, start-1, -1): 
-            if (a[i] > a[i + 1]): 
+            if a[i] > a[i + 1]: 
                 a[i], a[i + 1] = a[i + 1], a[i] 
                 swapped = True
   
