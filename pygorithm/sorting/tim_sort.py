@@ -1,6 +1,6 @@
 # iterative Timsort function to sort the  
 # array[0...n-1] (similar to merge sort)  
-def timSort(arr, n):  
+def tim_sort(arr, n):  
    
     # Sort individual subarrays of size RUN  
     for i in range(0, n, RUN):  
