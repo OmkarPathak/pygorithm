@@ -42,7 +42,7 @@ def cocktailSort(a):
   
         # move the end point back by one, because 
         # item at the end is in its rightful spot 
-        end = end-1
+        end -= 1
   
         # from right to left, doing the same 
         # comparison as in the previous stage 
