@@ -27,7 +27,7 @@ def cocktailSort(a):
   
         # loop from left to right same as the bubble 
         # sort 
-        for i in range (start, end): 
+        for i in range(start, end): 
             if a[i] > a[i + 1]: 
                 a[i], a[i + 1] = a[i + 1], a[i] 
                 swapped = True
