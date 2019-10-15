@@ -1,10 +1,11 @@
+from insertion_sort import sort
 # iterative Timsort function to sort the  
 # array[0...n-1] (similar to merge sort)  
 def tim_sort(arr, n):  
    
     # Sort individual subarrays of size RUN  
     for i in range(0, n, RUN):  
-        insertionSort(arr, i, min((i+31), (n-1)))  
+        sort(arr, i, min((i+31), (n-1)))  
     
     # start merging from size RUN (or 32). It will merge  
     # to form size 64, then 128, 256 and so on ....  
