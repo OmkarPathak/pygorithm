@@ -10,7 +10,12 @@ from pygorithm.sorting import (
     counting_sort,
     bucket_sort,
     shell_sort,
-    heap_sort)
+    heap_sort,
+    brick_sort,
+    tim_sort,
+    cocktail_sort,
+    gnome_sort
+)
 
 
 class TestSortingAlgorithm:
@@ -156,6 +161,42 @@ class TestHeapSort(unittest.TestCase, TestSortingAlgorithm):
     def sort(arr):
         return heap_sort.sort(arr)
 
+
+class TestBrickSort(unittest.TestCase, TestSortingAlgorithm):
+    inplace = True
+    alph_support = True
+
+    @staticmethod
+    def sort(arr):
+        return brick_sort.brick_sort(arr)
+
+
+class TestTimSort(unittest.TestCase, TestSortingAlgorithm):
+    inplace = True
+    alph_support = True
+
+    @staticmethod
+    def sort(arr):
+        # use a smaller run for testing
+        return tim_sort.tim_sort(arr, run=4)
+
+
+class TestCocktailSort(unittest.TestCase, TestSortingAlgorithm):
+    inplace = True
+    alph_support = True
+
+    @staticmethod
+    def sort(arr):
+        return cocktail_sort.cocktail_sort(arr)
+
+
+class TestGnomeSort(unittest.TestCase, TestSortingAlgorithm):
+    inplace = True
+    alph_support = True
+
+    @staticmethod
+    def sort(arr):
+        return gnome_sort.gnome_sort(arr)
 
 if __name__ == '__main__':
     unittest.main()
