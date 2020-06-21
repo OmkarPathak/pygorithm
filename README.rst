@@ -30,6 +30,10 @@ Pygorithm
 | A Python module to learn all the major algorithms on the go!
 | Purely for educational purposes
 
+
+.. image:: https://i.imgur.com/6HOIlCX.png
+   :target: https://tracking.gitads.io/?campaign=gitads&repo=pygorithm&redirect=gitads.io. 
+
 Features
 ~~~~~~~~
 
