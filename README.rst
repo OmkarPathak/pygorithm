@@ -31,7 +31,7 @@ Pygorithm
 | Purely for educational purposes
 
 
-.. image:: https://i.imgur.com/6HOIlCX.png
+.. image:: https://images.gitads.io/pygorithm
    :target: https://tracking.gitads.io/?campaign=gitads&repo=pygorithm&redirect=gitads.io
 
 Features
