@@ -49,7 +49,14 @@ def sort(_list):
         return merge(a, b)
 
 def sort_iter(_list):
-  pass
+    """
+    Function to sort an array
+    using merge sort algorithm, iteratively
+
+    :param _list: list of values to sort
+    :return: sorted
+    """
+    pass
 
 # TODO: Are these necessary?
 def time_complexities():
