@@ -79,11 +79,14 @@ def time_complexities():
     return "Best Case: O(nlogn), Average Case: O(nlogn), Worst Case: O(nlogn)"
 
 
-def get_code():
+def get_code(iter=False):
     """
     easily retrieve the source code
     of the sort function
 
     :return: source code
     """
+    if iter: 
+        return inspect.getsource(sorti) + "\n"
+
     return inspect.getsource(sort) + "\n" + inspect.getsource(merge)
