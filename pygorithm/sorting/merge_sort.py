@@ -48,7 +48,8 @@ def sort(_list):
         b = sort(_list[middle:])
         return merge(a, b)
 
-def sort_iter(_list):
+from itertools import zip_longest
+def sorti(_list):
     """
     Function to sort an array
     using merge sort algorithm, iteratively
@@ -56,7 +57,16 @@ def sort_iter(_list):
     :param _list: list of values to sort
     :return: sorted
     """
-    pass
+    # breakdown every element into its own list
+    series = [[i] for i in _list]
+    while len(series) > 1:
+        # iterator to handle two at a time in the zip_longest below
+        isl = iter(series)
+        series = [
+            merge(a, b) if b else a
+            for a, b in zip_longest(isl, isl)
+        ]
+    return series[0]
 
 # TODO: Are these necessary?
 def time_complexities():
