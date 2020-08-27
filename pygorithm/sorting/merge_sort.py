@@ -88,5 +88,4 @@ def get_code(iter=False):
     """
     if iter: 
         return inspect.getsource(sorti) + "\n"
-
     return inspect.getsource(sort) + "\n" + inspect.getsource(merge)
