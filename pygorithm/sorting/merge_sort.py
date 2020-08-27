@@ -60,6 +60,7 @@ def sorti(_list):
     # breakdown every element into its own list
     series = [[i] for i in _list]
     while len(series) > 1:
+        print(series)
         # iterator to handle two at a time in the zip_longest below
         isl = iter(series)
         series = [
