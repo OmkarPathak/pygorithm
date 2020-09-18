@@ -116,6 +116,13 @@ class TestMergeSort(unittest.TestCase, TestSortingAlgorithm):
     def sort(arr):
         return merge_sort.sort(arr)
 
+class TestMergeSortIterative(unittest.TestCase, TestSortingAlgorithm):
+    inplace = False
+    alph_support = True
+
+    @staticmethod
+    def sort(arr):
+        return merge_sort.sorti(arr, verbose=False)
 
 class TestQuickSort(unittest.TestCase, TestSortingAlgorithm):
     inplace = False
