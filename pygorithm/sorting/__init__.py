@@ -11,6 +11,7 @@ from . import merge_sort
 from . import radix_sort
 from . import selection_sort
 from . import shell_sort
+from . import bingo_sort
 
 __all__ = [
     'bubble_sort',
@@ -22,5 +23,6 @@ __all__ = [
     'quick_sort',
     'radix_sort',
     'selection_sort',
-    'shell_sort'
+    'shell_sort',
+    'bingo_sort'
 ]

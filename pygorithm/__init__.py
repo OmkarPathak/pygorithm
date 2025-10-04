@@ -71,7 +71,8 @@ __all__ = [
     'searching',
     'sorting',
     'strings',
-    'pathfinding'
+    'pathfinding',
     'geometry',
-    'greedy_algorithm'
+    'greedy_algorithm',
+    'backtracking'
 ]
