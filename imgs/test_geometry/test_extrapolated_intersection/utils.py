@@ -27,7 +27,7 @@ def prepare_figure(fig, ax, title, xlim, ylim):
     ax.xaxis.set_ticks(range(xlim[0]+1, xlim[1]))
     ax.yaxis.set_ticks(range(ylim[0]+1, ylim[1]))
     
-    # force reasonable aspect ratio (default is scaled wierd)
+    # force reasonable aspect ratio (default is scaled weird)
     ax.set_aspect('equal')
     
     # remove outer spines (clutter) and move left and bottom spines to 0 (instead of xmin and ymin)
