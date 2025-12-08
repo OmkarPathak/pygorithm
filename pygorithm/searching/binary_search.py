@@ -32,7 +32,7 @@ def search(_list, target):
     try:
         # you can also write while True condition
         while left <= right:
-            mid = (left + right) // 2
+            mid = left + (right - left) // 2
             if target == _list[mid]:
                 return mid
             elif target < _list[mid]:
